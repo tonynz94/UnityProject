@@ -32,6 +32,13 @@ public class UI_Button : UI_Popup
 
     private void Start()
     {
+        Init();
+    }
+
+    public override void Init()
+    {
+        base.Init();
+
         Bind<Button>(typeof(Buttons));
         Bind<Text>(typeof(Texts));
         Bind<GameObject>(typeof(GameObjects));
@@ -41,6 +48,5 @@ public class UI_Button : UI_Popup
 
         GameObject go = GetImage((int)Images.ItemIcon).gameObject;
         AddUIEvent(go, (PointerEventData data) => { go.gameObject.transform.position = data.position; }, Define.UIEvent.Drag);
-        
     }
 }

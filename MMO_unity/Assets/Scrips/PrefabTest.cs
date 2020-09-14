@@ -8,7 +8,7 @@ public class PrefabTest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Tank = Managers.resource.Instantiate("Tank");
+        Tank = Managers.Resource.Instantiate("Tank");
     }
 
     // Update is called once per frame
