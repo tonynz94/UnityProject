@@ -21,7 +21,16 @@ public class ResourceManager
             Debug.Log($"Fail to load prefab : {path}");
             return null;
         }
-        return Object.Instantiate(prefab);
+
+        GameObject go = Object.Instantiate(prefab);
+        //이름을 체크 (Clone)해당 문자열을 찾아서 인덱스를 봔환
+        int index = go.name.IndexOf("(Clone)");
+
+        //(Clone)을 짤라 줌
+        if (index > 0)
+            go.name = go.name.Substring(0, index);
+
+        return go;
     }
 
     public void Destory(GameObject go, float time = 0.0f)

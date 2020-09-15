@@ -11,8 +11,8 @@ public class UI_EventHandler : MonoBehaviour, IDragHandler, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if(OnClickHandler != null)
-            Debug.Log($"좌표 : ({eventData.position.x} , {eventData.position.y})");
+        if (OnClickHandler != null)
+            OnClickHandler.Invoke(eventData);
     }
 
     //드래그 시

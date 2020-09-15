@@ -48,6 +48,6 @@ public class UI_Button : UI_Popup
         GetText((int)Texts.ScoreText).text = "Bind Text";
 
         GameObject go = GetImage((int)Images.ItemIcon).gameObject;
-        AddUIEvent(go, (PointerEventData data) => { go.gameObject.transform.position = data.position; }, Define.UIEvent.Drag);
+        BindEvent(go, (PointerEventData data) => { go.gameObject.transform.position = data.position; }, Define.UIEvent.Drag);
     }
 }

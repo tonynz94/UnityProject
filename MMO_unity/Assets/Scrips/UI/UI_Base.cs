@@ -5,9 +5,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UI_Base : MonoBehaviour
+public abstract class UI_Base : MonoBehaviour
 {
-    Dictionary<Type, UnityEngine.Object[]> _objects = new Dictionary<Type, UnityEngine.Object[]>();
+    //따로 받아서 사용할 일이 없음.
+    //상속 받아서 사용할 스크립트이기에 abstract로 함수 설정 -> 클래서 전체가 abstract
+    public abstract void Init();
+
+    protected Dictionary<Type, UnityEngine.Object[]> _objects = new Dictionary<Type, UnityEngine.Object[]>();
 
     protected T Get<T>(int idx) where T : UnityEngine.Object
     {
@@ -40,6 +44,7 @@ public class UI_Base : MonoBehaviour
         }
     }
 
+    protected GameObject GetObject(int idx) { return Get<GameObject>(idx);  }
     protected Text GetText(int idx) { return Get<Text>(idx); }
     protected Button GetButton(int idx) { return Get<Button>(idx); }
     protected Image GetImage(int idx) { return Get<Image>(idx); }
@@ -47,7 +52,7 @@ public class UI_Base : MonoBehaviour
 
 
     //UI 게임오브젝트에 이벤트를 추가해주는 함수
-    public static void AddUIEvent(GameObject go, Action<PointerEventData> action, Define.UIEvent type = Define.UIEvent.Click)
+    public static void BindEvent(GameObject go, Action<PointerEventData> action, Define.UIEvent type = Define.UIEvent.Click)
     {
         UI_EventHandler evt = Util.GetOrAddComponent<UI_EventHandler>(go);
         switch (type)
