@@ -17,18 +17,25 @@ public class UI_Base : MonoBehaviour
 
         return objects[idx] as T;
     }
-
+    
+    //T는 컴포넌트를 가리킴
     protected void Bind<T>(Type type) where T : UnityEngine.Object
     {
+        //Enum안에 있는 값들의 이름을 가져 옴 
+        //type은 enum을 가리킴. enum안에 있는 값들을 string으로 가져옴
         String[] names = Enum.GetNames(type);
+        
+        //enum안에 갯수 만큼 배열 생성
         UnityEngine.Object[] objects = new UnityEngine.Object[names.Length];
+
+        //Dictionary에 추가해준다.(T가 가리키는 타입, 해당 게임오브젝드들의 이름들)
         _objects.Add(typeof(T), objects);
 
         for (int i = 0; i < names.Length; i++)
         {
-            if (typeof(T) == typeof(GameObject))
-                objects[i] = Util.FindChild(gameObject, names[i], true);
-            else
+            if (typeof(T) == typeof(GameObject))    //T가 게임오브젝트 타입인 경우.
+                objects[i] = Util.FindChild(gameObject, names[i], true);    //이 스크립트를 가지고 있는 게임오브젝트를 전달, name은 게임오브젝트의 이름.
+            else    //T가 컴포넌트 타입인 경우
                 objects[i] = Util.FindChild<T>(gameObject, names[i], true);
         }
     }

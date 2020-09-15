@@ -39,6 +39,7 @@ public class UI_Button : UI_Popup
     {
         base.Init();
 
+
         Bind<Button>(typeof(Buttons));
         Bind<Text>(typeof(Texts));
         Bind<GameObject>(typeof(GameObjects));

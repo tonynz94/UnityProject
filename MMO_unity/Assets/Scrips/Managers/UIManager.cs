@@ -48,10 +48,10 @@ public class UIManager
         if (string.IsNullOrEmpty(name))
             name = typeof(T).Name;  //T스크립트의 이름
 
-        //오브젝트 생성
+        //게임오브젝트 게임씬에 생성 생성
         GameObject go = Managers.Resource.Instantiate($"UI/Scene/{name}");
 
-        //Prefab에 스크립트를 가져오는 것 함수
+        //Prefab에 스크립트를 추가 또는 가져온다.
         T sceneUI = Util.GetOrAddComponent<T>(go);
         _sceneUI = sceneUI;
         go.transform.SetParent(Root.transform);
