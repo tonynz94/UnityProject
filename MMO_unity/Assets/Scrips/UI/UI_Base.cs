@@ -54,6 +54,7 @@ public abstract class UI_Base : MonoBehaviour
     //UI 게임오브젝트에 이벤트를 추가해주는 함수
     public static void BindEvent(GameObject go, Action<PointerEventData> action, Define.UIEvent type = Define.UIEvent.Click)
     {
+        //go라는 오브젝트에 UI_EventHandler 스크립트를 넣어준다 (게임에 들어가기에 생성됨. )
         UI_EventHandler evt = Util.GetOrAddComponent<UI_EventHandler>(go);
         switch (type)
         {

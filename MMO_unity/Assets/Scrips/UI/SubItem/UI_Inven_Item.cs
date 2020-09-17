@@ -24,7 +24,7 @@ public class UI_Inven_Item : UI_Base
     public override void Init()
     {
         //바인드 했음. 딕셔너리에 넣어줬음.
-        Bind<GameObject>(typeof(GameObjects));
+        base.Bind<GameObject>(typeof(GameObjects));
 
         //ItemNameText를 가져와서 해당 텍스트를 바꿔 줌
         GameObject  IconText = Get<GameObject>((int)GameObjects.ItemNameText);

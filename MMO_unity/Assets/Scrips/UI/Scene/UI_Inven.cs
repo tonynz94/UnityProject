@@ -35,8 +35,6 @@ public class UI_Inven : UI_Scene
 
             UI_Inven_Item InvenItem= item.GetOrAddComponent<UI_Inven_Item>();
             InvenItem.SetInfo($"집행검 {i}번");
-
-
         }
     }
     // Update is called once per frame

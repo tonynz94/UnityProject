@@ -9,11 +9,13 @@ public class ResourceManager
 
     public T Load<T>(string path) where T : Object
     {
+        //게임 오브젝트를 찾는 것
         return Resources.Load<T>(path);
     }
 
     public GameObject Instantiate(string path, Transform parent = null)
     {
+        //게임 오브젝트 
         GameObject prefab = Load<GameObject>($"Prefabs/{path}");
 
         if(prefab == null)

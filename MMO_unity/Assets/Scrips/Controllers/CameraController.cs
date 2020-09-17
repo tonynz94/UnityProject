@@ -16,12 +16,6 @@ public class CameraController : MonoBehaviour
 
     RaycastHit hit;
 
-    void Start()
-    {
-        
-
-    }
-
     // Update is called once per frame
     void LateUpdate()
     {
