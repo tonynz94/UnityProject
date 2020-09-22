@@ -20,7 +20,10 @@ public class Managers : MonoBehaviour
     public static SceneManagerEx Scene { get { return Instance._scene; } }
 
     SoundManager _sound = new SoundManager();
-    public static SoundManager Sound { get { return Instance._sound;  } }
+    public static SoundManager Sound { get { return Instance._sound; } }
+
+    PoolManager _pool = new PoolManager();
+    public static PoolManager Pool { get { return Instance._pool; } }
 
     static int num = 0;
 
@@ -49,6 +52,18 @@ public class Managers : MonoBehaviour
             DontDestroyOnLoad(go);
 
             //소리 초기화
+            s_Instance._sound.Init();
         }
+    }
+
+
+    public static void Clear()
+    {
+        Sound.Clear();
+        Input.Clear();
+        Scene.Clear();
+        UI.Clear();
+        Pool.Clear();
+
     }
 }

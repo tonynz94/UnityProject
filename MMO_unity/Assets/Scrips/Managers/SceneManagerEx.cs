@@ -10,7 +10,7 @@ public class SceneManagerEx
 
     public void LoadScene(Define.Scene type)
     {
-        CurrentScene.Clear();
+        Managers.Clear();
         SceneManager.LoadScene(GetSceneName(type));
     }
 
@@ -19,6 +19,11 @@ public class SceneManagerEx
         //reflection으로 Enum이 가지고 있는 값을의 이름을 string으로 가져올수있음.
         string name = System.Enum.GetName(typeof(Define.Scene), type);
         return name;
+    }
+
+    public void Clear()
+    {
+        CurrentScene.Clear();
     }
 
 }

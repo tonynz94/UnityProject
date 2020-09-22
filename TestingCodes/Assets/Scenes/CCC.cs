@@ -2,22 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CCC : MonoBehaviour
+public class CCC : BBB
 {
     // Start is called before the first frame update
 
-    private void Awake()
+    protected override void Init()
     {
-        Debug.Log("CCC : Awake()");
-    }
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        Debug.Log("CCC : Update()");
+        Debug.Log("BBB : Init()");
     }
 }
