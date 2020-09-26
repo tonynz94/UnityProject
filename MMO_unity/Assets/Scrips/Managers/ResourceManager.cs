@@ -28,6 +28,7 @@ public class ResourceManager
         return Resources.Load<T>(path);
     }
 
+    //
     public GameObject Instantiate(string path, Transform parent = null)
     {
         //게임 오브젝트의 원본을 가져옴.
@@ -39,11 +40,10 @@ public class ResourceManager
             return null;
         }
 
-        //혹시 폴링 되어 있는지.
-        if(original.GetComponent<Poolable>() != null)
-        {
+        //혹시 폴링 되어 있다면 실행.
+        if(original.GetComponent<Poolable>() != null)   //GameObject 원본과, 부모를 넘겨줌(null)
             return Managers.Pool.Pop(original, parent).gameObject;
-        }
+
 
 
         //원본을 커피해서 go로 만든 것. (과부하)
@@ -64,9 +64,7 @@ public class ResourceManager
     public void Destory(GameObject go, float time = 0.0f)
     {
         if (go == null)
-        {
             return;
-        }
 
         //만약에 풀링이 필요한 오브젝트라면 풀링 매니저로 관리 
         Poolable poolable = go.GetComponent<Poolable>();

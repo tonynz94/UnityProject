@@ -11,6 +11,9 @@ public class LoginScene : BaseScene
         base.Init();
 
         SceneType = Define.Scene.Login;
+
+        List<GameObject> list = new List<GameObject>();
+      
     }
 
     private void Update()
@@ -22,6 +25,7 @@ public class LoginScene : BaseScene
             //SceneManager.LoadScene("Game"); //LoadScene은 현재있는걸 한번에 날리고 다음껄 실행함
             Managers.Scene.LoadScene(Define.Scene.Game);
         }
+
     }
 
     public override void Clear()

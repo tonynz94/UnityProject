@@ -4354,8 +4354,9 @@ GameObject:
   - component: {fileID: 768872819824892851}
   - component: {fileID: 768872819832091925}
   - component: {fileID: 4427370943085052206}
+  - component: {fileID: -7696259048646311922}
   m_Layer: 0
-  m_Name: unitychan
+  m_Name: UnityChan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4408,7 +4409,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13b843acfed879a4488823fe860fd90f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  _speed: 10
+--- !u!114 &-7696259048646311922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768872819824658323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 745a78744587efe4086ec7774da02d0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isUsing: 0
 --- !u!1 &768872819824658325
 GameObject:
   m_ObjectHideFlags: 0
