@@ -25,11 +25,15 @@ public class Managers : MonoBehaviour
     PoolManager _pool = new PoolManager();
     public static PoolManager Pool { get { return Instance._pool; } }
 
+    DataManager _data = new DataManager();
+    public static DataManager Data { get { return Instance._data; } }
+
     static int num = 0;
 
     void Start()
     {
         init();
+   
     }
 
     void Update()
@@ -54,7 +58,9 @@ public class Managers : MonoBehaviour
             s_Instance._pool.Init();
 
             //소리 초기화
+            s_Instance._data.Init();
             s_Instance._sound.Init();
+            s_Instance._pool.Init();
         }
     }
 

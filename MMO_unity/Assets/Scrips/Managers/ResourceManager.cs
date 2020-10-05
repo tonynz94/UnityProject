@@ -30,6 +30,7 @@ public class ResourceManager
         return Resources.Load<T>(path);
     }
 
+    //
     public GameObject Instantiate(string path, Transform parent = null)
     {
         //게임 오브젝트의 원본을 가져옴.

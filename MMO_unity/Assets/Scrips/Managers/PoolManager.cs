@@ -21,7 +21,7 @@ public class PoolManager
             Root = new GameObject() { name = $"{original.name}_Root" }.transform;
 
             for (int i = 0; i < count; i++)
-                Push(Create());
+                Push(Create()); //poolable 스크립트로 stack에 저장해 줌.
         }
 
         Poolable Create()
@@ -58,7 +58,10 @@ public class PoolManager
             else //없으면 새로 만듬.
                 poolable = Create();
 
+            //활성화 시켜준다.
             poolable.gameObject.SetActive(true);
+            if (parent == null)
+                poolable.gameObject.transform.parent = Managers.Scene.CurrentScene.transform;
 
             if (parent == null)
                 poolable.transform.parent = Managers.Scene.CurrentScene.transform;
@@ -77,6 +80,8 @@ public class PoolManager
     Dictionary<string, Pool> _pool = new Dictionary<string, Pool>();
     Transform _root;
 
+
+    //게임오브젝트 @Pool_Root(비어있음) 생성.
     public void Init()
     {
         if (_root == null)
@@ -87,6 +92,7 @@ public class PoolManager
         }
     }
     
+    //오브젝트를 pool으로 관리 하면 default값으로 다섯개를 생성 함.
     public void CreatePool(GameObject original, int count = 5)
     {
         //새로운 오브젝트 5개를 만들고 pool에서 오브젝트 만듬것을 만들고
@@ -95,7 +101,7 @@ public class PoolManager
         //pool_root연결
         pool.Root.parent = _root.transform;
 
-        _pool.Add(original.name, pool);
+        _pool.Add(original.name, pool); //딕셔너리에 추가 해줌
     }
 
     //다 사용후 반환하는 것.
@@ -115,9 +121,9 @@ public class PoolManager
     //pooling된 오브젝트가 있는 확인 후 있으면 바로 사용
     public Poolable Pop(GameObject original, Transform parent = null)
     {
-        //맨 처음에 호출됐으면 pool이 하나도 없는 상태.
+        //Dirtionary에 "Unity_Chan"이 포함 되어 있는지 확인 없다면.
         if (_pool.ContainsKey(original.name) == false)
-            CreatePool(original);   //새로 만들어서 pool에 추가해줌.
+            CreatePool(original);   //pool을 생성해줌.
 
         return _pool[original.name].Pop(parent);
     }
