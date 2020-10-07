@@ -19,6 +19,8 @@ public class GameScene : BaseScene
         //인벤토리 열기
         Managers.UI.ShowSceneUI<UI_Inven>();
 
+        gameObject.GetOrAddComponent<CursorController>();
+
         //co = StartCoroutine("ExplodeAfterSeconds", 4.0f);
         //StartCoroutine("CoStopExplode", 2.0f);
     }

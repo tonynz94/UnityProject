@@ -12,6 +12,7 @@ public class InputManager
     // Start is called before the first frame update
 
     bool _pressed = false;
+    float _pressedTime = 0f;
 
     // Update is called once per frame
     public void OnUpdate()
@@ -29,13 +30,25 @@ public class InputManager
         {
             if(Input.GetMouseButton(1)) //누르고 있으면 True
             {
+                if(!_pressed)
+                {
+                    MouseAction.Invoke(Define.MouseEvent.PointerDown);
+                    _pressedTime = Time.time;
+                }
                 MouseAction.Invoke(Define.MouseEvent.Press);
                 _pressed = true;
             }
             else
             {
                 if (_pressed)
-                    MouseAction.Invoke(Define.MouseEvent.Click);
+                {
+                    if (Time.time < _pressedTime * 0.2f) //누른후 0.2초 내에 땟다면 클릭으로 인정
+                    {
+                        MouseAction.Invoke(Define.MouseEvent.Click);
+                    }
+                    MouseAction.Invoke(Define.MouseEvent.PointerUp);
+
+                }
                 _pressed = false;
             }
         }

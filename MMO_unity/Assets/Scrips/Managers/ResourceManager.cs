@@ -9,22 +9,24 @@ public class ResourceManager
 
     public T Load<T>(string path) where T : Object
     {
-        //Pool에 저장되어 있다면.
+        //pool은 최종적인 이름을 사용하고 있음.
+        
+        //Prefab인지 확인
         if(typeof(T) == typeof(GameObject))
         {
             string name = path;
-            int index = name.LastIndexOf("/");
-            if (index >= 0)
-                name = name.Substring(index + 1);
+            int index = name.LastIndexOf("/");  //뒤에서 부터 찾음.
+            if (index >= 0) //찾았다면.
+                name = name.Substring(index + 1); //index + 1부터 끝까지만 name에 저장
 
             GameObject go = Managers.Pool.GetOriginal(name);
-            if (go != null)
+            if (go != null) //만약 찾아다면.
                 return go as T;
 
         }
 
 
-        //(원본을 찾아줘라) 게임 오브젝트를 찾는 것
+        //(원본을 찾아줘라) 창에서 prefab 경로로 가져와서 게임 오브젝트를 가져 옴
         return Resources.Load<T>(path);
     }
 
@@ -40,24 +42,19 @@ public class ResourceManager
             return null;
         }
 
-        //혹시 폴링 되어 있다면 실행.
-        if(original.GetComponent<Poolable>() != null)   //GameObject 원본과, 부모를 넘겨줌(null)
+        //혹시 폴링이 적용되는 오브젝트라면
+        if(original.GetComponent<Poolable>() != null)
             return Managers.Pool.Pop(original, parent).gameObject;
 
+        //풀링이 대상이 아니라면
 
 
         //원본을 커피해서 go로 만든 것. (과부하)
         //원본을 만들고 parent로 위치 시켜 주라는 뜻.
+
         GameObject go = Object.Instantiate(original, parent);
-        //이름을 체크 (Clone)해당 문자열을 찾아서 인덱스를 봔환
-        int index = go.name.IndexOf("(Clone)");
+        go.name = original.name;
 
-        //(Clone)을 짤라 줌
-        if (index > 0)
-            go.name = go.name.Substring(0, index);
-
-
-        //go.name = prefab.name과 같은 것
         return go;
     }
 
@@ -66,11 +63,12 @@ public class ResourceManager
         if (go == null)
             return;
 
-        //만약에 풀링이 필요한 오브젝트라면 풀링 매니저로 관리 
         Poolable poolable = go.GetComponent<Poolable>();
-        if(poolable != null)
+
+        //만약에 풀어블을 가지고 있다면
+        if (poolable != null)
         {
-            Managers.Pool.Push(poolable);
+            Managers.Pool.Push(poolable); //다시 풀에다가 반환을 하는 것.
             return;
         }
 
