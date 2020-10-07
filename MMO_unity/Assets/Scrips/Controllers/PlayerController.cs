@@ -53,8 +53,6 @@ public class PlayerController : MonoBehaviour
         Managers.Input.MouseAction -= OnMouseEvent;
         Managers.Input.MouseAction += OnMouseEvent;
 
-        // TEMP
-      
     }
 
     public enum PlayerState
@@ -64,16 +62,6 @@ public class PlayerController : MonoBehaviour
         Idle,
         Skill,
     };
-
-    void UpdateDie()
-    {
-        //아무것도 못함
-    }
-
-    void UpdateIdle()
-    {
-    
-    }
 
     void UpdateMoving()
     {
@@ -102,6 +90,9 @@ public class PlayerController : MonoBehaviour
             float moveDist = Mathf.Clamp(_stat.MoveSpeed * Time.deltaTime, 0, dir.magnitude);
             //특점 지점으로 갈 수 있는지에 대한 여부
             //nma.CalculatePath
+           
+            //포지션으로 바로 움직여주는 것이 아닌 navmasAgent로 움직임.
+            //정밀도 있게 원하는곳으로 가주지는 않음. 0.0001에서 0.1로 바꿔줘야함.
             nma.Move(dir.normalized * moveDist);
 
             Debug.DrawRay(transform.position + Vector3.up * 0.5f, dir.normalized, Color.blue);
@@ -131,10 +122,8 @@ public class PlayerController : MonoBehaviour
         switch (State)
         {
             case PlayerState.DIe:
-                UpdateDie();
                 break;
             case PlayerState.Idle:
-                UpdateIdle();
                 break;
             case PlayerState.Moving:
                 UpdateMoving();
