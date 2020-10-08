@@ -14,7 +14,7 @@ public class InputManager
     bool _pressed = false;
     float _pressedTime = 0f;
 
-    // Update is called once per frame
+    // OnUpdate is called in Manager
     public void OnUpdate()
     {
         if(EventSystem.current.IsPointerOverGameObject())   //ui 버튼이 클릭 됐는지.
@@ -30,24 +30,28 @@ public class InputManager
         {
             if(Input.GetMouseButton(1)) //누르고 있으면 True
             {
+                //한번도 누르지 않은 상태일때 실행.
                 if(!_pressed)
                 {
+                    //델리게이트 함수 호출
                     MouseAction.Invoke(Define.MouseEvent.PointerDown);
-                    _pressedTime = Time.time;
+                    _pressedTime = Time.time;   //마우스를 눌렀을때 실행 됨 시간(초)
+                    //Debug.Log(_pressedTime);
                 }
                 MouseAction.Invoke(Define.MouseEvent.Press);
                 _pressed = true;
             }
+            //누르고 있지 않는 상태라면.
             else
             {
-                if (_pressed)
+                if (_pressed) //뗏을때 최초 실행.
                 {
-                    if (Time.time < _pressedTime * 0.2f) //누른후 0.2초 내에 땟다면 클릭으로 인정
+                    //만약 마우스를 최초로 뗏을때는 실행 해주지 않음 즉 클릭으로 인식하지 않음.
+                    if (Time.time < _pressedTime + 0.2f) //누른후 0.2초 내에 땟다면 클릭으로 인정
                     {
                         MouseAction.Invoke(Define.MouseEvent.Click);
                     }
                     MouseAction.Invoke(Define.MouseEvent.PointerUp);
-
                 }
                 _pressed = false;
             }

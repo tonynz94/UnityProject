@@ -13,7 +13,6 @@ public class GameScene : BaseScene
     {
         base.Init();
 
-        Debug.Log("GameScene Init()");
         SceneType = Define.Scene.Game;
 
         //인벤토리 열기

@@ -24,8 +24,6 @@ public class ResourceManager
                 return go as T;
 
         }
-
-
         //(원본을 찾아줘라) 창에서 prefab 경로로 가져와서 게임 오브젝트를 가져 옴
         return Resources.Load<T>(path);
     }
@@ -51,7 +49,6 @@ public class ResourceManager
 
         //원본을 커피해서 go로 만든 것. (과부하)
         //원본을 만들고 parent로 위치 시켜 주라는 뜻.
-
         GameObject go = Object.Instantiate(original, parent);
         go.name = original.name;
 
@@ -71,10 +68,6 @@ public class ResourceManager
             Managers.Pool.Push(poolable); //다시 풀에다가 반환을 하는 것.
             return;
         }
-
-
         Object.Destroy(go, time);
     }
-
-
 }
