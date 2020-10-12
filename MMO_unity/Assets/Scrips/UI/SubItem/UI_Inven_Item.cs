@@ -16,10 +16,6 @@ public class UI_Inven_Item : UI_Base
 
 
     // Start is called before the first frame update
-    void Start()
-    {
-        Init();
-    }
 
     public override void Init()
     {

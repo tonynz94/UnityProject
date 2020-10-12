@@ -5,7 +5,15 @@ using UnityEngine;
 public class Define
 {
     //enum , const, static 은 인스턴스화 하지 않아도 클래스.xx 로 접근 가능
-    public enum Layer
+    public enum State
+    {
+        DIe,
+        Moving,
+        Idle,
+        Skill,
+    };
+
+public enum Layer
     {
         Monster = 8,
         Ground = 9,
