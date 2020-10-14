@@ -12,6 +12,7 @@ public class PlayerController : BaseController
 
     public override void Init()
     {
+        WorldObjectType = Define.WorldObject.Player;
         _stat = gameObject.GetComponent<PlayerStat>();
 
         //Managers.Input.KeyAction -= OnKeyBoard;
@@ -84,9 +85,7 @@ public class PlayerController : BaseController
         {
             //어떤 대상을 공격하는지 모르기 때문에 공통적으로 상속받는 클래스를 가져온다.
             Stat targetStat = _lockTarget.GetComponent<Stat>();
-            PlayerStat myStat = gameObject.GetComponent<PlayerStat>();
-            int damage = Mathf.Max(0, myStat.Attack - targetStat.Defense);
-            targetStat.Hp -= damage;
+            targetStat.OnAttacked(_stat);
         }
 
         if(_stopSkill)

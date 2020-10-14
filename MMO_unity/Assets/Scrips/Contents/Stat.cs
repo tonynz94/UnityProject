@@ -35,4 +35,28 @@ public class Stat : MonoBehaviour
         _defense = 5;
         _moveSpeed = 5.0f;
     }
+
+    public virtual void OnAttacked(Stat attacker)
+    {
+        int damage = Mathf.Max(0, attacker.Attack - Defense);
+        Hp -= damage;
+        if(Hp < 0)
+        {
+            Hp = 0;
+            OnDead(attacker);
+        }
+    }
+
+    protected virtual void OnDead(Stat attacker)
+    {
+
+            //공격한 오브젝트가 player인 경우 레벨업을 시켜줌 . 
+            //캐스팅
+            PlayerStat playerStat = attacker as PlayerStat;
+            if(playerStat != null)
+            {
+                playerStat.Exp += 100;
+            }
+        Managers.Game.Despawn(gameObject);
+    }
 }

@@ -849,6 +849,7 @@ GameObject:
   - component: {fileID: 7516096696602180142}
   - component: {fileID: 7516096696602180137}
   - component: {fileID: 7516096696602180136}
+  - component: {fileID: 8358240746944703769}
   m_Layer: 8
   m_Name: Knight
   m_TagString: Untagged
@@ -887,7 +888,7 @@ Animator:
   m_GameObject: {fileID: 7516096696602180139}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: ffaf641b210f5ea41952cf36f1379d66, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 317f4c5ee43324a4c96c3b3dde315ed3, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -928,6 +929,23 @@ CapsuleCollider:
   m_Height: 1.8551166
   m_Direction: 1
   m_Center: {x: 0.026933432, y: 0.8780793, z: 0}
+--- !u!114 &8358240746944703769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7516096696602180139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ed47afe96c371d4d9891bc7b9f7ece2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _desPos: {x: 0, y: 0, z: 0}
+  _lockTarget: {fileID: 0}
+  _state: 2
+  _scanRange: 10
+  _attackRange: 2
 --- !u!1 &7516096696672709481
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,7 +12,9 @@ public class CameraController : MonoBehaviour
     Vector3 _delta = new Vector3(0,6,-5); //플레이어 기준 카메라 거리
 
     [SerializeField]
-    GameObject player = null;
+    GameObject _player = null;
+
+    public void SetPlayer(GameObject player) { _player = player; }
 
     RaycastHit hit;
 
@@ -21,16 +23,16 @@ public class CameraController : MonoBehaviour
     {
         if (_mode == Define.CameraMode.QuterView)
         {
-            if (Physics.Raycast(player.transform.position, _delta, out hit, _delta.magnitude, LayerMask.GetMask("Block")))
+            if (Physics.Raycast(_player.transform.position, _delta, out hit, _delta.magnitude, 1 << (int)Define.Layer.Block))
             {
-                float dist = (hit.point - player.transform.position).magnitude * 0.8f;
-                transform.position = player.transform.position + _delta.normalized * dist;
+                float dist = (hit.point - _player.transform.position).magnitude * 0.8f;
+                transform.position = _player.transform.position + _delta.normalized * dist;
             }
             else
             {
-                transform.position = player.transform.position + _delta;
+                transform.position = _player.transform.position + _delta;
                 //상대 게임오브젝트를 지켜보도록 로테이션을 강제로 설정해주는 것.
-                transform.LookAt(player.transform);
+                transform.LookAt(_player.transform);
             }
         }
     }

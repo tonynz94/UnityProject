@@ -10,8 +10,9 @@ namespace Data
     public class Stat
     {
         public int level;  //변수의 이름과 json의 이름이 같지 않으면 찾지 못함.
-        public int hp;
+        public int maxHp;
         public int attack;
+        public int totalExp;
     }
 
     [Serializable]

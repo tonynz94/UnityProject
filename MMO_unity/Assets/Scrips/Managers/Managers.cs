@@ -7,6 +7,9 @@ public class Managers : MonoBehaviour
     static Managers s_Instance; //매니저는 static
     public static Managers Instance { get { init(); return s_Instance; } }
 
+    GameManager _game = new GameManager();
+    public static GameManager Game { get {  return Instance._game; } }
+
     InputManager _input = new InputManager();
     public static InputManager Input { get { return Instance._input; } }
 
