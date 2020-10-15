@@ -22,6 +22,8 @@ public class GameScene : BaseScene
         
         GameObject player = Managers.Game.Spawn(Define.WorldObject.Player, "UnityChan");
         Camera.main.gameObject.GetOrAddComponent<CameraController>().SetPlayer(player);
+        
+
 
         Managers.Game.Spawn(Define.WorldObject.Monster, "Knight");
         //co = StartCoroutine("ExplodeAfterSeconds", 4.0f);

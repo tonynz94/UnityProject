@@ -65,4 +65,9 @@ public class PlayerStat : Stat
         //자기 자신 삭제.
         Debug.Log("Player Dead");
     }
+
+    public GameObject GetPlayerObject()
+    {
+        return gameObject;
+    }
 }

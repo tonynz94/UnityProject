@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//오브젝트, 컴포넌트 찾을때 필요한 함수들.
 public class Util 
 {
     public static T GetOrAddComponent<T>(GameObject go) where T : UnityEngine.Component

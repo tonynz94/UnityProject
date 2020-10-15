@@ -7,7 +7,7 @@ public class UI_HPBar : UI_Base
 {
     enum GameObjects
     {
-        HPBar
+        HPBar,
     }
 
     Stat _stat;
@@ -15,7 +15,7 @@ public class UI_HPBar : UI_Base
     //부모클래스에서 실행해줌.
     public override void Init()
     {
-        Bind<GameObject>(typeof(GameObjects));
+        base.Bind<GameObject>(typeof(GameObjects));
         _stat = transform.parent.GetComponent<Stat>(); 
     }
 

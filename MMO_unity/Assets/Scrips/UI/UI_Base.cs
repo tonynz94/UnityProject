@@ -18,6 +18,7 @@ public abstract class UI_Base : MonoBehaviour
         Init();
     }
 
+    //UI를 코드로 가져오는 것.
     protected T Get<T>(int idx) where T : UnityEngine.Object
     {
         UnityEngine.Object[] objects = null;
