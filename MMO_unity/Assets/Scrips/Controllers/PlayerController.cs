@@ -37,7 +37,10 @@ public class PlayerController : BaseController
                 return;
             }
         }
+
         Vector3 dir = _desPos - transform.position;
+        dir.y = 0;
+
         if (dir.magnitude < 0.1f)
         {
             //이 함수를 실행을 멈춤.

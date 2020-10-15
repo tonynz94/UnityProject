@@ -16,7 +16,7 @@ public class GameScene : BaseScene
         SceneType = Define.Scene.Game;
 
         //인벤토리 열기
-        Managers.UI.ShowSceneUI<UI_Inven>();
+        //Managers.UI.ShowSceneUI<UI_Inven>();
 
         gameObject.GetOrAddComponent<CursorController>();
         
@@ -26,27 +26,12 @@ public class GameScene : BaseScene
 
 
         Managers.Game.Spawn(Define.WorldObject.Monster, "Knight");
-        //co = StartCoroutine("ExplodeAfterSeconds", 4.0f);
-        //StartCoroutine("CoStopExplode", 2.0f);
+
+        GameObject go = new GameObject { name = "SpawningPool" };
+        SpawningPool pool =  go.GetOrAddComponent<SpawningPool>();
+        pool.SetKeepMonsterCount(5);
     }
 
-    /*IEnumerator CoStopExplode(float seconds)
-    {
-        if(co != null)
-        {
-            yield return new WaitForSeconds(seconds);
-            StopCoroutine(co);
-            Debug.Log("Explode Stop");
-        }
-    }
-
-    IEnumerator ExplodeAfterSeconds(float seconds)
-    {
-        Debug.Log("Explode Enter");
-        yield return new WaitForSeconds(seconds);
-        Debug.Log("Explode Boooooom");
-        co = null;
-    }*/
     public override void Clear()
     {
 
