@@ -7,8 +7,7 @@ public class UI_Inven : UI_Scene
     // Start is called before the first frame update
     enum GameObjects
     {
-        GridPanel,
-    
+        GridPanel, 
     }
 
     public override void Init()
