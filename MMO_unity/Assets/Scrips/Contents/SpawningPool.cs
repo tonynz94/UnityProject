@@ -35,15 +35,17 @@ public class SpawningPool : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        while (_reserveCount+_monsterCount < _keepMonsterCount)
+        while (_reserveCount +_monsterCount < _keepMonsterCount)
         {
+            Debug.Log(_reserveCount + _monsterCount);
             StartCoroutine(ReserveSpawn());         
         }
     }
 
     IEnumerator ReserveSpawn()
     {
-        _reserveCount++;
+        _reserveCount++; //0, 1, 2, 3, 4, 5,
+        Debug.Log(_reserveCount);
         yield return new WaitForSeconds(Random.Range(1.0f,_spawnTime));
         GameObject go = Managers.Game.Spawn(Define.WorldObject.Monster, "Knight");
         NavMeshAgent nma = go.GetOrAddComponent<NavMeshAgent>();

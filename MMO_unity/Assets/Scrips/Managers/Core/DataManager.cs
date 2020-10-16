@@ -11,13 +11,18 @@ public interface ILoader<Key, Value>
 
 public class DataManager
 {
+    //최종적으로 json에 있는 데이터를 저장하는 변수 Stat'
+    
+    //Dict
     public Dictionary<int, Data.Stat> StatDict { get; private set; } = new Dictionary<int, Data.Stat>();
     
     public void Init()
     {
         StatDict = LoadJson<Data.StatData, int, Data.Stat>("StatData").MakeDict();
+        //StatData.MakeDIct() 함수를 실행해주고 있음.
     }
 
+    //Loader 제네릭은 lLoader라는 클래스나, 인터페이스가 포함되어 있어햐 하는 것. 
     Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
     {
         //파일을 위치를 가져온 후

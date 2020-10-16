@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerStat : Stat
 {
+    public UI_PlayerHPBar playerUI;
+
     [SerializeField]
     int _exp;
     [SerializeField]
@@ -20,6 +23,8 @@ public class PlayerStat : Stat
             while(true)
             {
                 Data.Stat stat;
+                //딕셔너리에서 키 값으로 가져오는 것.
+                //다음 레벨의 스텟을 가져옴. 
                 if (Managers.Data.StatDict.TryGetValue(level + 1, out stat) == false)
                     break;
                 if (_exp < stat.totalExp)
@@ -42,6 +47,8 @@ public class PlayerStat : Stat
     {
         _level = 1;
 
+        playerUI = GameObject.Find("UI_HPMPEXPBar").GetComponent<UI_PlayerHPBar>();
+        Debug.Log(playerUI);
         Dictionary<int, Data.Stat> dict = Managers.Data.StatDict;
         Data.Stat stat = dict[1];
         SetStat(_level);
@@ -53,11 +60,13 @@ public class PlayerStat : Stat
 
     public void SetStat(int level)
     {
+        //json의 값들이  Dictionary로 StatDict에 저장되어있음.
         Dictionary<int, Data.Stat> dict = Managers.Data.StatDict;
         Data.Stat stat = dict[level];
         _hp = stat.maxHp;
         _attack = stat.attack;
         _maxHp = stat.maxHp;
+        playerUI.LevelUp(level);
     }
 
     protected override void OnDead(Stat attacker)

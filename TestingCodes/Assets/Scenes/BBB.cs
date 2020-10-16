@@ -8,6 +8,6 @@ public class BBB : AAA
 
     private void Start()
     {
-        Init();
+
     }
 }

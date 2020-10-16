@@ -15,6 +15,7 @@ namespace Data
         public int totalExp;
     }
 
+    //인터페이스를 상속받음
     [Serializable]
     public class StatData : ILoader<int, Stat>
     {
