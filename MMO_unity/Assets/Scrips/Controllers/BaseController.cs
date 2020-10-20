@@ -13,6 +13,9 @@ public abstract class BaseController : MonoBehaviour
     [SerializeField]
     protected Define.State _state = Define.State.Idle;
 
+    [SerializeField]
+    public GameObject damText;
+
     public Define.WorldObject WorldObjectType { get; protected set; } = Define.WorldObject.Unknown;
 
     //혹시 모르기에 virtual로 설정
@@ -45,6 +48,7 @@ public abstract class BaseController : MonoBehaviour
     }
     private void Start()
     {
+        //Object.Instantiate(damText, gameObject.transform.position, Camera.main.)
         Init();
     }
    

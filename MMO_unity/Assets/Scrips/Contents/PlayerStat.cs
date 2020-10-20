@@ -25,7 +25,7 @@ public class PlayerStat : Stat
                 Data.Stat stat;
                 //딕셔너리에서 키 값으로 가져오는 것.
                 //다음 레벨의 스텟을 가져옴. 
-                if (Managers.Data.StatDict.TryGetValue(level + 1, out stat) == false)
+                if (Managers.Data.StatDict.TryGetValue(level, out stat) == false)
                     break;
                 if (_exp < stat.totalExp)
                     break;

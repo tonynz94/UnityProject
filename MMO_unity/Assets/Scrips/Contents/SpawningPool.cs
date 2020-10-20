@@ -36,8 +36,7 @@ public class SpawningPool : MonoBehaviour
     void Update()
     {
         while (_reserveCount +_monsterCount < _keepMonsterCount)
-        {
-            Debug.Log(_reserveCount + _monsterCount);
+        {     
             StartCoroutine(ReserveSpawn());         
         }
     }
@@ -45,7 +44,6 @@ public class SpawningPool : MonoBehaviour
     IEnumerator ReserveSpawn()
     {
         _reserveCount++; //0, 1, 2, 3, 4, 5,
-        Debug.Log(_reserveCount);
         yield return new WaitForSeconds(Random.Range(1.0f,_spawnTime));
         GameObject go = Managers.Game.Spawn(Define.WorldObject.Monster, "Knight");
         NavMeshAgent nma = go.GetOrAddComponent<NavMeshAgent>();
@@ -66,7 +64,7 @@ public class SpawningPool : MonoBehaviour
             if (nma.CalculatePath(randPos, path))
                 break;
         }
-
+        _reserveCount--; //0, 1, 2, 3, 4, 5,
         go.transform.position = randPos;
     }
 }

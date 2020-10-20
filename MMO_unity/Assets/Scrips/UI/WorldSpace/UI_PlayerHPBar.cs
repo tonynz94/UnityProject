@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -44,7 +45,9 @@ public class UI_PlayerHPBar : UI_Base
 
     public void SetEXPRatio(float ratio)
     {
-        GetObject((int)GameObjects.EXPText).GetComponent<Text>().text = $"{(float)_playerStat.Exp - Managers.Data.StatDict[_playerStat.Level - 1].totalExp} / {Managers.Data.StatDict[_playerStat.Level].totalExp - Managers.Data.StatDict[_playerStat.Level - 1].totalExp} [ {ratio * 100}% ]";
+        double expValue = ratio * 100;
+        expValue = Math.Truncate(expValue * 100) / 100;
+        GetObject((int)GameObjects.EXPText).GetComponent<Text>().text = $"{(float)_playerStat.Exp - Managers.Data.StatDict[_playerStat.Level - 1].totalExp} / {Managers.Data.StatDict[_playerStat.Level].totalExp - Managers.Data.StatDict[_playerStat.Level - 1].totalExp} [ {expValue}% ]";
         GetObject((int)GameObjects.EXPBar).GetComponent<Slider>().value = ratio;
     }
 

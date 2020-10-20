@@ -25,7 +25,10 @@ public class GameManager
             case Define.WorldObject.Monster:
                 _monsters.Add(go);
                 if (OnSpawnEvent != null)
+                {
+                    //스폰 시 한명 추가.
                     OnSpawnEvent.Invoke(1);
+                }
                 break;
             case Define.WorldObject.Player:
                 _player = go;
@@ -57,7 +60,10 @@ public class GameManager
                     {
                         _monsters.Remove(go);
                         if (OnSpawnEvent != null)
+                        {
+                            Debug.Log("삭제");
                             OnSpawnEvent.Invoke(-1);
+                        }
                     }
                 }
                 break;

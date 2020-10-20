@@ -44,7 +44,7 @@ public abstract class UI_Base : MonoBehaviour
         for (int i = 0; i < names.Length; i++)
         {
             if (typeof(T) == typeof(GameObject))    //T가 게임오브젝트 타입인 경우.
-                objects[i] = Util.FindChild(gameObject, names[i], true);    //이 스크립트를 가지고 있는 게임오브젝트를 전달, name은 게임오브젝트의 이름.
+                objects[i] = Util.FindChild(gameObject, names[i], true);   
             else    //T가 컴포넌트 타입인 경우
                 objects[i] = Util.FindChild<T>(gameObject, names[i], true);
         }

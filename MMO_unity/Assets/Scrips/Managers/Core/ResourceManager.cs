@@ -46,7 +46,6 @@ public class ResourceManager
 
         //풀링이 대상이 아니라면
 
-
         //원본을 커피해서 go로 만든 것. (과부하)
         //원본을 만들고 parent로 위치 시켜 주라는 뜻.
         GameObject go = Object.Instantiate(original, parent);
