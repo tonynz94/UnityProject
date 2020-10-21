@@ -66,8 +66,7 @@ public class PoolManager
             if (parent == null)
                 poolable.transform.parent = Managers.Scene.CurrentScene.transform;
 
-            Debug.Log(poolable.transform.parent.name);
-
+            
             poolable.transform.parent = parent;
             poolable.isUsing = true;
 

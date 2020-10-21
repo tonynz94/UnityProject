@@ -12,6 +12,7 @@ public static class Extension
    
     public static bool isValid(this GameObject go)
     {
+        //setActive인 상태인지 확인
         return go != null && go.activeSelf;
     }
 

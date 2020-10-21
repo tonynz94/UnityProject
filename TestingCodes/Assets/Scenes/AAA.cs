@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class AAA : MonoBehaviour
 {
-    private void Start()
+    void Start()
     {
-        Init();
+        Debug.Log("AAA : Start");
     }
     private void Init()
     {

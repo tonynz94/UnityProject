@@ -9,14 +9,16 @@ public abstract class UI_Base : MonoBehaviour
 {
     //따로 받아서 사용할 일이 없음.
     //상속 받아서 사용할 스크립트이기에 abstract로 함수 설정 -> 클래서 전체가 abstract
+    
+
     public abstract void Init();
 
-    protected Dictionary<Type, UnityEngine.Object[]> _objects = new Dictionary<Type, UnityEngine.Object[]>();
-
-    private void Start()
+    public void Start()
     {
         Init();
     }
+
+    protected Dictionary<Type, UnityEngine.Object[]> _objects = new Dictionary<Type, UnityEngine.Object[]>();
 
     //UI를 코드로 가져오는 것.
     protected T Get<T>(int idx) where T : UnityEngine.Object
@@ -34,7 +36,8 @@ public abstract class UI_Base : MonoBehaviour
         //Enum안에 있는 값들의 이름을 가져 옴 
         //type은 enum을 가리킴. enum안에 있는 값들을 string으로 가져옴
         String[] names = Enum.GetNames(type);
-        
+        foreach (string s in names)
+            Debug.Log($"Bind {s}");
         //enum안에 갯수 만큼 배열 생성
         UnityEngine.Object[] objects = new UnityEngine.Object[names.Length];
 

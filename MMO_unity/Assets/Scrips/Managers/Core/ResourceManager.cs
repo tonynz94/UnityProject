@@ -28,7 +28,7 @@ public class ResourceManager
         return Resources.Load<T>(path);
     }
 
-    //
+    //게임씬에 생성을 해주는 것.
     public GameObject Instantiate(string path, Transform parent = null)
     {
         //게임 오브젝트의 원본을 가져옴.

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stat : MonoBehaviour
+public abstract class Stat : MonoBehaviour
 {
     //몬스터 또는 캐릭터가 공통적으로 가지고 있어야 할 정보들
 
@@ -19,6 +19,7 @@ public class Stat : MonoBehaviour
     [SerializeField]
     protected float _moveSpeed;
 
+
     public int Level { get { return _level; } set { _level = value; } }
     public int Hp { get { return _hp; } set { _hp = value; } }
     public int MaxHp { get { return _maxHp; } set { _maxHp = value; } }
@@ -26,7 +27,7 @@ public class Stat : MonoBehaviour
     public int Defense { get { return _defense; } set { _defense = value; } }
     public float MoveSpeed { get { return _moveSpeed; } set { _moveSpeed = value; } }
 
-    private void Start()
+    protected virtual void Start()
     {
         _level = 1;
         _hp = 100;
@@ -34,8 +35,10 @@ public class Stat : MonoBehaviour
         _maxHp = 100;
         _defense = 5;
         _moveSpeed = 5.0f;
+
     }
 
+    //공격을 맞았을 때
     public virtual void OnAttacked(Stat attacker)
     {
         int damage = Mathf.Max(0, attacker.Attack - Defense);
@@ -49,16 +52,7 @@ public class Stat : MonoBehaviour
         }
     }
 
-    protected virtual void OnDead(Stat attacker)
-    {
+    //어떤게 들어올지 모르기 때문에 부모 클래스로 받은 후 캐스팅하여 그게 맞는지 확인
 
-            //공격한 오브젝트가 player인 경우 레벨업을 시켜줌 . 
-            //캐스팅
-            PlayerStat playerStat = attacker as PlayerStat;
-            if(playerStat != null)
-            {
-                playerStat.Exp += 500;
-            }
-        Managers.Game.Despawn(gameObject);
-    }
+    protected abstract void OnDead(Stat attacker);
 }

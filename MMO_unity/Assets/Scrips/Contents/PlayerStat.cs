@@ -43,12 +43,11 @@ public class PlayerStat : Stat
 
     public int Glod { get { return _gold; } set { _gold = value; } }
 
-    private void Start()
+    protected override void Start()
     {
         _level = 1;
 
         playerUI = GameObject.Find("UI_HPMPEXPBar").GetComponent<UI_PlayerHPBar>();
-        Debug.Log(playerUI);
         Dictionary<int, Data.Stat> dict = Managers.Data.StatDict;
         Data.Stat stat = dict[1];
         SetStat(_level);
@@ -72,7 +71,7 @@ public class PlayerStat : Stat
     protected override void OnDead(Stat attacker)
     {
         //자기 자신 삭제.
-        Debug.Log("Player Dead");
+        Managers.Game.Despawn(gameObject);
     }
 
     public GameObject GetPlayerObject()

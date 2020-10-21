@@ -61,7 +61,6 @@ public class GameManager
                         _monsters.Remove(go);
                         if (OnSpawnEvent != null)
                         {
-                            Debug.Log("삭제");
                             OnSpawnEvent.Invoke(-1);
                         }
                     }

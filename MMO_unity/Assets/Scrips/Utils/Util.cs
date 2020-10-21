@@ -18,8 +18,11 @@ public class Util
     {
         Transform transform = FindChild<Transform>(go, name, recursive);
         if (transform == null)
+        {
+            Debug.Log("error");
             return null;
-
+        
+        }
         return transform.gameObject;
     }
 

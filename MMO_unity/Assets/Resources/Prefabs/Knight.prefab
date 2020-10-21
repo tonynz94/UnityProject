@@ -847,9 +847,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7516096696602180143}
   - component: {fileID: 7516096696602180142}
-  - component: {fileID: 7516096696602180137}
   - component: {fileID: 7516096696602180136}
   - component: {fileID: 8358240746944703769}
+  - component: {fileID: 2608421175558038054}
   m_Layer: 8
   m_Name: Knight
   m_TagString: Untagged
@@ -897,24 +897,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7516096696602180137
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7516096696602180139}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58e0e7e154fc172468a122c8cdcb52d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _level: 0
-  _hp: 0
-  _maxHp: 0
-  _attack: 0
-  _defense: 0
-  _moveSpeed: 0
 --- !u!136 &7516096696602180136
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -944,8 +926,29 @@ MonoBehaviour:
   _desPos: {x: 0, y: 0, z: 0}
   _lockTarget: {fileID: 0}
   _state: 2
+  damText: {fileID: 0}
   _scanRange: 10
   _attackRange: 2
+--- !u!114 &2608421175558038054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7516096696602180139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84a33fb8a86d35247abbcd6a5953fe39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _level: 0
+  _hp: 0
+  _maxHp: 0
+  _attack: 0
+  _defense: 0
+  _moveSpeed: 0
+  _monsterExp: 0
+  DamageTxt: {fileID: 0}
 --- !u!1 &7516096696672709481
 GameObject:
   m_ObjectHideFlags: 0

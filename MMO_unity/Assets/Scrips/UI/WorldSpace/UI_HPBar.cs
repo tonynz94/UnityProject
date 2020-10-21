@@ -16,7 +16,7 @@ public class UI_HPBar : UI_Base
     public override void Init()
     {
         base.Bind<GameObject>(typeof(GameObjects));
-        _stat = transform.parent.GetComponent<Stat>(); 
+        _stat = transform.parent.GetComponent<MonsterStat>();
     }
 
     private void Update()
@@ -24,7 +24,7 @@ public class UI_HPBar : UI_Base
         Transform parent = gameObject.transform.parent;
         transform.position = parent.position + Vector3.up * (parent.GetComponent<Collider>().bounds.size.y);
         transform.rotation = Camera.main.transform.rotation;
-
+       
         float ratio = (float)_stat.Hp / _stat.MaxHp;
         SetHPRatio(ratio);
     }

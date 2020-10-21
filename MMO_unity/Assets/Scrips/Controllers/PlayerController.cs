@@ -82,9 +82,8 @@ public class PlayerController : BaseController
     void OnHitEvent()
     {
         if(_lockTarget != null)
-        {
-            //어떤 대상을 공격하는지 모르기 때문에 공통적으로 상속받는 클래스를 가져온다.
-            Stat targetStat = _lockTarget.GetComponent<Stat>();
+        {         
+            Stat targetStat = _lockTarget.GetComponent<MonsterStat>();
             targetStat.OnAttacked(_stat);
         }
 

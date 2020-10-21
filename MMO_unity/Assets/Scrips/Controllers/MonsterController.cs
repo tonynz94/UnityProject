@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class MonsterController : BaseController
 {
-    Stat _stat;
+    MonsterStat _stat;
 
     [SerializeField]
     float _scanRange = 10;
@@ -16,8 +16,9 @@ public class MonsterController : BaseController
     public override void Init()
     {
         WorldObjectType = Define.WorldObject.Monster;
-        _stat = gameObject.GetComponent<Stat>();
+        _stat = gameObject.GetComponent<MonsterStat>();
 
+        //최초 발결 된 것.
         if (gameObject.GetComponentInChildren<UI_HPBar>() == null)
             Managers.UI.MakeWorldSpaceUI<UI_HPBar>(transform);
     }
@@ -26,10 +27,12 @@ public class MonsterController : BaseController
     {
         GameObject player = Managers.Game.GetPlayer();
         
+        //player가 유효한지
         if (player.isValid() == false)
             return;
 
         float distance = (player.transform.position - transform.position).magnitude;
+
         if(distance <= _scanRange)
         {
             _lockTarget = player;
@@ -79,11 +82,12 @@ public class MonsterController : BaseController
         }
     }
 
+    //때리는 함수
     void OnHitEvent()
     {
         if(_lockTarget != null)
         {
-            Stat targetStat = _lockTarget.GetComponent<Stat>();
+            Stat targetStat = _lockTarget.GetComponent<PlayerStat>();
             targetStat.OnAttacked(_stat);
 
             if (targetStat.Hp > 0)

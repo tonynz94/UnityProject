@@ -1,15 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class DmgTxt : UI_Base
+public class UI_DmgTxt : UI_Base
 {
-    [SerializeField]
-    float moveSpeed;
-
-    Stat _stat;
-
-    GameObject _player;
+    float moveSpeed = 2.0f;
 
     enum GameObjects
     {
@@ -17,16 +13,37 @@ public class DmgTxt : UI_Base
     }
     public override void Init()
     {
+        Debug.Log("DmgTxt Bind");
         base.Bind<GameObject>(typeof(GameObjects));
     }
 
     void Start()
     {
-        _stat = transform.parent.GetComponent<Stat>();
+        Destroy(gameObject, 1f);
     }
 
     void Update()
     {
-        transform.Translate(Vector3.up * Time.deltaTime * moveSpeed);
+        //로컬 좌표
+        //transform.Translate(Vector3.up * Time.deltaTime * moveSpeed);
+        transform.position += new Vector3(0, moveSpeed * Time.deltaTime, 0);
+    }
+
+    public void SetDmgText(int damage, bool isCritical)
+    {
+        if (isCritical)
+        {
+            
+            gameObject.transform.GetChild(0).GetComponent<TextMesh>().color = Color.red;
+            gameObject.transform.GetChild(0).GetComponent<TextMesh>().fontSize = 45;
+            gameObject.transform.GetChild(0).GetComponent<TextMesh>().text = $"{damage}";
+        }
+        else
+        {
+           gameObject.transform.GetChild(0).GetComponent<TextMesh>().color = Color.yellow;
+            gameObject.transform.GetChild(0).GetComponent<TextMesh>().fontSize = 30;
+            gameObject.transform.GetChild(0).GetComponent<TextMesh>().text = $"{damage}";
+        }
+        
     }
 }
