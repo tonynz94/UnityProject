@@ -32,5 +32,4 @@ public class LoginScene : BaseScene
     {
         Debug.Log("LoginScene Clear");
     }
-
 }

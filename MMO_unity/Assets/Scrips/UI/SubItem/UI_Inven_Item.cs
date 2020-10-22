@@ -9,7 +9,6 @@ public class UI_Inven_Item : UI_Base
     enum GameObjects
     {
         ItemIcon,
-        ItemNameText,
     }
 
     string _name;
@@ -23,12 +22,9 @@ public class UI_Inven_Item : UI_Base
         base.Bind<GameObject>(typeof(GameObjects));
 
         //ItemNameText를 가져와서 해당 텍스트를 바꿔 줌
-        GameObject  IconText = Get<GameObject>((int)GameObjects.ItemNameText);
-        IconText.GetComponent<Text>().text = _name;
 
         GameObject Icon = Get<GameObject>((int)GameObjects.ItemIcon);
         BindEvent( Icon , (PointerEventData evt) => { Debug.Log($"아이템 클릭! {_name} , {evt.position}"); }     );
-
     }
 
     public void SetInfo(string name)

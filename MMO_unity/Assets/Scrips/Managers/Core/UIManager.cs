@@ -23,6 +23,7 @@ public class UIManager
     }
 
     //매니저가 아닌 외부에서 팝업이 생겼을때.
+    //2D로 무조건 보이는 UI 
     public void SetCanvas(GameObject go, bool sort = true)
     {
         Canvas canvas = Util.GetOrAddComponent<Canvas>(go);
@@ -42,6 +43,7 @@ public class UIManager
         }
     }
 
+    //3D 월드 UI 
     public T MakeWorldSpaceUI<T>(Transform parent = null, string name = null) where T : UI_Base
     {
 
