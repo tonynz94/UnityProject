@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class UI_Inven : UI_Popup
 {
-    // Start is called before the first frame update
+    //아이템 창 슬롯
+    public List<Item> items = new List<Item>();
+
     enum GameObjects
     {
         GridPanel, 
@@ -19,9 +21,22 @@ public class UI_Inven : UI_Popup
         GameObject gridPanel = Get<GameObject>((int)GameObjects.GridPanel);
 
     }
-    // Update is called once per frame
-    void Update()
+
+    public void Add(Item item)
     {
-        
+        if(item != null)
+        {
+            Debug.Log(item.name);
+            items.Add(item);
+        }
     }
+
+    public void Remove(Item item)
+    {
+        if (item != null)
+        {
+            items.Remove(item);
+        }
+    }
+
 }

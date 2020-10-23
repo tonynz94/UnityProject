@@ -7,6 +7,14 @@ public class ItemPickUp : MonoBehaviour
     [SerializeField]
     float radius =1.0f;
 
+    private void Start()
+    {
+        if(gameObject.GetComponent<Item>() == null)
+        {
+            Debug.Log("cant found Item");
+        }
+    }
+
     void Update()
     {
         float distance = (Managers.Game.GetPlayer().transform.position - gameObject.transform.position).magnitude;
@@ -27,6 +35,7 @@ public class ItemPickUp : MonoBehaviour
     void PickUp()
     {
         Debug.Log("Pick it up");
+        FindObjectOfType<UI_Inven>().Add(gameObject.GetComponent<Item>());
         Destroy(gameObject);
     }
 }

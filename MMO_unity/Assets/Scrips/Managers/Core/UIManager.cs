@@ -94,7 +94,6 @@ public class UIManager
         return sceneUI;
     }
 
-
     //name : Prefab의 이름
     //<T> : 스크립트
     public T ShowPopupUI<T>(string name = null) where T : UI_Popup
@@ -115,7 +114,6 @@ public class UIManager
         return popup;
     }
 
-
     //팝업이 다른 방법으로 닫혔을때.
     public void ClosePopupUI(UI_Popup popup)
     {
@@ -131,7 +129,6 @@ public class UIManager
 
         ClosePopupUI();
     }
-
 
     public void ClosePopupUI()
     {

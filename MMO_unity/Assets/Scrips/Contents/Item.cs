@@ -22,16 +22,12 @@ public class Item : MonoBehaviour
     public int Defense { get { return _defense; } set { _defense = value; } }
     public int Critical { get { return _critical; } set { _critical = value; } }
 
-    void WearEquipment()
-    {
-  
-    }
-
     protected virtual void Start()
     {
 
     }
-        public void SetItem(int itemTemplateId)
+
+    public void SetItem(int itemTemplateId)
     {
         Dictionary<int, Data.Item> dict = Managers.Data.ItemDict;
 
