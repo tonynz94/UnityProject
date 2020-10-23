@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
+//Extention 기능을 위해 클래스에 static 삽입
 public static class Extension
 {
     //this로 표시된것으로 this.GetOrAddComponent<T>() << 이렇게 호출 가능.
@@ -16,4 +19,8 @@ public static class Extension
         return go != null && go.activeSelf;
     }
 
+    public static void AddUIEvent(this GameObject go, Action<PointerEventData> action, Define.UIEvent type = Define.UIEvent.Click)
+    {
+        UI_Base.BindEvent(go, action, type);
+    }
 }

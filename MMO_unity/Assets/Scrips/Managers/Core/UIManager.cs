@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//팝업 관리(맨마지막에 켜진 팝업을 가장 먼저 꺼지도록 관리해주는 클래스)
 public class UIManager
 {
-    //현재까지 사용한 팝업
+    //0이면 sort를 하지 않는 UI와 같은 우선순위이기에 10부터 시작.
     int _order = 10;
 
+    //UI_Popup을 상속받고 있음.
     Stack<UI_Popup> _popupStack = new Stack<UI_Popup>();
     UI_Scene _sceneUI = null;
 
@@ -22,8 +24,8 @@ public class UIManager
         }
     }
 
-    //매니저가 아닌 외부에서 팝업이 생겼을때.
-    //2D로 무조건 보이는 UI 
+    //매니저가 아닌 외부에서 팝업이 생겼을때 order에 채워주는 함수.
+    //UI_PopUp 스크립트에서 바로 실행 해 줌
     public void SetCanvas(GameObject go, bool sort = true)
     {
         Canvas canvas = Util.GetOrAddComponent<Canvas>(go);
@@ -37,13 +39,13 @@ public class UIManager
             canvas.sortingOrder = (_order);
             _order++;
         }
-        else
+        else //씬 UI인 경우 
         {
             canvas.sortingOrder = 0;
         }
     }
 
-    //3D 월드 UI 
+    //3D 월드 UI (몬스터 HP)
     public T MakeWorldSpaceUI<T>(Transform parent = null, string name = null) where T : UI_Base
     {
 
@@ -81,10 +83,10 @@ public class UIManager
         if (string.IsNullOrEmpty(name))
             name = typeof(T).Name;  //T스크립트의 이름
 
-        //게임오브젝트 게임씬에 생성 생성
+        //게임오브젝트 게임씬에 생성
         GameObject go = Managers.Resource.Instantiate($"UI/Scene/{name}");
 
-        //Prefab에 스크립트를 추가 또는 가져온다.
+        //Prefab에 스크립트를 가져오고(UI_Button)
         T sceneUI = Util.GetOrAddComponent<T>(go);
         _sceneUI = sceneUI;
         go.transform.SetParent(Root.transform);
@@ -93,15 +95,15 @@ public class UIManager
     }
 
 
-
-    //name은 prefab의 이름
-    //T는 스크립트 컴포넌트
+    //name : Prefab의 이름
+    //<T> : 스크립트
     public T ShowPopupUI<T>(string name = null) where T : UI_Popup
     {
+        //script와 Prefab 이름이 대부분 같음
         if (string.IsNullOrEmpty(name))
             name = typeof(T).Name;  //T스크립트의 이름
 
-        //오브젝트 생성
+        //게임오브젝트 씬에 등장.
         GameObject go = Managers.Resource.Instantiate($"UI/Popup/{name}");
 
         //Prefab에 스크립트를 가져오는 것 함수
@@ -110,7 +112,7 @@ public class UIManager
 
         go.transform.SetParent(Root.transform);
 
-            return popup;
+        return popup;
     }
 
 

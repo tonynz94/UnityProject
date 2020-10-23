@@ -21,7 +21,7 @@ public class Define
         Skill,
     };
 
-public enum Layer
+    public enum Layer
     {
         Monster = 8,
         Ground = 9,

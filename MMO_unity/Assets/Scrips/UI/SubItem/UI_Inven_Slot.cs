@@ -1,14 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
 using UnityEngine;
 
-public class FindChild : MonoBehaviour
+public class UI_Inven_Slot : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        GameObject go = Object.Instantiate("UI",null);
         
     }
 

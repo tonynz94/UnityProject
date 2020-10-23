@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //오브젝트, 컴포넌트 찾을때 필요한 함수들.
+//공통적으로 사용 할 수 있는 기능들을 모아 놓 는 곳
 public class Util 
 {
     public static T GetOrAddComponent<T>(GameObject go) where T : UnityEngine.Component
@@ -13,6 +14,9 @@ public class Util
 
         return component;
     }
+
+
+ //===============자식오브젝트에서의 컴포너틑를 찾는 함수===========
     //게임 오브젝트를 찾는 함수
     public static GameObject FindChild(GameObject go, string name = null, bool recursive = false)
     {

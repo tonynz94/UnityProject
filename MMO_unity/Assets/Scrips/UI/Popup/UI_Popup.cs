@@ -6,8 +6,10 @@ public class UI_Popup : UI_Base
 {
     // Start is called before the first frame update
 
+    //외부에서 드래그앤드롭으로 UI을 열었을 시 체크하기 위함
     public override void Init()
     {
+        //UI가 등장과 동시에 실행이 됨.
         Managers.UI.SetCanvas(gameObject, true);
     }
 

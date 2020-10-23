@@ -24,7 +24,8 @@ public class UI_Inven_Item : UI_Base
         //ItemNameText를 가져와서 해당 텍스트를 바꿔 줌
 
         GameObject Icon = Get<GameObject>((int)GameObjects.ItemIcon);
-        BindEvent( Icon , (PointerEventData evt) => { Debug.Log($"아이템 클릭! {_name} , {evt.position}"); }     );
+        BindEvent(Icon , (PointerEventData evt) => { Debug.Log($"아이템 클릭! {_name} , {evt.position}"); } );
+        //BindEvent(Icon, (PointerEventData evt) => { Transform  }, Define.UIEvent.Drag);
     }
 
     public void SetInfo(string name)
