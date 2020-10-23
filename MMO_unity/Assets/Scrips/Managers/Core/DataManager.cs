@@ -15,10 +15,17 @@ public class DataManager
     
     //Dict
     public Dictionary<int, Data.Stat> StatDict { get; private set; } = new Dictionary<int, Data.Stat>();
-    
+
+    //Item
+    public Dictionary<int, Data.Item> ItemDict { get; private set; } = new Dictionary<int, Data.Item>();
+
+
+    //매니저에서 호출 해주고 있음.
     public void Init()
     {
         StatDict = LoadJson<Data.StatData, int, Data.Stat>("StatData").MakeDict();
+        ItemDict = LoadJson<Data.ItemData, int, Data.Item>("ItemData").MakeDict();
+ 
         //StatData.MakeDIct() 함수를 실행해주고 있음.
     }
 
@@ -27,6 +34,7 @@ public class DataManager
     {
         //파일을 위치를 가져온 후
         TextAsset textAsset = Managers.Resource.Load<TextAsset>($"Data/{path}");
+        Debug.Log(textAsset.text);
         return JsonUtility.FromJson<Loader>(textAsset.text);    //text팡ㄹ로 변환
     }
 }

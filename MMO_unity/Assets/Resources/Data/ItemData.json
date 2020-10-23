@@ -1,0 +1,32 @@
+{
+	"items":[
+			{
+				"itemTemplateId" : "1",
+				"name" : "sword",
+				"attack" : "50",
+				"defense" : "0",
+				"critical" : "5"
+			},
+			{
+				"itemTemplateId" : "2",
+				"name" : "hat",
+				"attack" : "0",
+				"defense" : "5",
+				"critical" : "0"
+			},
+			{
+				"itemTemplateId" : "3",
+				"name" : "upperArmour",
+				"attack" : "0",
+				"defense" : "10",
+				"critical" : "0"
+			},
+			{
+				"itemTemplateId" : "4",
+				"name" : "underArmour",
+				"attack" : "0",
+				"defense" : "5",
+				"critical" : "0"
+			}
+	]
+}

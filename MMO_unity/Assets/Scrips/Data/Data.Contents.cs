@@ -29,7 +29,34 @@ namespace Data
             return dict;
         }
     }
+    #endregion
+    
+    #region Item
+    [Serializable]
+    public class Item
+    {
+        public int itemTemplateId;  //변수의 이름과 json의 이름이 같지 않으면 찾지 못함.
+        public string name;
+        public int attack;
+        public int defense;
+        public int critical;
+    }
+    //인터페이스를 상속받음
+    [Serializable]
+    public class ItemData : ILoader<int, Item>
+    {
+        public List<Item> items = new List<Item>();
+
+        public Dictionary<int, Item> MakeDict()
+        {
+            Dictionary<int, Item> dict = new Dictionary<int, Item>();
+            foreach (Item item in items)
+                dict.Add(item.itemTemplateId, item);
+            return dict;
+        }
+    }
+    #endregion
 }
-#endregion
+
 
 
