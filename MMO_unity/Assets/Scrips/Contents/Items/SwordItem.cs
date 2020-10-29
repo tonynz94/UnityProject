@@ -7,7 +7,7 @@ public class SwordItem : Item
     // Start is called before the first frame update
     protected override void Start()
     {
-        _itemTemplateId = 1;
+        _itemTemplateId = 10001;
         base.SetItem(_itemTemplateId);
     }
 }

@@ -40,18 +40,24 @@ namespace Data
         public int attack;
         public int defense;
         public int critical;
+        public Sprite icon;
     }
     //인터페이스를 상속받음
     [Serializable]
     public class ItemData : ILoader<int, Item>
     {
+        Sprite tempIcon;
         public List<Item> items = new List<Item>();
 
         public Dictionary<int, Item> MakeDict()
         {
             Dictionary<int, Item> dict = new Dictionary<int, Item>();
             foreach (Item item in items)
-                dict.Add(item.itemTemplateId, item);
+            {
+                Debug.Log($"{item.itemTemplateId} , {item}");
+                dict.Add(item.itemTemplateId, item);            
+                dict[item.itemTemplateId].icon = Resources.Load<Sprite>($"Textures/Item/{item.name}");
+            }
             return dict;
         }
     }

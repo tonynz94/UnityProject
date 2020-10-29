@@ -7,7 +7,7 @@ public class UpperArmour : Item
     // Start is called before the first frame update
     protected override void Start()
     {
-        _itemTemplateId = 3;
+        _itemTemplateId = 10003;
         base.SetItem(_itemTemplateId);
     }
 

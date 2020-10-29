@@ -9,7 +9,7 @@ public class GameManager
 {
     //서버와 연동한다는 가정.
     //int(id) <-> 짝을 지은 GameObject 상황(이를 dictionary로 관리)
-    GameObject _player;
+    public GameObject _player;
     HashSet<GameObject> _players = new HashSet<GameObject>();
     HashSet<GameObject> _monsters = new HashSet<GameObject>();
 

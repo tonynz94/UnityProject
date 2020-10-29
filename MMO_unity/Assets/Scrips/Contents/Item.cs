@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Item : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class Item : MonoBehaviour
     protected int _defense;
     [SerializeField]
     protected int _critical;
+    [SerializeField]
+    protected Sprite _icon;
 
 
     public int ItemTemplateId { get { return _itemTemplateId; } set { _itemTemplateId = value; } }
@@ -21,6 +24,8 @@ public class Item : MonoBehaviour
     public int Attack { get { return _attack; } set { _attack = value; } }
     public int Defense { get { return _defense; } set { _defense = value; } }
     public int Critical { get { return _critical; } set { _critical = value; } }
+
+    public Sprite Icon { get { return _icon; } set { Icon = value; } }
 
     protected virtual void Start()
     {

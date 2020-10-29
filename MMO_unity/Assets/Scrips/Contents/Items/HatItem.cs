@@ -7,7 +7,7 @@ public class HatItem : Item
     // Start is called before the first frame update
     protected override void Start()
     {
-        _itemTemplateId = 2;
+        _itemTemplateId = 10002;
         base.SetItem(_itemTemplateId);
     }
 

@@ -35,6 +35,6 @@ public class DataManager
         //파일을 위치를 가져온 후
         TextAsset textAsset = Managers.Resource.Load<TextAsset>($"Data/{path}");
         Debug.Log(textAsset.text);
-        return JsonUtility.FromJson<Loader>(textAsset.text);    //text팡ㄹ로 변환
+        return JsonUtility.FromJson<Loader>(textAsset.text);    //text로 변환
     }
 }

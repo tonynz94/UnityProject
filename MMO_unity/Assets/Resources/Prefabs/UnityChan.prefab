@@ -435,6 +435,8 @@ GameObject:
   - component: {fileID: 3027098544003674595}
   - component: {fileID: 3027098544003674601}
   - component: {fileID: -7564152492329498538}
+  - component: {fileID: -3362635756680198585}
+  - component: {fileID: 6516965619778036534}
   m_Layer: 0
   m_Name: UnityChan
   m_TagString: Player
@@ -565,6 +567,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isUsing: 0
+--- !u!114 &-3362635756680198585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3027098544003708423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abd793236921d9c49b9a4d614fca11a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items: 
+--- !u!114 &6516965619778036534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3027098544003708423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4824ca6c64af54641be442555612095a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3027098544003708425
 GameObject:
   m_ObjectHideFlags: 0
@@ -7018,6 +7045,10 @@ PrefabInstance:
     - target: {fileID: 1221157537074613896, guid: 4d27362e5f84a5247840a8602423a601, type: 3}
       propertyPath: m_Name
       value: Hammer
+      objectReference: {fileID: 0}
+    - target: {fileID: 1221157537074613896, guid: 4d27362e5f84a5247840a8602423a601, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1221157537074613899, guid: 4d27362e5f84a5247840a8602423a601, type: 3}
       propertyPath: m_LocalPosition.x

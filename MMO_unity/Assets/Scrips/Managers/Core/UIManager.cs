@@ -153,4 +153,6 @@ public class UIManager
         CloseAllPopupUI();
         _sceneUI = null;
     }
+
+
 }

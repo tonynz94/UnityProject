@@ -9,7 +9,7 @@ public class UIController : MonoBehaviour
     bool _isInventory = false;
     bool _isEquipment = false;
 
-    UI_Inven _Inven = null;
+    UI_Inventory _Inven;
 
     void Start()
     {
@@ -36,23 +36,23 @@ public class UIController : MonoBehaviour
     {   
         if(_isInventory)
         {
-            _Inven = Managers.UI.ShowPopupUI<UI_Inven>("UI_Inven");
+            _Inven = Managers.UI.ShowPopupUI<UI_Inventory>("UI_Inven");
         }
         else
         {
-            Managers.UI.ClosePopupUI(_Inven);
+            _Inven.ClosePopupUI();
         }
     }
 
     void ShowEquipment()
     {
-        if (_isEquipment)
+       /* if (_isEquipment)
         {
             _Inven = Managers.UI.ShowPopupUI<UI_Inven>("UI_Inven");
         }
         else
         {
             Managers.UI.ClosePopupUI(_Inven);
-        }
+        }*/
     }
 }

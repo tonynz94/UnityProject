@@ -8,6 +8,7 @@ public class GameScene : BaseScene
     // Start is called before the first frame update
 
     Coroutine co;
+    
 
     protected override void Init()
     {
@@ -19,9 +20,10 @@ public class GameScene : BaseScene
         //Managers.UI.ShowSceneUI<UI_Inven>();
 
         gameObject.GetOrAddComponent<CursorController>();
-        
-        GameObject player = Managers.Game.Spawn(Define.WorldObject.Player, "UnityChan");
-        Camera.main.gameObject.GetOrAddComponent<CameraController>().SetPlayer(player);
+
+       GameObject player = Managers.Game.Spawn(Define.WorldObject.Player, "UnityChan");
+
+       Camera.main.gameObject.GetOrAddComponent<CameraController>().SetPlayer(player);
         
 
 

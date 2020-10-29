@@ -6,10 +6,16 @@ public class AAA : MonoBehaviour
 {
     void Start()
     {
-        Debug.Log("AAA : Start");
+        Debug.Log("Action Invoke");
+        Debug.Log(Managers.Instance);
+
     }
-    private void Init()
+    private void Update()
     {
-        Debug.Log("AAA : Init()");
+        Debug.Log(Managers.Instance);
+    }
+    public void Say()
+    {
+        Debug.Log("Hello im AAA Say()");
     }
 }
