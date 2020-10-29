@@ -8,7 +8,6 @@ public class UI_Inventory : UI_Popup
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("UI_Inventory");
         player = Managers.Game.GetPlayer().GetComponent<Inventory>();
 
         player.OnItemChangedCallback -= UpdateUI;
@@ -46,10 +45,8 @@ public class UI_Inventory : UI_Popup
 
     public override void ClosePopupUI()
     {
-        Debug.Log("삭제 Action null");
         player.OnItemChangedCallback = null;
-        base.ClosePopupUI();
-        
+        base.ClosePopupUI();       
     }
 
 }

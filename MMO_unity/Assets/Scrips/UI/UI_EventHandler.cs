@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class UI_EventHandler : MonoBehaviour, IDragHandler, IPointerClickHandler, IEndDragHandler, IBeginDragHandler
 {
@@ -12,7 +13,7 @@ public class UI_EventHandler : MonoBehaviour, IDragHandler, IPointerClickHandler
     //클릭했을때 자동 실행
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (OnClickHandler != null)
+        if (OnClickHandler != null && gameObject.GetComponent<Image>().sprite != null)
             OnClickHandler.Invoke(eventData);
     }
 

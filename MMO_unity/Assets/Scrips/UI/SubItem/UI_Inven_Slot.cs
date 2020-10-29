@@ -7,6 +7,8 @@ using UnityEngine.EventSystems;
 public class UI_Inven_Slot : UI_Base
 {
     GameObject icon;
+    GameObject notifyUI;
+
     Item item;
     enum GameObjects
     {
@@ -20,11 +22,9 @@ public class UI_Inven_Slot : UI_Base
         base.Bind<GameObject>(typeof(GameObjects));
 
         //ItemNameText를 가져와서 해당 텍스트를 바꿔 줌
-
+        notifyUI = Managers.Resource.Load<GameObject>("Prefabs/UI/Popup/UI_Notify");
         icon = Get<GameObject>((int)GameObjects.ItemIcon);
-        Debug.Log($"icon : {icon.name}");
-        Debug.Log($"icon.Image : {  icon.GetComponent<Image>()}");
-        BindEvent(icon, (PointerEventData evt) => { Debug.Log($"아이템 클릭! {_name} , {evt.position}"); });
+        BindEvent(icon, ItemClick);
         Init();
     }
 
@@ -54,5 +54,25 @@ public class UI_Inven_Slot : UI_Base
 
         icon.GetComponent<Image>().sprite = null;
         icon.GetComponent<Image>().enabled = false;
+    }
+
+    public void ItemClick(PointerEventData evt)
+    {
+        //좌클릭시 실행.
+        if(evt.button == PointerEventData.InputButton.Left)
+        {
+            Debug.Log("좌클릭");
+            //커서에 클릭한 아이템의 반투명 이미지를 따라 다니게 함.
+        }
+
+        //우클릭 시
+        else if(evt.button == PointerEventData.InputButton.Right)
+        {
+
+            Object.Instantiate<GameObject>(notifyUI);
+            //착용하시겠습니까?? 노출
+            //확인 -> 장비창에 장착
+            //취소 -> 원상태.
+        }
     }
 }
