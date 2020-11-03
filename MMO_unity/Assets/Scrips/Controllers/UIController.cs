@@ -4,38 +4,47 @@ using UnityEngine;
 
 public class UIController : MonoBehaviour
 {
+    #region singleton
     // Start is called before the first frame update
+
+    //클래스 명으로 접근 가능.
+    public static UIController instance;
+
+    void Awake()
+    {
+        if(instance != null)
+        {
+            Debug.Log("More then one instance of UI controller found!");
+            return;
+        }
+        instance = this;
+    }
+    #endregion
 
     bool _isInventory = false;
     bool _isEquipment = false;
 
     UI_Inventory _Inven;
     UI_Equipment _Equip;
-
-    void Start()
-    {
-  
-    }
     
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            _isInventory = !_isInventory;
             ShowInventory();
         }
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            _isEquipment = !_isEquipment;
             ShowEquipment();
         }
     }
 
-    void ShowInventory()
-    {   
-        if(_isInventory)
+    public void ShowInventory()
+    {
+        _isInventory = !_isInventory;
+        if (_isInventory)
         {
             _Inven = Managers.UI.ShowPopupUI<UI_Inventory>("UI_Inven");
         }
@@ -46,12 +55,12 @@ public class UIController : MonoBehaviour
         }
     }
 
-    void ShowEquipment()
+    public void ShowEquipment()
     {
-       if (_isEquipment)
+        _isEquipment = !_isEquipment;
+        if (_isEquipment)
         {
             _Equip = Managers.UI.ShowPopupUI<UI_Equipment>("UI_Equipment");
-            Debug.Log(_Equip);
         }
         else
         {

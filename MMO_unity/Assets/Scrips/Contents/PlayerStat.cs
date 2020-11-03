@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -45,13 +46,13 @@ public class PlayerStat : Stat
 
     protected override void Start()
     {
+        base.Start();
         _level = 1;
 
         playerUI = GameObject.Find("UI_HPMPEXPBar").GetComponent<UI_PlayerHPBar>();
         Dictionary<int, Data.Stat> dict = Managers.Data.StatDict;
         Data.Stat stat = dict[1];
         SetStat(_level);
-        _defense = 5;
         _moveSpeed = 5.0f;
         _exp = 0;
         _gold = 0;
@@ -63,8 +64,16 @@ public class PlayerStat : Stat
         Dictionary<int, Data.Stat> dict = Managers.Data.StatDict;
         Data.Stat stat = dict[level];
         _hp = stat.maxHp;
-        _attack = stat.attack;
+        _mp = stat.maxMp;
+        
         _maxHp = stat.maxHp;
+        _maxMp = stat.maxMp;
+
+        _attack = stat.attack;
+        _defense = stat.defense;
+        _critical = stat.critical;
+        _evasive = stat.evasive;
+
         playerUI.LevelUp(level);
     }
 

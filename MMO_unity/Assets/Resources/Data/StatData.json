@@ -3,67 +3,111 @@
 		{
 			"level": "0",
 			"maxHp": "0",
+			"maxMp": "0",
 			"attack": "0",
+			"defense":"0",
+			"critical":"0",
+			"evasive":"0",
 			"totalExp": "0"
 		},
 		{
 			"level": "1",
-			"maxHp": "200",
+			"maxHp": "1000",
+			"maxMp": "200",
 			"attack": "20",
+			"defense":"1",
+			"critical":"20",
+			"evasive":"30",
 			"totalExp": "1000"
 		},
 		{
 			"level": "2",
-			"maxHp": "250",
+			"maxHp": "1200",
+			"maxMp": "220",
 			"attack": "25",
+			"defense":"2",
+			"critical":"22",
+			"evasive":"32",
 			"totalExp": "2200"
 		},
 		{
 			"level": "3",
-			"maxHp": "300",
+			"maxHp": "1300",
+			"maxMp": "240",
 			"attack": "40",
+			"defense":"3",
+			"critical":"24",
+			"evasive":"34",
 			"totalExp": "3600"
 		},
 		{
 			"level": "4",
-			"maxHp": "350",
+			"maxHp": "1400",
+			"maxMp": "260",
 			"attack": "50",
+			"defense":"4",
+			"critical":"26",
+			"evasive":"36",
 			"totalExp": "5200"
 		},
 		{
 			"level": "5",
-			"maxHp": "400",
+			"maxHp": "1500",
+			"maxMp": "300",
 			"attack": "55",
+			"defense":"6",
+			"critical":"28",
+			"evasive":"38",
 			"totalExp": "7000"
 		},
 		{
 			"level": "6",
-			"maxHp": "500",
+			"maxHp": "1600",
+			"maxMp": "320",
 			"attack": "60",
+			"defense":"8",
+			"critical":"30",
+			"evasive":"40",
 			"totalExp": "9000"
 		},
 		{
 			"level": "7",
-			"maxHp": "600",
+			"maxHp": "1700",
+			"maxMp": "340",
 			"attack": "70",
+			"defense":"10",
+			"critical":"32",
+			"evasive":"42",
 			"totalExp": "11200"
 		},
 		{
 			"level": "8",
-			"maxHp": "700",
+			"maxHp": "1800",
+			"maxMp": "360",
 			"attack": "75",
+			"defense":"12",
+			"critical":"34",
+			"evasive":"44",
 			"totalExp": "13600"
 		},
 		{
 			"level": "9",
-			"maxHp": "800",
+			"maxHp": "1900",
+			"maxMp": "400",
 			"attack": "80",
+			"defense":"15",
+			"critical":"36",
+			"evasive":"46",
 			"totalExp": "16000"
 		},
 		{
 			"level": "10",
-			"maxHp": "1000",
+			"maxHp": "2000",
+			"maxMp": "420",
 			"attack": "100",
+			"defense":"17",
+			"critical":"38",
+			"evasive":"48",
 			"totalExp": "22000"
 		}
 	]

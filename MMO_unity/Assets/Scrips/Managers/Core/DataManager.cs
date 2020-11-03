@@ -32,9 +32,10 @@ public class DataManager
     //Loader 제네릭은 lLoader라는 클래스나, 인터페이스가 포함되어 있어햐 하는 것. 
     Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
     {
-        //파일을 위치를 가져온 후
+        //파일을 위치를 가져온 후 
         TextAsset textAsset = Managers.Resource.Load<TextAsset>($"Data/{path}");
         Debug.Log(textAsset.text);
+        //json에 있는 값을 변환해줌.
         return JsonUtility.FromJson<Loader>(textAsset.text);    //text로 변환
     }
 }

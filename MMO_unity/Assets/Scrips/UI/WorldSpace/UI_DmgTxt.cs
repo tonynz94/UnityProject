@@ -29,20 +29,29 @@ public class UI_DmgTxt : UI_Base
         transform.position += new Vector3(0, moveSpeed * Time.deltaTime, 0);
     }
 
-    public void SetDmgText(int damage, bool isCritical)
+    public void SetDmgText(int damage, bool isCritical, bool isEvasive, Color color)
     {
-        if (isCritical)
+        if (!isEvasive)
         {
-            
-            gameObject.transform.GetChild(0).GetComponent<TextMesh>().color = Color.red;
-            gameObject.transform.GetChild(0).GetComponent<TextMesh>().fontSize = 45;
-            gameObject.transform.GetChild(0).GetComponent<TextMesh>().text = $"{damage}";
+            if (isCritical)
+            {
+
+                gameObject.transform.GetChild(0).GetComponent<TextMesh>().color = Color.red;
+                gameObject.transform.GetChild(0).GetComponent<TextMesh>().fontSize = 45;
+                gameObject.transform.GetChild(0).GetComponent<TextMesh>().text = $"{damage}";
+            }
+            else
+            {
+                gameObject.transform.GetChild(0).GetComponent<TextMesh>().color = color;
+                gameObject.transform.GetChild(0).GetComponent<TextMesh>().fontSize = 30;
+                gameObject.transform.GetChild(0).GetComponent<TextMesh>().text = $"{damage}";
+            }
         }
         else
         {
-           gameObject.transform.GetChild(0).GetComponent<TextMesh>().color = Color.yellow;
-            gameObject.transform.GetChild(0).GetComponent<TextMesh>().fontSize = 30;
-            gameObject.transform.GetChild(0).GetComponent<TextMesh>().text = $"{damage}";
+            gameObject.transform.GetChild(0).GetComponent<TextMesh>().color = new Vector4(0.37f,0f,1.0f,1);
+            gameObject.transform.GetChild(0).GetComponent<TextMesh>().fontSize = 45;
+            gameObject.transform.GetChild(0).GetComponent<TextMesh>().text = $"MISS";
         }
         
     }

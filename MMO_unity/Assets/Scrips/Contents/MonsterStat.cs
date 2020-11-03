@@ -6,14 +6,12 @@ public class MonsterStat : Stat
 {
     [SerializeField]
     int _monsterExp;
-
-    public GameObject DamageTxt;
+    
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
         _monsterExp = 500;
-        DamageTxt = Managers.Resource.Load<GameObject>("Prefabs/UI/WorldSpace/UI_DamageText");
     }
 
 
@@ -26,17 +24,17 @@ public class MonsterStat : Stat
         //데미지 텍스트의 복사본을 가져옴.
         GameObject go = Object.Instantiate(DamageTxt, transform.position ,Camera.main.transform.rotation);
 
-
-        if (Random.value < 0.7)
-        {        
-            critical = false;
-        }
-        else
+        if (Random.value < attacker.Critical *0.01f)
         {
             damage *= 2;
             critical = true;
         }
-        go.GetComponent<UI_DmgTxt>().SetDmgText(damage, critical);
+        else
+        {
+            critical = false;
+        }
+
+        go.GetComponent<UI_DmgTxt>().SetDmgText(damage, critical, false, Color.yellow);
          
         Hp -= damage;
         if (Hp < 0)

@@ -79,6 +79,7 @@ public class PlayerController : BaseController
         }
     }
 
+    //애니메이션에서 호출해주고 있음.
     void OnHitEvent()
     {
         if(_lockTarget != null)
