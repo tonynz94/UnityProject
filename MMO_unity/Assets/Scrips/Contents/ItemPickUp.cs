@@ -36,7 +36,6 @@ public class ItemPickUp : MonoBehaviour
 
     void PickUp()
     {
-        Debug.Log("Pick it up");
         bool wasPickedUp = player.GetComponent<Inventory>().Add(item.ItemTemplateId);
         
         if(wasPickedUp)

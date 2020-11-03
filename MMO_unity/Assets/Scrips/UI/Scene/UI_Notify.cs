@@ -7,6 +7,10 @@ public class UI_Notify : UI_Popup
 {
 
     GameObject _player;
+    public Data.Item _item;
+
+
+    public Data.Item Item { get { return _item; } set { _item = value; } }
 
     enum GameObjects
     {
@@ -24,15 +28,19 @@ public class UI_Notify : UI_Popup
     // Start is called before the first frame update
     void Start()
     {
-        Get<GameObject>((int)GameObjects.YesButton).GetComponent<Button>().onClick = ;
-        Get<GameObject>((int)GameObjects.NoButton).GetComponent<Button>().onClick = ;
+        Init();
+        //Get<GameObject>((int)GameObjects.YesButton).GetComponent<Button>().onClick = ;
+        //Get<GameObject>((int)GameObjects.NoButton).GetComponent<Button>().onClick = ;
     }
 
     public void OnYesClick()
     {
-        //클릭한 아이템의 정보를 받아와야함.
-        _player.GetComponent<Equipment>().wearItems[]
-        //캐릭터 인벤토리 리스트에 추가하기.
+        if(Item != null)
+            _player.GetComponent<Equipment>().Add(_item);
+
+        _player.GetComponent<Inventory>().Remove(_item.itemTemplateId);
+
+        base.ClosePopupUI();
     }
 
     public void OnNoClick()

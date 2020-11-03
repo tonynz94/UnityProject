@@ -31,7 +31,6 @@ public class Managers : MonoBehaviour
     DataManager _data = new DataManager();
     public static DataManager Data { get { return Instance._data; } }
 
-    static int num = 0;
 
     void Start()
     {

@@ -54,7 +54,7 @@ public class Util
         {
             foreach(T component in go.GetComponentsInChildren<T>())
             {
-                if(string.IsNullOrEmpty(name) || component.name == name)
+                if (string.IsNullOrEmpty(name) || component.name == name)
                 {
                     return component;
                 }

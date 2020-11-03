@@ -19,6 +19,7 @@ public class InputManager
     {
         if(EventSystem.current.IsPointerOverGameObject())   //ui 버튼이 클릭 됐는지.
         {
+            Debug.Log("UI Clicked");
             return;
         }
         if(Input.anyKey && KeyAction != null)

@@ -248,6 +248,7 @@ GameObject:
   - component: {fileID: 7068590888963739421}
   - component: {fileID: 7793639098828988137}
   - component: {fileID: 7934336676879716370}
+  - component: {fileID: 1846221389970836065}
   m_Layer: 5
   m_Name: UI_Notify
   m_TagString: Untagged
@@ -335,6 +336,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1846221389970836065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3040556318575803572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b8010b44d9de6e46ae5789ad5b76226, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4457781541322849699
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,7 +467,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 800463199468808638}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1846221389970836065}
+        m_TargetAssemblyTypeName: UI_Notify, Assembly-CSharp
+        m_MethodName: OnYesClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6375023508572762418
 GameObject:
   m_ObjectHideFlags: 0
@@ -623,7 +648,7 @@ GameObject:
   - component: {fileID: 6397674531422529572}
   - component: {fileID: 9045060020986382825}
   m_Layer: 5
-  m_Name: 'NoButton '
+  m_Name: NoButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -729,4 +754,16 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6397674531422529572}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1846221389970836065}
+        m_TargetAssemblyTypeName: UI_Notify, Assembly-CSharp
+        m_MethodName: OnNoClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

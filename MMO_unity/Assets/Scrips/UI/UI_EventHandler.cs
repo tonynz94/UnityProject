@@ -13,6 +13,7 @@ public class UI_EventHandler : MonoBehaviour, IDragHandler, IPointerClickHandler
     //클릭했을때 자동 실행
     public void OnPointerClick(PointerEventData eventData)
     {
+        Debug.Log("Click");
         if (OnClickHandler != null && gameObject.GetComponent<Image>().sprite != null)
             OnClickHandler.Invoke(eventData);
     }
@@ -27,7 +28,7 @@ public class UI_EventHandler : MonoBehaviour, IDragHandler, IPointerClickHandler
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        throw new NotImplementedException();
+        Debug.Log("Draging");
     }
 
     public void OnEndDrag(PointerEventData eventData)

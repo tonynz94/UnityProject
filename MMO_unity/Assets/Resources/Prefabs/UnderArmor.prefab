@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7647209528767669138}
   - component: {fileID: 4669357364173880932}
   m_Layer: 0
-  m_Name: UnderArmour
+  m_Name: UnderArmor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 7647209528767669141}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.169, y: 0.413, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0

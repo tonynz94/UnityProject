@@ -7,7 +7,7 @@ public class Inventory : MonoBehaviour
 {
     public Action<int> OnItemChangedCallback = null;
 
-    int space = 20;
+    public int space = 20;
 
     //아이템 창 슬롯
     public List<int> items = new List<int>();
@@ -22,25 +22,26 @@ public class Inventory : MonoBehaviour
                 Debug.Log("Not Enough room.");
                 return false;
             }
-            Debug.Log("Add Item");
+
+            items.Add(itemId);
             if (OnItemChangedCallback != null)
             {
-                Debug.Log("Invoke Item");
                 OnItemChangedCallback.Invoke(itemId);
             }
             Debug.Log(transform.gameObject.name);
-            items.Add(itemId);         
+  
         }
         return true;
     }
 
-    public void Remove(int itemId, Sprite icon)
+    public void Remove(int itemId)
     {
         if (itemId != null)
         {
+            items.Remove(itemId);
             if (OnItemChangedCallback != null)
                 OnItemChangedCallback.Invoke(itemId);
-            items.Remove(itemId);
+            
         }
     }
 

@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CCC : BBB
+public class CCC : MonoBehaviour
 {
-    public override void hello()
+    void Start()
     {
-        Debug.Log("CCC : hello");
+       AAA a = GetComponentInParent<AAA>();
+       Debug.Log(a.name);
     }
 }

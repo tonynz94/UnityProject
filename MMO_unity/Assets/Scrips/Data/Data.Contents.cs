@@ -54,7 +54,6 @@ namespace Data
             Dictionary<int, Item> dict = new Dictionary<int, Item>();
             foreach (Item item in items)
             {
-                Debug.Log($"{item.itemTemplateId} , {item}");
                 dict.Add(item.itemTemplateId, item);            
                 dict[item.itemTemplateId].icon = Resources.Load<Sprite>($"Textures/Item/{item.name}");
             }

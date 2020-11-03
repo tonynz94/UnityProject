@@ -9,7 +9,9 @@ public class UI_Inven_Slot : UI_Base
     GameObject icon;
     GameObject notifyUI;
 
-    Item item;
+    Equipment _playerEquip;
+
+    Data.Item _item;
     enum GameObjects
     {
         ItemIcon,
@@ -20,8 +22,7 @@ public class UI_Inven_Slot : UI_Base
     public void Awake()
     {
         base.Bind<GameObject>(typeof(GameObjects));
-
-        //ItemNameText를 가져와서 해당 텍스트를 바꿔 줌
+        _playerEquip =  Managers.Game.GetPlayer().GetComponent<Equipment>();
         notifyUI = Managers.Resource.Load<GameObject>("Prefabs/UI/Popup/UI_Notify");
         icon = Get<GameObject>((int)GameObjects.ItemIcon);
         BindEvent(icon, ItemClick);
@@ -31,10 +32,7 @@ public class UI_Inven_Slot : UI_Base
 
     public override void Init()
     {
-        //바인드 했음. 딕셔너리에 넣어줬음.
         
-       
-        //BindEvent(Icon, (PointerEventData evt) => { Transform  }, Define.UIEvent.Drag);
     }
 
     public void SetInfo(string name)
@@ -44,14 +42,14 @@ public class UI_Inven_Slot : UI_Base
 
     public void AddItem(int itemTemplateId)
     {
+        _item = Managers.Data.ItemDict[itemTemplateId];
         icon.GetComponent<Image>().sprite = Managers.Data.ItemDict[itemTemplateId].icon;
         icon.GetComponent<Image>().enabled = true;
     }
 
     public void ClearSlot()
     {
-        item = null;
-
+        _item = null;
         icon.GetComponent<Image>().sprite = null;
         icon.GetComponent<Image>().enabled = false;
     }
@@ -68,11 +66,8 @@ public class UI_Inven_Slot : UI_Base
         //우클릭 시
         else if(evt.button == PointerEventData.InputButton.Right)
         {
-
-            Object.Instantiate<GameObject>(notifyUI);
-            //착용하시겠습니까?? 노출
-            //확인 -> 장비창에 장착
-            //취소 -> 원상태.
+            UI_Notify notify = Managers.UI.ShowPopupUI<UI_Notify>();
+            notify.Item = _item;
         }
     }
 }

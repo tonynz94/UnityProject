@@ -26,7 +26,6 @@ public abstract class UI_Base : MonoBehaviour
         UnityEngine.Object[] objects = null;
         if (_objects.TryGetValue(typeof(T), out objects) == false)
             return null;
-
         return objects[idx] as T;
     }
     

@@ -29,6 +29,7 @@ public class UIManager
     public void SetCanvas(GameObject go, bool sort = true)
     {
         Canvas canvas = Util.GetOrAddComponent<Canvas>(go);
+        Debug.Log($"canvas : {canvas}");
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
 
         //캔버스 안에 캔버스가 있을 시 부모 캔버스를 무시하고 자기만의  order를 가지는 것을 true
@@ -115,19 +116,20 @@ public class UIManager
     }
 
     //팝업이 다른 방법으로 닫혔을때.
-    public void ClosePopupUI(UI_Popup popup)
+    public bool ClosePopupUI(UI_Popup popup)
     {
         if (_popupStack.Count == 0)
-            return;
+            return false;
 
         //가장 위에있는게 닫아주고 싶은 팝업이 아니라면.
         if(_popupStack.Peek() != popup)
         {
             Debug.Log("Close Popup Fail!");
-            return;
+            return false;
         }
 
         ClosePopupUI();
+        return true;
     }
 
     public void ClosePopupUI()
