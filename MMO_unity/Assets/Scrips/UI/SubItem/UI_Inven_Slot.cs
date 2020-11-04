@@ -21,10 +21,12 @@ public class UI_Inven_Slot : UI_Base
     // Start is called before the first frame  update
     public void Awake()
     {
+        Debug.Log("아이템 slot Awake");
         base.Bind<GameObject>(typeof(GameObjects));
         _playerEquip =  Managers.Game.GetPlayer().GetComponent<Equipment>();
         notifyUI = Managers.Resource.Load<GameObject>("Prefabs/UI/Popup/UI_Notify");
         icon = Get<GameObject>((int)GameObjects.ItemIcon);
+        Debug.Log(icon);
         BindEvent(icon, ItemClick);
         Init();
     }
@@ -43,6 +45,7 @@ public class UI_Inven_Slot : UI_Base
     public void AddItem(int itemTemplateId)
     {
         _item = Managers.Data.ItemDict[itemTemplateId];
+        
         icon.GetComponent<Image>().sprite = Managers.Data.ItemDict[itemTemplateId].icon;
         icon.GetComponent<Image>().enabled = true;
     }

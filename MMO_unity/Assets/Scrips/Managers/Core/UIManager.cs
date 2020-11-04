@@ -29,7 +29,6 @@ public class UIManager
     public void SetCanvas(GameObject go, bool sort = true)
     {
         Canvas canvas = Util.GetOrAddComponent<Canvas>(go);
-        Debug.Log($"canvas : {canvas}");
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
 
         //캔버스 안에 캔버스가 있을 시 부모 캔버스를 무시하고 자기만의  order를 가지는 것을 true

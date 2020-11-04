@@ -50,7 +50,8 @@ public class UIController : MonoBehaviour
         }
         else
         {
-            if(!Managers.UI.ClosePopupUI(_Inven))
+            
+            if (!_Inven.ClosePopupUI())
                 _isInventory = !_isInventory;
         }
     }
@@ -64,7 +65,7 @@ public class UIController : MonoBehaviour
         }
         else
         {
-            if (!Managers.UI.ClosePopupUI(_Equip))
+            if (!_Equip.ClosePopupUI())
                 _isEquipment = !_isEquipment;
         }
     }

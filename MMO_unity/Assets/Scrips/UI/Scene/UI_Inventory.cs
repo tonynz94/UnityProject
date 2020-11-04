@@ -12,6 +12,7 @@ public class UI_Inventory : UI_Popup
 
         player.OnItemChangedCallback -= UpdateUI;
         player.OnItemChangedCallback += UpdateUI;
+        Debug.Log($"OnItemChangedCallback : {player.OnItemChangedCallback}");
         itemsParent = gameObject.transform;
 
         slots = itemsParent.GetComponentsInChildren<UI_Inven_Slot>();
@@ -46,10 +47,10 @@ public class UI_Inventory : UI_Popup
         }
     }
 
-    public override void ClosePopupUI()
+    public override bool ClosePopupUI()
     {
         player.OnItemChangedCallback = null;
-        base.ClosePopupUI();       
+        return base.ClosePopupUI();       
     }
 
 }

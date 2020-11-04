@@ -35,6 +35,12 @@ public class UI_Equipment : UI_Popup
         _player.GetComponent<Equipment>().OnEquipChangedCallback -= UpdateEquipIconUI;
         _player.GetComponent<Equipment>().OnEquipChangedCallback += UpdateEquipIconUI;
 
+        _player.GetComponent<Equipment>().UpdateStatText -= SetStatText;
+        _player.GetComponent<Equipment>().UpdateStatText += SetStatText;
+
+        _player.GetComponent<PlayerStat>().UpdateStatText -= SetStatText;
+        _player.GetComponent<PlayerStat>().UpdateStatText += SetStatText;
+
         Bind<GameObject>(typeof(GameObjects));      
     }
 
@@ -59,9 +65,19 @@ public class UI_Equipment : UI_Popup
         SetStatText();
     }
 
-    public void SetStatText(int updataStat = 0)
+    //랩업, 아이템 장착 해제 실행.
+    public void SetStatText()
     {
+        Debug.Log("스탯 창에 보여지는 값 다시 설정");
+
         PlayerStat stat = _player.GetComponent<PlayerStat>();
+        Equipment equip = _player.GetComponent<Equipment>();
+
+        Debug.Log($"Attack : {equip.SumAttack}");
+        Debug.Log($"Defense : {equip.SumDefense}");
+        Debug.Log($"Critical : {equip.SumCritical}");
+
+
         Get<GameObject>((int)GameObjects.LevelText).GetComponent<Text>().text = $"{stat.Level}";
         Get<GameObject>((int)GameObjects.HPText).GetComponent<Text>().text = $"{stat.MaxHp}";
         Get<GameObject>((int)GameObjects.MPText).GetComponent<Text>().text = $"{stat.MaxMp}";
@@ -69,6 +85,9 @@ public class UI_Equipment : UI_Popup
         Get<GameObject>((int)GameObjects.DefenseText).GetComponent<Text>().text = $"{stat.Defense}";
         Get<GameObject>((int)GameObjects.CriticalText).GetComponent<Text>().text = $"{stat.Critical}";
         Get<GameObject>((int)GameObjects.EvasiveText).GetComponent<Text>().text = $"{stat.Evasive}";
+
+        Debug.Log($"Stat + ItemAttack : {stat.Attack} + {equip.SumAttack}");
+
     }
 
     public void UpdateEquipIconUI(int tempID)
@@ -95,8 +114,18 @@ public class UI_Equipment : UI_Popup
 
         //아이콘을 바꿔주는 동시에 스탯도 바꿔주기.
         equipSlot.GetComponent<Image>().sprite = Managers.Data.ItemDict[tempID].icon;
+        Debug.Log($"{Managers.Data.ItemDict[tempID].name} 장착");
+        SetStatText(); //스탯창에 보여지는 값 바꿔주기.
 
 
+    }
+
+    public override bool ClosePopupUI()
+    {
+        _player.GetComponent<PlayerStat>().UpdateStatText = null;
+        _player.GetComponent<Equipment>().UpdateStatText = null;
+        _player.GetComponent<Equipment>().OnEquipChangedCallback = null;
+        return base.ClosePopupUI();
     }
 
     public void ClickCloseButton()

@@ -14,7 +14,7 @@ public class Inventory : MonoBehaviour
 
     //아이템을 먹으면 이게 실행되어야 함.
     public bool Add(int itemId)
-    {     
+    {
         if(itemId != null)
         {
             if (items.Count >= space)
@@ -27,9 +27,7 @@ public class Inventory : MonoBehaviour
             if (OnItemChangedCallback != null)
             {
                 OnItemChangedCallback.Invoke(itemId);
-            }
-            Debug.Log(transform.gameObject.name);
-  
+            } 
         }
         return true;
     }

@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class PlayerStat : Stat
 {
     public UI_PlayerHPBar playerUI;
+    public GameObject _player;
+    public Action UpdateStatText = null;
 
     [SerializeField]
     int _exp;
@@ -38,6 +40,10 @@ public class PlayerStat : Stat
                 Debug.Log("Level Up");
                 Level = level;
                 SetStat(Level);
+                if (UpdateStatText != null)
+                {
+                    UpdateStatText.Invoke(); //스탯 텍스트 바꿔 줌
+                }
             }
         }
     }
@@ -47,6 +53,7 @@ public class PlayerStat : Stat
     protected override void Start()
     {
         base.Start();
+        _player = Managers.Game.GetPlayer();
         _level = 1;
 
         playerUI = GameObject.Find("UI_HPMPEXPBar").GetComponent<UI_PlayerHPBar>();
@@ -58,10 +65,13 @@ public class PlayerStat : Stat
         _gold = 0;
     }
 
+    //레벨업 시 다시 변경되는 스텟.
     public void SetStat(int level)
     {
         //json의 값들이  Dictionary로 StatDict에 저장되어있음.
         Dictionary<int, Data.Stat> dict = Managers.Data.StatDict;
+        Equipment equipItems = _player.GetComponent<Equipment>();
+
         Data.Stat stat = dict[level];
         _hp = stat.maxHp;
         _mp = stat.maxMp;
@@ -69,12 +79,20 @@ public class PlayerStat : Stat
         _maxHp = stat.maxHp;
         _maxMp = stat.maxMp;
 
-        _attack = stat.attack;
-        _defense = stat.defense;
-        _critical = stat.critical;
+        _attack = stat.attack + equipItems.SumAttack;
+        _defense = stat.defense + equipItems.SumDefense;
+        _critical = stat.critical + equipItems.SumCritical; 
         _evasive = stat.evasive;
 
         playerUI.LevelUp(level);
+
+        
+    }
+
+    public void sumItemsStatAndCharacterStat()
+    {
+        
+
     }
 
     protected override void OnDead(Stat attacker)

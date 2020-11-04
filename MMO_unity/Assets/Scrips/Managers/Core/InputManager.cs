@@ -17,9 +17,8 @@ public class InputManager
     // OnUpdate is called in Manager
     public void OnUpdate()
     {
-        if(EventSystem.current.IsPointerOverGameObject())   //ui 버튼이 클릭 됐는지.
+        if(EventSystem.current.IsPointerOverGameObject())   //ui가 클릭 됐을때 
         {
-            Debug.Log("UI Clicked");
             return;
         }
         if(Input.anyKey && KeyAction != null)
