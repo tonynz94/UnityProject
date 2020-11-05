@@ -52,5 +52,4 @@ public class UI_Inventory : UI_Popup
         player.OnItemChangedCallback = null;
         return base.ClosePopupUI();       
     }
-
 }
