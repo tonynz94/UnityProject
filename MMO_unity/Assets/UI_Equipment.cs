@@ -68,8 +68,6 @@ public class UI_Equipment : UI_Popup
     //랩업, 아이템 장착 해제 실행.
     public void SetStatText()
     {
-        Debug.Log("스탯 창에 보여지는 값 다시 설정");
-
         PlayerStat stat = _player.GetComponent<PlayerStat>();
         Equipment equip = _player.GetComponent<Equipment>();
 
@@ -122,10 +120,13 @@ public class UI_Equipment : UI_Popup
 
     public override bool ClosePopupUI()
     {
-        _player.GetComponent<PlayerStat>().UpdateStatText = null;
-        _player.GetComponent<Equipment>().UpdateStatText = null;
-        _player.GetComponent<Equipment>().OnEquipChangedCallback = null;
-        return base.ClosePopupUI();
+        if(base.ClosePopupUI()){
+            _player.GetComponent<PlayerStat>().UpdateStatText = null;
+            _player.GetComponent<Equipment>().UpdateStatText = null;
+            _player.GetComponent<Equipment>().OnEquipChangedCallback = null;
+            return true;
+        }
+        return false;
     }
 
     public void ClickCloseButton()

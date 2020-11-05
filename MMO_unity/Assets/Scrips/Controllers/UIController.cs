@@ -50,12 +50,7 @@ public class UIController : MonoBehaviour
         }
         else
         {
-            
-<<<<<<< Updated upstream
             if (!_Inven.ClosePopupUI())
-=======
-            if(!_Inven.ClosePopupUI())
->>>>>>> Stashed changes
                 _isInventory = !_isInventory;
         }
     }
@@ -69,12 +64,7 @@ public class UIController : MonoBehaviour
         }
         else
         {
-<<<<<<< Updated upstream
             if (!_Equip.ClosePopupUI())
-=======
-           
-            if (!Managers.UI.ClosePopupUI(_Equip)) 
->>>>>>> Stashed changes
                 _isEquipment = !_isEquipment;
         }
     }

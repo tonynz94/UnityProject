@@ -48,8 +48,12 @@ public class UI_Inventory : UI_Popup
     }
 
     public override bool ClosePopupUI()
-    {
-        player.OnItemChangedCallback = null;
-        return base.ClosePopupUI();       
+    {      
+        if (base.ClosePopupUI())
+        {
+            player.OnItemChangedCallback = null;
+            return true;
+        }
+        return false;
     }
 }
