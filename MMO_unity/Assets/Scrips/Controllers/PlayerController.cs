@@ -55,6 +55,7 @@ public class PlayerController : BaseController
            
             //포지션으로 바로 움직여주는 것이 아닌 navmasAgent로 움직임.
             //정밀도 있게 원하는곳으로 가주지는 않음. 0.0001에서 0.1로 바꿔줘야함.
+            //충돌처리
             Debug.DrawRay(transform.position + Vector3.up * 0.5f, dir.normalized, Color.blue);
             if(Physics.Raycast(transform.position + Vector3.up * 0.5f, dir, 1.0f, LayerMask.GetMask("Block")))
             {

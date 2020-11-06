@@ -54,7 +54,8 @@ public class SpawningPool : MonoBehaviour
         while (true)
         {
             //원을 그려서 랜덤좌표를 가져옴.
-            Vector3 randDir = Random.insideUnitSphere * _spawnRadius;
+            //insideUniteSphere => vector3로 0 ~ 1사이의 값
+            Vector3 randDir = Random.insideUnitSphere * _spawnRadius + new Vector3(52,0,-53);
             randDir.y = 0;
             randPos = _spawnPos + randDir;
 

@@ -5,6 +5,14 @@ using UnityEngine;
 public class Define
 {
     //enum , const, static 은 인스턴스화 하지 않아도 클래스.xx 로 접근 가능
+    namespace SpawnSection
+    {
+        SectionA = new Vector3(1,2,3),
+        SectionB,
+        SectionC,
+    }
+
+
     public enum WorldObject
     {
         Unknown,
