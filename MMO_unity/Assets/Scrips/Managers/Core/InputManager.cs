@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 public class InputManager 
 {
+
     public Action KeyAction = null;
     public Action<Define.MouseEvent> MouseAction = null;
     //반환형, 매개변수가 없는 델리게이트

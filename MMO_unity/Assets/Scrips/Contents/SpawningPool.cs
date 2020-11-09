@@ -55,17 +55,21 @@ public class SpawningPool : MonoBehaviour
         {
             //원을 그려서 랜덤좌표를 가져옴.
             //insideUniteSphere => vector3로 0 ~ 1사이의 값
-            Vector3 randDir = Random.insideUnitSphere * _spawnRadius + new Vector3(52,0,-53);
+            Debug.Log($"Random.insideUnitSphere : {Random.insideUnitSphere}");
+            Vector3 randDir = Random.insideUnitSphere * _spawnRadius;
             randDir.y = 0;
-            randPos = _spawnPos + randDir;
-
+            randPos =   randDir;
+            
             //네비로 갈 수 있는 영역인지 확인하는 것 
             //갈 수 있다면 true
-            NavMeshPath path = new NavMeshPath();
-            if (nma.CalculatePath(randPos, path))
+           NavMeshPath path = new NavMeshPath();
+           if (nma.CalculatePath(randPos, path))
+           {
                 break;
+            }
         }
         _reserveCount--; //0, 1, 2, 3, 4, 5,
         go.transform.position = randPos;
+        Debug.Log($"go : {go}  randPos : {randPos} , goPos : {go.transform.position}");
     }
 }
