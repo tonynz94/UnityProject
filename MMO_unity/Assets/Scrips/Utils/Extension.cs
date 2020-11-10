@@ -13,6 +13,7 @@ public static class Extension
         return Util.GetOrAddComponent<T>(go);
     }
    
+    //go.isValid() << 로 호출가능(매개변수를 앞에서 씀) 
     public static bool isValid(this GameObject go)
     {
         //setActive인 상태인지 확인
