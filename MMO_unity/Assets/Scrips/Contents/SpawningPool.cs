@@ -53,6 +53,7 @@ public class SpawningPool : MonoBehaviour
        
         while (true)
         {
+            yield return null;
             //원을 그려서 랜덤좌표를 가져옴.
             //insideUniteSphere => vector3로 0 ~ 1사이의 값
             Debug.Log($"Random.insideUnitSphere : {Random.insideUnitSphere}");

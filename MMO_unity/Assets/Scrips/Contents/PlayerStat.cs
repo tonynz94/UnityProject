@@ -57,6 +57,7 @@ public class PlayerStat : Stat
         _level = 1;
 
         playerUI = GameObject.Find("UI_HPMPEXPBar").GetComponent<UI_PlayerHPBar>();
+        Debug.Log(playerUI.name);
         Dictionary<int, Data.Stat> dict = Managers.Data.StatDict;
         Data.Stat stat = dict[1];
         SetStat(_level);
@@ -71,6 +72,7 @@ public class PlayerStat : Stat
         //json의 값들이  Dictionary로 StatDict에 저장되어있음.
         Dictionary<int, Data.Stat> dict = Managers.Data.StatDict;
         Equipment equipItems = _player.GetComponent<Equipment>();
+        Debug.Log(_player.name);
 
         Data.Stat stat = dict[level];
         _hp = stat.maxHp;
