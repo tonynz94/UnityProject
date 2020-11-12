@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BBB 
+public class BBB
 {
     public virtual void hello()
     {
@@ -13,4 +13,5 @@ public class BBB
     {
         Debug.Log("Hello BBB Start()");
     }
+
 }

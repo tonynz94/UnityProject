@@ -7,28 +7,16 @@ public class AAA : MonoBehaviour
 {
     public void Start()
     {
-        foreach(int t in CoExample())
-        {
-            Debug.Log(t);
-        }
+        Debug.Log("AAA 스타트 ");
     }
 
-    public void LoadLevel(int sceneIndex)
+    public void Update()
     {
-        StartCoroutine(LoadAsynScene(sceneIndex));
+        Debug.Log("AAA 업데이트");
     }
 
-    IEnumerator LoadAsynScene(int sceneIndex)
+    public AAA()
     {
-        Debug.Log("Inside IEnumaerator");
-            yield return null;
-    }
-
-
-    IEnumerable<int> CoExample()
-    {
-        yield return 2;
-        yield return 3;
-        yield return 4;
+        Debug.Log("AAA 생성자");
     }
 }

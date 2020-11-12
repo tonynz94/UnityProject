@@ -23,6 +23,7 @@ public abstract class BaseController : MonoBehaviour
         {
             _state = value;
 
+            Debug.Log((int)_state);
             Animator anim = GetComponent<Animator>();
 
             switch (_state)
@@ -31,7 +32,8 @@ public abstract class BaseController : MonoBehaviour
                     //croofade 2번째 인자 => 어느정도 시간이 걸려서 넘어 갈것인지.           
                     break;
                 case Define.State.Idle:
-                    anim.CrossFade("WAIT", 0.1f);
+                    Debug.Log("멈춤");
+                    anim.CrossFade("IDLE", 0.1f);
                     break;
                 case Define.State.Moving:
                     anim.CrossFade("RUN", 0.1f);
@@ -39,6 +41,9 @@ public abstract class BaseController : MonoBehaviour
                 case Define.State.Skill:
                     //ATTACK에 0.1초의 진입시간, layer는 필요 없기에 -1, 마지막은 다시 하면 0(처음부터) 다시 실행 되는 것.
                     anim.CrossFade("ATTACK", 0.1f, -1, 0);
+                    break;
+                case Define.State.Walk:
+                    anim.CrossFade("WALK", 0.1f);
                     break;
             }
         }
@@ -49,7 +54,7 @@ public abstract class BaseController : MonoBehaviour
         Init();
     }
    
-    void Update()
+    protected void Update()
     {
         switch (State)
         {
@@ -65,6 +70,9 @@ public abstract class BaseController : MonoBehaviour
             case Define.State.Skill:
                 UpdateSkill();
                 break;
+            case Define.State.Walk:
+                UpdateWalk();
+                break;
         }
     }
    public abstract void Init();
@@ -72,4 +80,6 @@ public abstract class BaseController : MonoBehaviour
    protected virtual void UpdateSkill() { }
    protected virtual void UpdateDie() { }
    protected virtual void UpdateIdle() { }
+   protected virtual void UpdateWalk() { }
+   
 }

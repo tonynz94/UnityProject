@@ -12,11 +12,12 @@ public class MinimapController : MonoBehaviour
         _player = Managers.Game.GetPlayer();    
     }
 
-    void Update()
+    void LateUpdate()
     {
-        Vector3 pos = _player.transform.position;
-        gameObject.transform.position = new Vector3(pos.x, gameObject.transform.position.y, pos.z);
+        Vector3 newPos = _player.transform.position;
+        newPos.y = transform.position.y;
+        transform.position = newPos;
+
+        //transform.rotation = Quaternion.Euler(90f, _player.transform.eulerAngles.y, 0f);
     }
-
-
 }

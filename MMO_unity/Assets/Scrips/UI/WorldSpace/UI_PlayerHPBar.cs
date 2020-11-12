@@ -61,10 +61,7 @@ public class UI_PlayerHPBar : UI_Base
 
     public void LevelUp(int level)
     {
-        Debug.Log("dd");
         Text h = GetObject((int)GameObjects.LevelNumText).GetComponent<Text>();
-        Debug.Log(h.name);
         h.text = $"{level}";
-        Debug.Log("aa");
     }
 }

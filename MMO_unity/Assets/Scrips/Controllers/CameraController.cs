@@ -23,6 +23,7 @@ public class CameraController : MonoBehaviour
     {
         if (_mode == Define.CameraMode.QuterView)
         {
+            //카메라가 앞에 Block이 있는지 확인하는 코드.
             if (Physics.Raycast(_player.transform.position, _delta, out hit, _delta.magnitude, 1 << (int)Define.Layer.Block))
             {
                 float dist = (hit.point - _player.transform.position).magnitude * 0.8f;

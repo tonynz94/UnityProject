@@ -929,10 +929,11 @@ GameObject:
   m_Component:
   - component: {fileID: 7516096696602180143}
   - component: {fileID: 7516096696602180142}
+  - component: {fileID: -6096895361887448627}
+  - component: {fileID: -8970126023633508714}
   - component: {fileID: 7516096696602180136}
   - component: {fileID: 8358240746944703769}
   - component: {fileID: 2608421175558038054}
-  - component: {fileID: -6096895361887448627}
   m_Layer: 8
   m_Name: Knight
   m_TagString: Untagged
@@ -948,7 +949,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7516096696602180139}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -24.819721, y: 22.21512, z: 32.19814}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7516096697753183905}
@@ -981,6 +982,44 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!195 &-6096895361887448627
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7516096696602180139}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!54 &-8970126023633508714
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7516096696602180139}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 4
+  m_CollisionDetection: 0
 --- !u!136 &7516096696602180136
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1010,6 +1049,7 @@ MonoBehaviour:
   _desPos: {x: 0, y: 0, z: 0}
   _lockTarget: {fileID: 0}
   _state: 2
+  _firstSpawnPos: {x: 0, y: 0, z: 0}
   _scanRange: 10
   _attackRange: 2
 --- !u!114 &2608421175558038054
@@ -1036,28 +1076,6 @@ MonoBehaviour:
   _evasive: 0
   _moveSpeed: 0
   _monsterExp: 0
---- !u!195 &-6096895361887448627
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7516096696602180139}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!1 &7516096696672709481
 GameObject:
   m_ObjectHideFlags: 0

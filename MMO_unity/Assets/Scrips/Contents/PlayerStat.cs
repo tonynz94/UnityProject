@@ -53,15 +53,15 @@ public class PlayerStat : Stat
     protected override void Start()
     {
         base.Start();
+       
         _player = Managers.Game.GetPlayer();
         _level = 1;
 
         playerUI = GameObject.Find("UI_HPMPEXPBar").GetComponent<UI_PlayerHPBar>();
-        Debug.Log(playerUI.name);
         Dictionary<int, Data.Stat> dict = Managers.Data.StatDict;
         Data.Stat stat = dict[1];
         SetStat(_level);
-        _moveSpeed = 5.0f;
+        _moveSpeed = 20.0f; //임시<<<<<<<<<<<<<<<<<<<
         _exp = 0;
         _gold = 0;
     }

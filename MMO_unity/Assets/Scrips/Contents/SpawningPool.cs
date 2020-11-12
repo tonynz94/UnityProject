@@ -56,21 +56,28 @@ public class SpawningPool : MonoBehaviour
             yield return null;
             //원을 그려서 랜덤좌표를 가져옴.
             //insideUniteSphere => vector3로 0 ~ 1사이의 값
-            Debug.Log($"Random.insideUnitSphere : {Random.insideUnitSphere}");
-            Vector3 randDir = Random.insideUnitSphere * _spawnRadius;
-            randDir.y = 0;
-            randPos =   randDir;
+            Vector3 randDir = Random.insideUnitSphere * _spawnRadius + Define.sectionA;
+            randDir.y = 100.0f;
+            
+
+            RaycastHit hit;
+
+            Debug.DrawRay(randDir, Vector3.down * 100.0f ,Color.red,1);
+           
+            //만약 해당 장소에 출돌을 한다면. 
+            if (Physics.Raycast(randDir, Vector3.down, out hit,100.0f, LayerMask.GetMask("Ground")))
+            {
+                randPos = hit.point;
+                randPos.y = randPos.y + 0.3f;
+                break;                          
+            }
             
             //네비로 갈 수 있는 영역인지 확인하는 것 
             //갈 수 있다면 true
-           NavMeshPath path = new NavMeshPath();
-           if (nma.CalculatePath(randPos, path))
-           {
-                break;
-            }
+           
+           
         }
         _reserveCount--; //0, 1, 2, 3, 4, 5,
         go.transform.position = randPos;
-        Debug.Log($"go : {go}  randPos : {randPos} , goPos : {go.transform.position}");
     }
 }

@@ -8,7 +8,14 @@ public class PlayerController : BaseController
     int _mask = (1 << (int)Define.Layer.Ground) | (1 << (int)Define.Layer.Monster);
 
     public PlayerStat _stat;
+    
+
     bool _stopSkill = false;
+
+    public GameObject _scanObject = null;
+    public GameObject _speekingNPC;
+    public GameObject _guideText;
+    float _radius = 1.0f;
 
     public override void Init()
     {
@@ -19,6 +26,21 @@ public class PlayerController : BaseController
         //Managers.Input.KeyAction += OnKeyBoard;
         Managers.Input.MouseAction -= OnMouseEvent;
         Managers.Input.MouseAction += OnMouseEvent;
+    }
+
+    void Update()
+    {
+        base.Update();
+        /*float distance = transform.position - gameObject.transform.position).magnitude;
+        if (distance <= radius)
+        {
+            _player.GetComponent<PlayerController>()._scanObject = gameObject;
+        }
+        else
+        {
+            _player.GetComponent<PlayerController>()._scanObject = null;
+        }*/
+
     }
 
     protected override void UpdateMoving()
@@ -160,27 +182,21 @@ public class PlayerController : BaseController
         }
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(gameObject.transform.position, _radius);
+    }
+
     void OnKeyBoard()
     {
+        /*
         if (Input.GetKey(KeyCode.W))
         {
             transform.position += (Vector3.forward * Time.deltaTime * _stat.MoveSpeed);
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.forward), 0.2f);
         }
-        if (Input.GetKey(KeyCode.S))
-        {
-            transform.position += (Vector3.back * Time.deltaTime * _stat.MoveSpeed);
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.back), 0.2f);
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.position += (Vector3.left * Time.deltaTime * _stat.MoveSpeed);
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.left), 0.2f);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.position += (Vector3.right * Time.deltaTime * _stat.MoveSpeed);
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right), 0.2f);
-        }
+        */ 
     }
+
 }

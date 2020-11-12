@@ -5,7 +5,7 @@ using UnityEngine;
 public class Define
 {
     //Spawn Position
-    public static Vector3 sectionA = new Vector3(130 , 0 , -244);
+    public static Vector3 sectionA = new Vector3(-20.91f , 21.7f , 30.39f);
 
     public enum WorldObject
     {
@@ -21,6 +21,7 @@ public class Define
         Moving,
         Idle,
         Skill,
+        Walk,
     };
 
     public enum Layer
