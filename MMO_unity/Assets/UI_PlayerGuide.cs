@@ -26,14 +26,15 @@ public class UI_PlayerGuide : UI_Base
 
     }
     // Start is called before the first frame update
+    void Start()
+    {
+        _guideText.transform.rotation = Camera.main.transform.rotation;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 look = Camera.main.transform.position - transform.position;
-        _guideText.transform.rotation = Camera.main.transform.rotation;
         NearNPC();
-
     }
 
     void NearNPC()
@@ -51,7 +52,6 @@ public class UI_PlayerGuide : UI_Base
             {
                 _guideText.SetActive(false);
                 _scanObject = null;
-                Debug.Log("대화대화");
             }
         }
         else
@@ -62,9 +62,6 @@ public class UI_PlayerGuide : UI_Base
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("충돌");
-        //만약 NPC가 앞에 있다면.
-        Debug.Log($"other : {other.gameObject.layer} || {LayerMask.NameToLayer("NPC")}");
         if (other.gameObject.layer == LayerMask.NameToLayer("NPC"))
         {
             _speech = "대화하기 [F]";

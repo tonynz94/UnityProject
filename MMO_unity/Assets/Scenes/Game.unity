@@ -17118,6 +17118,23 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6105469967883582469, guid: e8de7a054cfd06742b288dcf8e53913e, type: 3}
   m_PrefabInstance: {fileID: 512562589}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1407628526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1407628525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb0c6273978be9c4da7d95d4fb0233b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _desPos: {x: 0, y: 0, z: 0}
+  _lockTarget: {fileID: 0}
+  _state: 2
+  radius: 1
+  _speech: "\uC5B4\uC11C\uC640 \uCC98\uC74C\uBCF4\uB294 \uC5BC\uAD74\uC778\uB370??"
 --- !u!135 &1407628528
 SphereCollider:
   m_ObjectHideFlags: 0
