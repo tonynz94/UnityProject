@@ -31,6 +31,9 @@ public class Managers : MonoBehaviour
     DataManager _data = new DataManager();
     public static DataManager Data { get { return Instance._data; } }
 
+    TalkManager _talk = new TalkManager();
+    public static TalkManager Talk { get { return Instance._talk; } }
+
     void Start()
     {
         init();

@@ -9,21 +9,20 @@ public class NPCController : BaseController
 
     [SerializeField]
     string _speech;
+    [SerializeField]
+    string _name;
+    [SerializeField]
+    Sprite _image;
 
     GameObject _player;
 
-
-    public string Speech { get { return _speech} };
-
+    public string Speech { get { return _speech; } }
+    public string Name { get { return _name; } }
+    public Sprite image { get { return _image; } }
 
     public override void Init()
     {
         _player = Managers.Game.GetPlayer();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

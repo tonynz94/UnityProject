@@ -14,35 +14,37 @@ public class UI_PlayerGuide : UI_Base
         GuideText,
     }
 
-    private void Awake()
-    {
-        base.Bind<GameObject>(typeof(GameObjects));
-    }
-
     public override void Init()
     {
+        base.Bind<GameObject>(typeof(GameObjects));
         _guideText = Get<GameObject>((int)GameObjects.GuideText);
+
+
         _guideText.SetActive(false);
 
     }
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
-        _guideText.transform.rotation = Camera.main.transform.rotation;
+
+        base.Start();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        _guideText.transform.rotation = Camera.main.transform.rotation;
         NearNPC();
     }
 
     void NearNPC()
     {
+        //상대가 존재한다면.
         if (_scanObject != null)
         {
             //off 되어 있다면.
-            if (!_guideText.active)
+            if (!_guideText.active && !(Managers.Talk._isTalking))
             {           
                 _guideText.SetActive(true);
                 _guideText.GetComponent<Text>().text = _speech;
@@ -51,7 +53,12 @@ public class UI_PlayerGuide : UI_Base
             if (Input.GetKeyDown(KeyCode.F))
             {
                 _guideText.SetActive(false);
-                _scanObject = null;
+                Managers.Talk._isTalking = !Managers.Talk._isTalking;
+
+                if(Managers.Talk._isTalking)
+                    Managers.Talk.TalkNPC(_scanObject , true); //대화창을 뛰움
+                else
+                    Managers.Talk.TalkNPC(null, false);
             }
         }
         else
@@ -65,7 +72,7 @@ public class UI_PlayerGuide : UI_Base
         if (other.gameObject.layer == LayerMask.NameToLayer("NPC"))
         {
             _speech = "대화하기 [F]";
-            _scanObject = gameObject;
+            _scanObject = other.gameObject;
         }
     }
 

@@ -22,6 +22,10 @@ public class InputManager
         {
             return;
         }
+
+        if (Managers.Talk._isTalking)
+            return;
+
         if(Input.anyKey && KeyAction != null)
         {
             KeyAction.Invoke();
