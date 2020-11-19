@@ -19,13 +19,26 @@ public class UI_PlayerHPBar : UI_Base
         EXPText,
         LevelNumText,
         LevelText,
+
+        BackGroundQ,
+        BackGroundW,
+        BackGroundE,
+        BackGroundR,
     }
 
     public override void Init()
     {
         base.Bind<GameObject>(typeof(GameObjects));
         _player = Managers.Game.GetPlayer();
+
+        //skill Attach
+        _player.GetComponent<PlayerController>().skillList.Add(Get<GameObject>((int)GameObjects.BackGroundQ).GetComponent<UI_SkillButton>());
+        _player.GetComponent<PlayerController>().skillList.Add(Get<GameObject>((int)GameObjects.BackGroundW).GetComponent<UI_SkillButton>());
+        _player.GetComponent<PlayerController>().skillList.Add(Get<GameObject>((int)GameObjects.BackGroundE).GetComponent<UI_SkillButton>());
+        _player.GetComponent<PlayerController>().skillList.Add(Get<GameObject>((int)GameObjects.BackGroundR).GetComponent<UI_SkillButton>());
+
         _playerStat = _player.GetComponent<PlayerStat>();
+
     }
 
     // Update is called once per frame

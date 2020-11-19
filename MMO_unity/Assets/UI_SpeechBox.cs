@@ -3,63 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_SpeechBox : UI_Base
+public class UI_SpeechBox : UI_Popup
 {
     public int talkIndex;
+    
+    Text _nameBox;
+    Text _speechBox;
+
+    int _screenPlayIndex;
     enum GameObjects
     {
         TalkText,
         NameText,
     }
 
-    public override void Init()
+    // Start is called before the first frame update
+    public void Awake()
     {
         Bind<GameObject>(typeof(GameObjects));
+        _speechBox = Get<GameObject>((int)GameObjects.TalkText).GetComponent<Text>();
+        _nameBox = Get<GameObject>((int)GameObjects.NameText).GetComponent<Text>();
+        _screenPlayIndex = 0;
+
+    }
+
+    public bool TalkingAction(int NpcId)
+    {
+        int questTalkIndex = Managers.Quest.GetQuestTalkIndex(NpcId);
+        if (Managers.Data.NpcDict[NpcId + questTalkIndex].screenPlay.Length == _screenPlayIndex) 
+            return true;
+
         
-        Managers.Talk.NearNPCDownButtonF -= TalkingAction;
-        Managers.Talk.NearNPCDownButtonF += TalkingAction;
-        gameObject.SetActive(false); 
+
+        _nameBox.text = Managers.Data.NpcDict[NpcId + questTalkIndex].name;
+        _speechBox.text = Managers.Data.NpcDict[NpcId + questTalkIndex].screenPlay[_screenPlayIndex++];
+        return false;
     }
-
-    // Start is called before the first frame update
-    public override void Start()
-    {
-        base.Start();
-
-    }
-
-    // Update is called once per frame
-    public void TalkingAction(GameObject scanObj, bool isTalking)
-    {
-        //대화가 시작되면 스피치박스를 켜 줌.
-        if (isTalking)
-        {
-            gameObject.SetActive(true);
-            Text speechBox = Get<GameObject>((int)GameObjects.TalkText).GetComponent<Text>();
-            Text nameBox = Get<GameObject>((int)GameObjects.NameText).GetComponent<Text>();
-
-            NPCController npc = scanObj.GetComponent<NPCController>();
-
-            speechBox.text = npc.Speech;
-            nameBox.text = npc.Name;
-        }
-        else
-        {
-            gameObject.SetActive(false);
-        }
-    }
-
-
-    public void TalkingAction(int id, bool isTalking)
-    {
-        string talkData = Managers.Talk.GetTalk(id, talkIndex);
-
-        Text speechBox = Get<GameObject>((int)GameObjects.TalkText).GetComponent<Text>();
-        Text nameBox = Get<GameObject>((int)GameObjects.NameText).GetComponent<Text>();
-
-        speechBox.text = talkData;
-        nameBox.text = talkData;
-    }
-
-
 }

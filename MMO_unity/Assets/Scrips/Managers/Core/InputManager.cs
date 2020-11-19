@@ -9,6 +9,7 @@ public class InputManager
 
     public Action KeyAction = null;
     public Action<Define.MouseEvent> MouseAction = null;
+
     //반환형, 매개변수가 없는 델리게이트
     // Start is called before the first frame update
 
@@ -18,19 +19,23 @@ public class InputManager
     // OnUpdate is called in Manager
     public void OnUpdate()
     {
-        if(EventSystem.current.IsPointerOverGameObject())   //ui가 클릭 됐을때 
-        {
-            return;
-        }
-
-        if (Managers.Talk._isTalking)
-            return;
-
-        if(Input.anyKey && KeyAction != null)
+        if (KeyAction != null)
         {
             KeyAction.Invoke();
         }
 
+        if (EventSystem.current.IsPointerOverGameObject())   //ui가 클릭 됐을때 
+        {
+            return;
+        }
+
+        if (Managers.Game.GetPlayer().GetComponent<PlayerController>()._isTalking) //대화하고 있을 시.
+        {
+            Debug.Log("Talking Action");
+            return;
+        }
+
+        Debug.Log("Mouse Action");
         if(MouseAction != null)
         {
             if(Input.GetMouseButton(1)) //누르고 있으면 True

@@ -22,6 +22,11 @@ public class Define
         Idle,
         Skill,
         Walk,
+
+        SkillQ,
+        SkillW,
+        SkillE,
+        SkillR,
     };
 
     public enum Layer

@@ -34,6 +34,8 @@ public class Managers : MonoBehaviour
     TalkManager _talk = new TalkManager();
     public static TalkManager Talk { get { return Instance._talk; } }
 
+    QuestManager _quest = new QuestManager();
+    public static QuestManager Quest { get { return Instance._quest; } }
     void Start()
     {
         init();

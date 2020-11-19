@@ -23,7 +23,6 @@ public abstract class BaseController : MonoBehaviour
         {
             _state = value;
 
-            Debug.Log((int)_state);
             Animator anim = GetComponent<Animator>();
 
             switch (_state)
@@ -32,7 +31,6 @@ public abstract class BaseController : MonoBehaviour
                     //croofade 2번째 인자 => 어느정도 시간이 걸려서 넘어 갈것인지.           
                     break;
                 case Define.State.Idle:
-                    Debug.Log("멈춤");
                     anim.CrossFade("IDLE", 0.1f);
                     break;
                 case Define.State.Moving:

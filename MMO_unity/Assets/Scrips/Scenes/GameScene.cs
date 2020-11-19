@@ -14,8 +14,10 @@ public class GameScene : BaseScene
     {
         base.Init();
 
-        SceneType = Define.Scene.Game;
+        Managers.Quest._questId = 10;
 
+        SceneType = Define.Scene.Game;
+        
         //인벤토리 열기
         //Managers.UI.ShowSceneUI<UI_Inven>();
 

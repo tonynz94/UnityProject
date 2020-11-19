@@ -19,13 +19,24 @@ public class DataManager
     //Item
     public Dictionary<int, Data.Item> ItemDict { get; private set; } = new Dictionary<int, Data.Item>();
 
+    //NPC
+    public Dictionary<int, Data.NPC> NpcDict { get; private set; } = new Dictionary<int, Data.NPC>();
+
+    //Quest
+    public Dictionary<int, Data.Quest> QuestDict {get; private set; } = new Dictionary<int, Data.Quest>(); 
+
+    //Quest
+    //public Dictionary<int,>
+
 
     //매니저에서 호출 해주고 있음.
     public void Init()
     {
         StatDict = LoadJson<Data.StatData, int, Data.Stat>("StatData").MakeDict();
         ItemDict = LoadJson<Data.ItemData, int, Data.Item>("ItemData").MakeDict();
- 
+        NpcDict = Data.NPCData.MakeDict();
+        QuestDict = Data.QuestData.MakeDict();
+
         //StatData.MakeDIct() 함수를 실행해주고 있음.
     }
 

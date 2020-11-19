@@ -15,15 +15,29 @@ public class PlayerController : BaseController
     public GameObject _scanObject = null;
     public GameObject _speekingNPC;
     public GameObject _guideText;
+
     float _radius = 1.0f;
+
+    //수확 , 대화 관련 변수들
+    UI_SpeechBox _speechBox;
+    public bool _isTalking;
+    int _npcID;
+
+    UI_Loading _LoadingBar;
+    public bool _isPressingF;
+
+
+    //Skills
+    public List<UI_SkillButton> skillList = new List<UI_SkillButton>();
+
 
     public override void Init()
     {
         WorldObjectType = Define.WorldObject.Player;
         _stat = gameObject.GetComponent<PlayerStat>();
 
-        //Managers.Input.KeyAction -= OnKeyBoard;
-        //Managers.Input.KeyAction += OnKeyBoard;
+        Managers.Input.KeyAction -= OnKeyBoard;
+        Managers.Input.KeyAction += OnKeyBoard;
         Managers.Input.MouseAction -= OnMouseEvent;
         Managers.Input.MouseAction += OnMouseEvent;
     }
@@ -182,21 +196,148 @@ public class PlayerController : BaseController
         }
     }
 
+    void OnKeyBoard()
+    {
+       
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Debug.Log("F 키를 눌름 ");
+            if (_scanObject == null)
+                return;
+
+            _isTalking = true;
+            _guideText.SetActive(false);
+            _npcID = _scanObject.GetComponent<ObjData>()._NpcId;
+
+            if (_scanObject.layer == LayerMask.NameToLayer("NPC"))
+            {
+                SpeakWithNpc(_npcID);
+            }
+            else if (_scanObject.layer == LayerMask.NameToLayer("Collecting"))
+            {
+                _isPressingF = true;
+                CollectingThings();
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.F))
+        {
+            Debug.Log("키를 땜");
+            _isTalking = false;
+            _isPressingF = false;
+            CollectingThings();
+        }
+
+        //만약 말하고 있다면 스킬 사용 불가.
+        if (_isTalking)
+            return;
+
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            skillList[0].Ability(5.0f);
+        }
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            skillList[1].Ability(5.0f);
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            skillList[2].Ability(5.0f);
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            skillList[3].Ability(5.0f);
+        }
+    }
+
+    void SpeakWithNpc(int npcId)
+    {
+        //첫 대화인것.
+        if(_speechBox == null)
+            _speechBox = Managers.UI.ShowPopupUI<UI_SpeechBox>("UI_Speech");
+
+        //true이면 대화가 끝났다는 것.
+        if (_speechBox.TalkingAction(npcId))
+        {
+            _isTalking = false;
+            _guideText.SetActive(true);
+
+            Managers.UI.ClosePopupUI(_speechBox);
+            _speechBox = null;
+        }
+    }
+
+    void CollectingThings()
+    {
+
+        if (_LoadingBar == null)
+        {
+            _LoadingBar = Managers.UI.ShowPopupUI<UI_Loading>("UI_Loading");
+            _LoadingBar.LoadingStart(4.0f, "수확 중");
+        }
+
+        Debug.Log("수확 중");
+        if (_isPressingF == false)
+        {
+            Debug.Log("수확실패");         
+            Managers.UI.ClosePopupUI(_LoadingBar);
+        }
+        else
+        {
+            if (_LoadingBar._isFinished)
+            {
+                Managers.UI.ClosePopupUI(_LoadingBar);
+                Debug.Log("수확성공");
+            }
+        }
+    }
+
+    public void LoadingSuccess(bool isFinished)
+    {
+        if (isFinished)
+        {
+            _isTalking = false;
+            _isPressingF = false;
+            Managers.UI.ClosePopupUI(_LoadingBar);
+            Debug.Log("수확 성공");
+        }
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(gameObject.transform.position, _radius);
     }
 
-    void OnKeyBoard()
+    private void OnTriggerEnter(Collider other)
     {
-        /*
-        if (Input.GetKey(KeyCode.W))
-        {
-            transform.position += (Vector3.forward * Time.deltaTime * _stat.MoveSpeed);
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.forward), 0.2f);
+        if (other.gameObject.layer == LayerMask.NameToLayer("NPC"))
+        {    
+            _guideText.SetActive(true);
+            _guideText.GetComponent<UI_PlayerGuide>()._speech = "대화하기 [F]";
+            _scanObject = other.gameObject;
         }
-        */ 
+
+        if (other.gameObject.layer == LayerMask.NameToLayer("Collecting"))
+        {         
+            _guideText.SetActive(true);
+            _guideText.GetComponent<UI_PlayerGuide>()._speech = "수확하기 [F]";
+            _scanObject = other.gameObject;
+        }
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if ((other.gameObject.layer == (LayerMask.NameToLayer("NPC")) ||
+            (other.gameObject.layer == LayerMask.NameToLayer("Collecting"))))
+        {
+            _guideText.SetActive(false);
+            _scanObject = null;
+        }
+    }
+
 
 }
