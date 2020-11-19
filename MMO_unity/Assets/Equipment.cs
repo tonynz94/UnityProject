@@ -13,6 +13,8 @@ public class Equipment : MonoBehaviour
     public Dictionary<string ,int> wearItems = new Dictionary<string, int>();
     public int num;
 
+    public GameObject _rightHand;
+
     //아이템을 클릭 시 실행.
 
     int sumAttack;

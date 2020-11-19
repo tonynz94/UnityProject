@@ -6082,6 +6082,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   num: 0
+  rightHand: {fileID: 9093404014492855244}
 --- !u!195 &8267770310661349675
 NavMeshAgent:
   m_ObjectHideFlags: 0

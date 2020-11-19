@@ -94,7 +94,7 @@ public class UI_Equipment : UI_Popup
  
         if (Managers.Data.ItemDict[tempID].name == "hat")
             equipSlot = Get<GameObject>((int)GameObjects.UI_Hat_Slot);
-        else if (Managers.Data.ItemDict[tempID].name == "weapon")
+        else if (Managers.Data.ItemDict[tempID].name == "weapon")   //무기 장착
             equipSlot = Get<GameObject>((int)GameObjects.UI_Weapon_Slot);
         else if (Managers.Data.ItemDict[tempID].name == "shoe")
             equipSlot = Get<GameObject>((int)GameObjects.UI_Shoe_Slot);
