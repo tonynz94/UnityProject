@@ -8,10 +8,9 @@ public class ItemPickUp : MonoBehaviour
     float radius =1.0f;
 
     [SerializeField]
-    public Item item;
+    int _itemTemplateId;
 
     GameObject player;
-
 
     private void Start()
     {
@@ -36,7 +35,7 @@ public class ItemPickUp : MonoBehaviour
 
     void PickUp()
     {
-        bool wasPickedUp = player.GetComponent<Inventory>().Add(item.ItemTemplateId);
+        bool wasPickedUp = Managers.Inven.Add(_itemTemplateId);
         if (wasPickedUp)
         {
             Destroy(gameObject);

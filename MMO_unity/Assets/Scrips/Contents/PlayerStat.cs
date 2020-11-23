@@ -10,6 +10,10 @@ public class PlayerStat : Stat
     public GameObject _player;
     public Action UpdateStatText = null;
 
+    int _itemAttack;
+    int _itemDefense;
+    int _itemCritical;
+
     [SerializeField]
     int _exp;
     [SerializeField]
@@ -67,11 +71,14 @@ public class PlayerStat : Stat
     }
 
     //레벨업 시 다시 변경되는 스텟.
+    public void SetStat()
+    {
+        SetStat(_level);
+    }
     public void SetStat(int level)
     {
         //json의 값들이  Dictionary로 StatDict에 저장되어있음.
         Dictionary<int, Data.Stat> dict = Managers.Data.StatDict;
-        Equipment equipItems = _player.GetComponent<Equipment>();
 
         Data.Stat stat = dict[level];
         _hp = stat.maxHp;
@@ -80,21 +87,15 @@ public class PlayerStat : Stat
         _maxHp = stat.maxHp;
         _maxMp = stat.maxMp;
 
-        _attack = stat.attack + equipItems.SumAttack;
-        _defense = stat.defense + equipItems.SumDefense;
-        _critical = stat.critical + equipItems.SumCritical; 
+        _attack = stat.attack + Managers.Equip.SumAttack;
+        _defense = stat.defense + Managers.Equip.SumDefense;
+        _critical = stat.critical + Managers.Equip.SumDefense;
         _evasive = stat.evasive;
 
-        playerUI.LevelUp(level);
-
-        
+        playerUI.LevelUp(level);     
     }
 
-    public void sumItemsStatAndCharacterStat()
-    {
-        
 
-    }
 
     protected override void OnDead(Stat attacker)
     {

@@ -10,13 +10,16 @@ public class UI_Equipment : UI_Popup
 
     //List<int> _equipedItems = new List<int>();
 
-    enum GameObjects
+    public enum GameObjects
     {
-        UI_Upper_Slot,
+        UI_Weapon_Slot,
         UI_Hat_Slot,
+        UI_Upper_Slot,
         UI_Under_Slot,
         UI_Shoe_Slot,
-        UI_Weapon_Slot,
+        
+
+        //보여지는 stat창.
         LevelText,
         HPText,
         MPText,
@@ -32,11 +35,11 @@ public class UI_Equipment : UI_Popup
     {
         _player = Managers.Game.GetPlayer();
 
-        _player.GetComponent<Equipment>().OnEquipChangedCallback -= UpdateEquipIconUI;
-        _player.GetComponent<Equipment>().OnEquipChangedCallback += UpdateEquipIconUI;
+        Managers.Equip.OnEquipChangedCallback -= UpdateEquipIconUI;
+        Managers.Equip.OnEquipChangedCallback += UpdateEquipIconUI;
 
-        _player.GetComponent<Equipment>().UpdateStatText -= SetStatText;
-        _player.GetComponent<Equipment>().UpdateStatText += SetStatText;
+        Managers.Equip.UpdateStatText -= SetStatText;
+        Managers.Equip.UpdateStatText += SetStatText;
 
         _player.GetComponent<PlayerStat>().UpdateStatText -= SetStatText;
         _player.GetComponent<PlayerStat>().UpdateStatText += SetStatText;
@@ -47,34 +50,13 @@ public class UI_Equipment : UI_Popup
     void Start()
     {
         Init();
-        if (_player.GetComponent<Equipment>().wearItems["hat"] != 0)
-            UpdateEquipIconUI(_player.GetComponent<Equipment>().wearItems["hat"]);
-
-        if (_player.GetComponent<Equipment>().wearItems["weapon"] != 0)
-            UpdateEquipIconUI(_player.GetComponent<Equipment>().wearItems["weapon"]);
-
-        if (_player.GetComponent<Equipment>().wearItems["shoe"] != 0)
-            UpdateEquipIconUI(_player.GetComponent<Equipment>().wearItems["shoe"]);
-
-        if (_player.GetComponent<Equipment>().wearItems["upperArmor"] != 0)
-            UpdateEquipIconUI(_player.GetComponent<Equipment>().wearItems["upperArmor"]);
-
-        if (_player.GetComponent<Equipment>().wearItems["underArmor"] != 0)
-            UpdateEquipIconUI(_player.GetComponent<Equipment>().wearItems["underArmor"]);
-
-        SetStatText();
+        UpdateEquipIconUI();
     }
 
     //랩업, 아이템 장착 해제 실행.
     public void SetStatText()
     {
         PlayerStat stat = _player.GetComponent<PlayerStat>();
-        Equipment equip = _player.GetComponent<Equipment>();
-
-        Debug.Log($"Attack : {equip.SumAttack}");
-        Debug.Log($"Defense : {equip.SumDefense}");
-        Debug.Log($"Critical : {equip.SumCritical}");
-
 
         Get<GameObject>((int)GameObjects.LevelText).GetComponent<Text>().text = $"{stat.Level}";
         Get<GameObject>((int)GameObjects.HPText).GetComponent<Text>().text = $"{stat.MaxHp}";
@@ -83,47 +65,30 @@ public class UI_Equipment : UI_Popup
         Get<GameObject>((int)GameObjects.DefenseText).GetComponent<Text>().text = $"{stat.Defense}";
         Get<GameObject>((int)GameObjects.CriticalText).GetComponent<Text>().text = $"{stat.Critical}";
         Get<GameObject>((int)GameObjects.EvasiveText).GetComponent<Text>().text = $"{stat.Evasive}";
-
-        Debug.Log($"Stat + ItemAttack : {stat.Attack} + {equip.SumAttack}");
-
     }
 
-    public void UpdateEquipIconUI(int tempID)
+    public void UpdateEquipIconUI()
     {
-        GameObject equipSlot = null;
- 
-        if (Managers.Data.ItemDict[tempID].name == "hat")
-            equipSlot = Get<GameObject>((int)GameObjects.UI_Hat_Slot);
-        else if (Managers.Data.ItemDict[tempID].name == "weapon")   //무기 장착
-            equipSlot = Get<GameObject>((int)GameObjects.UI_Weapon_Slot);
-        else if (Managers.Data.ItemDict[tempID].name == "shoe")
-            equipSlot = Get<GameObject>((int)GameObjects.UI_Shoe_Slot);
-        else if (Managers.Data.ItemDict[tempID].name == "upperArmor")
-            equipSlot = Get<GameObject>((int)GameObjects.UI_Upper_Slot);
-        else if (Managers.Data.ItemDict[tempID].name == "underArmor")
-            equipSlot = Get<GameObject>((int)GameObjects.UI_Under_Slot);
-
-        if(equipSlot == null)
+        for (int i = 0; i < Managers.Equip.wearItems.Length; i++)
         {
-            Debug.Log($"equipSlot is {equipSlot}");
-            return;
+            //장착하고 있다는 것.
+            int equipItemId = Managers.Equip.wearItems[i];
+            if (equipItemId != 0)
+            {
+                GameObject slot = Get<GameObject>(i);
+                slot.GetComponent<Image>().enabled = true;
+                slot.GetComponent<Image>().sprite = Managers.Data.ItemDict[equipItemId].icon;
+            }
         }
-        equipSlot.GetComponent<Image>().enabled = true;
-
-        //아이콘을 바꿔주는 동시에 스탯도 바꿔주기.
-        equipSlot.GetComponent<Image>().sprite = Managers.Data.ItemDict[tempID].icon;
-        Debug.Log($"{Managers.Data.ItemDict[tempID].name} 장착");
         SetStatText(); //스탯창에 보여지는 값 바꿔주기.
-
-
     }
 
     public override bool ClosePopupUI()
     {
         if(base.ClosePopupUI()){
             _player.GetComponent<PlayerStat>().UpdateStatText = null;
-            _player.GetComponent<Equipment>().UpdateStatText = null;
-            _player.GetComponent<Equipment>().OnEquipChangedCallback = null;
+            Managers.Equip.UpdateStatText = null;
+            Managers.Equip.OnEquipChangedCallback = null;
             return true;
         }
         return false;

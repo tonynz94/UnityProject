@@ -5,41 +5,39 @@ using UnityEngine;
 public class Managers : MonoBehaviour
 {
     static Managers s_Instance; //매니저는 static
-    public static Managers Instance { get { init(); return s_Instance; } }
 
     GameManager _game = new GameManager();
-    public static GameManager Game { get {  return Instance._game; } }
-
     InputManager _input = new InputManager();
-    public static InputManager Input { get { return Instance._input; } }
-
     ResourceManager _resource = new ResourceManager();
-    public static ResourceManager Resource { get { return Instance._resource; } }
-
     UIManager _ui = new UIManager();
-    public static UIManager UI { get { return Instance._ui; } }
-
     SceneManagerEx _scene = new SceneManagerEx();
-    public static SceneManagerEx Scene { get { return Instance._scene; } }
-
     SoundManager _sound = new SoundManager();
-    public static SoundManager Sound { get { return Instance._sound; } }
-
     PoolManager _pool = new PoolManager();
-    public static PoolManager Pool { get { return Instance._pool; } }
-
     DataManager _data = new DataManager();
-    public static DataManager Data { get { return Instance._data; } }
-
     TalkManager _talk = new TalkManager();
-    public static TalkManager Talk { get { return Instance._talk; } }
-
     QuestManager _quest = new QuestManager();
+    InvenManager _invent = new InvenManager();
+    EquipManager _equip = new EquipManager();
+
+
+
+    public static Managers Instance { get { init(); return s_Instance; } }
+    public static GameManager Game { get {  return Instance._game; } }
+    public static InputManager Input { get { return Instance._input; } }
+    public static ResourceManager Resource { get { return Instance._resource; } }
+    public static UIManager UI { get { return Instance._ui; } }
+    public static SceneManagerEx Scene { get { return Instance._scene; } }
+    public static SoundManager Sound { get { return Instance._sound; } }
+    public static PoolManager Pool { get { return Instance._pool; } }
+    public static DataManager Data { get { return Instance._data; } }
+    public static TalkManager Talk { get { return Instance._talk; } }
     public static QuestManager Quest { get { return Instance._quest; } }
+    public static InvenManager Inven { get { return Instance._invent; } }
+    public static EquipManager Equip { get { return Instance._equip; } }
+
     void Start()
     {
-        init();
-   
+        init(); 
     }
 
     void Update()

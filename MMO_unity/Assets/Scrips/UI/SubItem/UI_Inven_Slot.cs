@@ -4,73 +4,77 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class UI_Inven_Slot : UI_Base
+public class UI_Inven_Slot : UI_Base, IDropHandler
 {
+    public static UI_Notify _notifyUI;
+    public int slotPos;
+
+    int itemId;
     GameObject icon;
-    GameObject notifyUI;
 
-    Equipment _playerEquip;
-
-    Data.Item _item;
     enum GameObjects
     {
         ItemIcon,
     }
 
-    string _name;
     // Start is called before the first frame  update
     public void Awake()
-    {
-        Debug.Log("아이템 slot Awake");
-        base.Bind<GameObject>(typeof(GameObjects));
-        _playerEquip =  Managers.Game.GetPlayer().GetComponent<Equipment>();
-        notifyUI = Managers.Resource.Load<GameObject>("Prefabs/UI/Popup/UI_Notify");
+    {      
+        Bind<GameObject>(typeof(GameObjects));
         icon = Get<GameObject>((int)GameObjects.ItemIcon);
-        Debug.Log(icon);
-        BindEvent(icon, ItemClick);
-        Init();
-    }
 
+        icon.GetComponent<Image>().enabled = false;
+        BindEvent(icon, ItemClick);
+    }
 
     public override void Init()
     {
-        
+        Debug.Log("Init enable false");        
     }
 
-    public void SetInfo(string name)
-    {
-        _name = name;
-    }
 
     public void AddItem(int itemTemplateId)
     {
-        _item = Managers.Data.ItemDict[itemTemplateId];
-        
+        itemId = itemTemplateId;
         icon.GetComponent<Image>().sprite = Managers.Data.ItemDict[itemTemplateId].icon;
+        Debug.Log("enable true");
         icon.GetComponent<Image>().enabled = true;
     }
 
     public void ClearSlot()
     {
-        _item = null;
         icon.GetComponent<Image>().sprite = null;
-        icon.GetComponent<Image>().enabled = false;
+        icon.GetComponent<Image>().enabled = false;     
     }
 
     public void ItemClick(PointerEventData evt)
     {
-        //좌클릭시 실행.
         if(evt.button == PointerEventData.InputButton.Left)
         {
-            Debug.Log("좌클릭");
+            if (!icon.GetComponent<Image>().IsActive())
+                return;
+
+            Debug.Log("right click");
+            
             //커서에 클릭한 아이템의 반투명 이미지를 따라 다니게 함.
         }
 
         //우클릭 시
         else if(evt.button == PointerEventData.InputButton.Right)
         {
-            UI_Notify notify = Managers.UI.ShowPopupUI<UI_Notify>();
-            notify.Item = _item;
+            if (!icon.GetComponent<Image>().IsActive())
+                return;
+
+            int tempId = itemId;
+            Managers.Inven.Remove(slotPos);
+            Managers.Equip.Add(itemId);
+            
+            
         }
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        Debug.Log("OnDrop");
     }
 }

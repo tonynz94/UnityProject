@@ -1,31 +1,93 @@
 {
-	"items":[
-			{
-				"itemTemplateId" : "10001",
-				"name" : "weapon",
-				"attack" : "50",
-				"defense" : "0",
-				"critical" : "5"
-			},
-			{
-				"itemTemplateId" : "10002",
-				"name" : "hat",
-				"attack" : "0",
-				"defense" : "5",
-				"critical" : "0"
-			},
+	"items": [
 		{
-			"itemTemplateId": "10003",
-			"name": "upperArmor",
+			"itemTemplateId": "10001",
+			"name": "Metal Sword",
+			"equipPart": "TwoHandWeapon",
+			"equipSlot": "0",
+			"attack": "50",
+			"defense": "0",
+			"critical": "5"
+		},
+		{
+			"itemTemplateId": "20001",
+			"name": "Dragon Hammer",
+			"equipPart": "OneHandWeapon",
+			"equipSlot": "0",
+			"attack": "30",
+			"defense": "0",
+			"critical": "5"
+		},
+		{
+			"itemTemplateId": "30001",
+			"name": "Metal Helmat",
+			"equipPart": "hat",
+			"equipSlot": "1",
+			"attack": "0",
+			"defense": "5",
+			"critical": "0"
+		},
+		{
+			"itemTemplateId": "30002",
+			"name": "Dragon Helmat",
+			"equipPart": "hat",
+			"equipSlot": "1",
 			"attack": "0",
 			"defense": "10",
 			"critical": "0"
 		},
 		{
-			"itemTemplateId": "10004",
-			"name": "underArmor",
+			"itemTemplateId": "40001",
+			"name": "Metal Top Armor",
+			"equipPart": "upperArmor",
+			"equipSlot": "2",
+			"attack": "0",
+			"defense": "10",
+			"critical": "0"
+		},
+		{
+			"itemTemplateId": "40002",
+			"name": "Dragon Top Armor",
+			"equipPart": "upperArmor",
+			"equipSlot": "2",
+			"attack": "0",
+			"defense": "15",
+			"critical": "0"
+		},
+		{
+			"itemTemplateId": "50001",
+			"name": "Metal Pants Armor",
+			"equipPart": "underArmor",
+			"equipSlot": "3",
 			"attack": "0",
 			"defense": "5",
+			"critical": "0"
+		},
+		{
+			"itemTemplateId": "50002",
+			"name": "Dragon Pants Armor",
+			"equipPart": "underArmor",
+			"equipSlot": "3",
+			"attack": "0",
+			"defense": "10",
+			"critical": "0"
+		},
+		{
+			"itemTemplateId": "60001",
+			"name": "Metal Shoes",
+			"equipPart": "Shoes",
+			"equipSlot": "4",
+			"attack": "0",
+			"defense": "3",
+			"critical": "0"
+		},
+		{
+			"itemTemplateId": "60002",
+			"name": "Dragon Shoes",
+			"equipPart": "Shoes",
+			"equipSlot": "4",
+			"attack": "0",
+			"defense": "6",
 			"critical": "0"
 		}
 	]

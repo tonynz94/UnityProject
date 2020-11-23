@@ -3,47 +3,32 @@
 public class UI_Inventory : UI_Popup
 {
     public Transform itemsParent;
-    Inventory player;
     UI_Inven_Slot[] slots;
+
     // Start is called before the first frame update
+    //아이템을 창을 열면 실행되는 부분.
     void Start()
     {
-        player = Managers.Game.GetPlayer().GetComponent<Inventory>();
+        Managers.Inven.OnItemChangedCallback -= loadInvenUI;
+        Managers.Inven.OnItemChangedCallback += loadInvenUI;
 
-        player.OnItemChangedCallback -= UpdateUI;
-        player.OnItemChangedCallback += UpdateUI;
-        Debug.Log($"OnItemChangedCallback : {player.OnItemChangedCallback}");
-        itemsParent = gameObject.transform;
-
-        slots = itemsParent.GetComponentsInChildren<UI_Inven_Slot>();
-
-        for (int i = 0; i < slots.Length; i++)
-        {
-            //플레이어가 가지고 있는 아이템의 수
-            if (i < player.items.Count)
-            {
-                Debug.Log(player.items[i]);
-                slots[i].AddItem(player.items[i]);
-            }
-        }
+        slots = transform.GetComponentsInChildren<UI_Inven_Slot>();
+        Debug.Log(Managers.Inven.Space);
+        for(int i = 0; i < Managers.Inven.Space; i++)
+            slots[i].slotPos = i;
+        
+        loadInvenUI();
     }
 
-    //10001
-    public void UpdateUI(int templateID)
+    //기타창이 켜진 상태에서 아이템이 삽입 될때 들어갈때.(invenManager에서 실행이 됨.)
+    public void loadInvenUI()
     {
-        //20칸
-        for(int i = 0; i < slots.Length; i++)
+        for (int i = 0; i < Managers.Inven.Space; i++)
         {
-            //플레이어가 가지고 있는 아이템의 수
-            //2개면 0 , 1, 2
-            if(i < player.items.Count)
-            {
-                slots[i].AddItem(player.items[i]);
-            }
+            if (Managers.Inven.items[i] != 0)
+                slots[i].AddItem(Managers.Inven.items[i]);
             else
-            {
                 slots[i].ClearSlot();
-            }
         }
     }
 
@@ -51,7 +36,7 @@ public class UI_Inventory : UI_Popup
     {      
         if (base.ClosePopupUI())
         {
-            player.OnItemChangedCallback = null;
+            Managers.Inven.OnItemChangedCallback = null;
             return true;
         }
         return false;

@@ -21,7 +21,7 @@ public class UIController : MonoBehaviour
     }
     #endregion
 
-    bool _isInventory = false;
+    bool _isInventory= false;
     bool _isEquipment = false;
 
     UI_Inventory _Inven;
@@ -38,6 +38,11 @@ public class UIController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             ShowEquipment();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            //Managers.UI.ClosePopupUI();
         }
     }
 

@@ -9,6 +9,8 @@ public class UI_Notify : UI_Popup
     GameObject _player;
     public Data.Item _item;
 
+    public GameObject _clickedSlot;
+
 
     public Data.Item Item { get { return _item; } set { _item = value; } }
 
@@ -35,23 +37,16 @@ public class UI_Notify : UI_Popup
 
     public void OnYesClick()
     {
-        if(Item != null)
-            _player.GetComponent<Equipment>().Add(_item);
-
-        _player.GetComponent<Inventory>().Remove(_item.itemTemplateId);
-
         base.ClosePopupUI();
     }
 
     public void OnNoClick()
     {
-        //자기 자신 삭제
-        base.ClosePopupUI();
+        CloseUI();
     }
-
-    // Update is called once per frame
-    void Update()
+    public void CloseUI()
     {
-        
+        UI_Inven_Slot._notifyUI = null;
+        base.ClosePopupUI();
     }
 }

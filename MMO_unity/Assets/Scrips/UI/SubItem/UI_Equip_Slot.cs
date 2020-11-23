@@ -10,6 +10,8 @@ public class UI_Equip_Slot : UI_Base
     GameObject _equipButton;
     GameObject _player;
 
+    public UI_Equipment.GameObjects slotName;
+
     enum GameObjects
     {
         EquipSlotButton,
@@ -45,33 +47,29 @@ public class UI_Equip_Slot : UI_Base
     //장비 해제
     public void ItemClick(PointerEventData evt)
     {
-        Inventory playerInven = _player.GetComponent<Inventory>();
-        Equipment playerEquip = _player.GetComponent<Equipment>();
-        UI_Equipment UIEquip = gameObject.transform.GetComponentInParent<UI_Equipment>();
         
-        int removeItemID = playerEquip.wearItems[gameObject.name];
+        UI_Equipment UIEquip = gameObject.transform.GetComponentInParent<UI_Equipment>();
+        int removeItemID = Managers.Equip.wearItems[(int)slotName];
         if (removeItemID == 0) {
             Debug.Log("No item clicked");
             return;
         }
         
         //인벤토리에 추가
-        if(!playerInven.Add(removeItemID))
+        if(!Managers.Inven.Add(removeItemID))
         {
             Debug.Log("No space to UnAttach");
             return;
         }
 
         //장비창의 정보를 삭제 시켜주고 아이템 스탯도 다시 계산해 줌.
-        playerEquip.wearItems[gameObject.name] = 0;
-        playerEquip.WearingItemsSumStats();
-        UIEquip.SetStatText();
+        Managers.Equip.wearItems[(int)slotName] = 0;
+        Managers.Equip.WearingItemsSumStats();
 
 
         //아이콘 삭제.
         Transform equipItemIcon = gameObject.transform.GetChild(0);
         if (equipItemIcon.GetComponent<Image>().sprite == null) {
-            Debug.Log($"{equipItemIcon} : No item clicked");
             return;
         }
         equipItemIcon.GetComponent<Image>().sprite = null;

@@ -41,6 +41,8 @@ namespace Data
     {
         public int itemTemplateId;  //변수의 이름과 json의 이름이 같지 않으면 찾지 못함.
         public string name;
+        public string equipPart;
+        public int equipSlot;
         public int attack;
         public int defense;
         public int critical;
@@ -59,7 +61,8 @@ namespace Data
             foreach (Item item in items)
             {
                 dict.Add(item.itemTemplateId, item);
-                dict[item.itemTemplateId].icon = Resources.Load<Sprite>($"Textures/Item/{item.name}");
+                dict[item.itemTemplateId].icon = Resources.Load<Sprite>($"Textures/Item/{item.name} Icon");
+                Debug.Log(dict[item.itemTemplateId].icon);
             }
             return dict;
         }

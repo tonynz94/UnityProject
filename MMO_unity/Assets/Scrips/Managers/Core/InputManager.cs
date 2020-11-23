@@ -6,7 +6,6 @@ using UnityEngine.EventSystems;
 
 public class InputManager 
 {
-
     public Action KeyAction = null;
     public Action<Define.MouseEvent> MouseAction = null;
 
@@ -25,17 +24,11 @@ public class InputManager
         }
 
         if (EventSystem.current.IsPointerOverGameObject())   //ui가 클릭 됐을때 
-        {
             return;
-        }
 
         if (Managers.Game.GetPlayer().GetComponent<PlayerController>()._isTalking) //대화하고 있을 시.
-        {
-            Debug.Log("Talking Action");
             return;
-        }
 
-        Debug.Log("Mouse Action");
         if(MouseAction != null)
         {
             if(Input.GetMouseButton(1)) //누르고 있으면 True
