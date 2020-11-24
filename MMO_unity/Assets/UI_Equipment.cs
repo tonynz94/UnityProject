@@ -7,7 +7,7 @@ public class UI_Equipment : UI_Popup
 {
     // Start is called before the first frame update
     GameObject _player;
-
+    
     //List<int> _equipedItems = new List<int>();
 
     public enum GameObjects

@@ -16,6 +16,7 @@ using UnityEngine;
 public class EquipManager
 {
     public Action OnEquipChangedCallback = null;
+    public Action<int> OnWeaponChange = null;
     public Action UpdateStatText = null;
     //착용한 아이템
 
@@ -31,7 +32,6 @@ public class EquipManager
     //캐릭터가 장착하고 있는 아이템 저장하기
     public void Add(int itemId)
     {
-        //아이템이 없을 시.      
         int equipSlot = Managers.Data.ItemDict[itemId].equipSlot;
 
         //해당 장비창에 이미 다른 아이템을 장착하고 있다면.
@@ -42,15 +42,25 @@ public class EquipManager
 
         //stat창이 열려 있다면.
         if (OnEquipChangedCallback != null)
-            OnEquipChangedCallback.Invoke(); 
+            OnEquipChangedCallback.Invoke();
+
+        if (equipSlot == 0)
+        {
+            if (OnWeaponChange != null)
+                OnWeaponChange.Invoke(itemId);
+        }
 
         WearingItemsSumStats();
+    }
+
+    public void RemoveEquipItem()
+    {
+
     }
 
     //장착,장착해제 실행.
     public void WearingItemsSumStats()
     {
-        Debug.Log("장비 장착/해제");
         SumAttack = 0;
         SumCritical = 0;
         SumDefense = 0;

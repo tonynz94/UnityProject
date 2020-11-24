@@ -70,6 +70,16 @@ public class Define
     public enum CameraMode
     {
         QuterView
-
     };
+
+    public enum EquipSlot
+    { 
+        WeaponSlot,
+        HatSlot,
+        UpperSlot,
+        UnderSlot,
+        ShoeSlot,
+        MaxSlot,
+    };
+
 }
