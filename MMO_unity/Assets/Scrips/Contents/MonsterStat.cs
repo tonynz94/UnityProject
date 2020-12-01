@@ -44,6 +44,44 @@ public class MonsterStat : Stat
         }
     }
 
+    public void OnAttackedBySkill(Collider skillName)
+    {
+        Define.SkillName _skill = skillName.GetComponent<PlayerSkill>()._skillName;
+        Debug.Log((int)_skill);
+
+        int skillId = ((int)_skill + 1)*1000;
+        skillId = (Managers.Skill.SkillListAndPoint[skillId]-1) + skillId;
+        Debug.Log(skillId);
+
+        int damage = (int)Mathf.Max(0, Managers.Game.GetPlayer().GetComponent<PlayerStat>().Attack * Managers.Data.SkillDict[skillId].skillDamage - Defense);
+        bool critical = false;
+
+        if (Random.value < Managers.Game.GetPlayer().GetComponent<PlayerStat>().Critical * 0.01f)
+        {
+            damage *= 2;
+            critical = true;
+        }
+        else
+        {
+            critical = false;
+        }
+
+        GameObject go = Object.Instantiate(DamageTxt, transform.position, Camera.main.transform.rotation);
+        go.GetComponent<UI_DmgTxt>().SetDmgText(damage, critical, false, Color.yellow);
+
+        Hp -= damage;
+        if (Hp < 0)
+        {
+            Hp = 0;
+            OnDead(Managers.Game.GetPlayer().GetComponent<PlayerStat>());
+        }
+
+        Debug.Log(damage);
+    }
+
+    
+
+
     protected override void OnDead(Stat attacker)
     {
         Managers.Game.Despawn(gameObject);

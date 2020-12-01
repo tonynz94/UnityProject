@@ -149,6 +149,15 @@ public class UIManager
             ClosePopupUI();
     }
 
+    public UI_Popup PeekUI()
+    {
+        if (_popupStack.Count == 0)
+            return null;
+
+
+        return _popupStack.Peek();
+    }
+
     public void Clear()
     {
         CloseAllPopupUI();

@@ -69,6 +69,36 @@ namespace Data
     }
     #endregion
 
+    #region Skill
+    [Serializable]
+    public class Skill
+    {
+        public int skillTempelateId;
+        public string skillName;  //변수의 이름과 json의 이름이 같지 않으면 찾지 못함.
+        public float coolDown;
+        public float skillDamage;
+        public int requireLevel;
+    }
+    //인터페이스를 상속받음
+    [Serializable]
+    public class SkillData : ILoader<int, Skill>
+    {
+        public List<Skill> skills = new List<Skill>();
+
+        public Dictionary<int, Skill> MakeDict()
+        {
+            Dictionary<int, Skill> dict = new Dictionary<int, Skill>();
+            foreach (Skill skill in skills)
+            {
+                dict.Add(skill.skillTempelateId, skill);
+            }
+            return dict;
+        }
+    }
+
+
+    #endregion
+
     #region NPC
     public class NPC
     {
@@ -119,6 +149,7 @@ namespace Data
     }
 
     #endregion
+
     #region Quest
     public class Quest
     {

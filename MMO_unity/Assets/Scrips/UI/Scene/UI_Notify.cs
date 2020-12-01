@@ -49,4 +49,9 @@ public class UI_Notify : UI_Popup
         UI_Inven_Slot._notifyUI = null;
         base.ClosePopupUI();
     }
+
+    public override string PopUpName()
+    {
+        return "Notify";
+    }
 }

@@ -39,4 +39,9 @@ public class UI_SpeechBox : UI_Popup
         _speechBox.text = Managers.Data.NpcDict[NpcId + questTalkIndex].screenPlay[_screenPlayIndex++];
         return false;
     }
+    public override string PopUpName()
+    {
+        return null;
+    }
+
 }

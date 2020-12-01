@@ -98,4 +98,9 @@ public class UI_Equipment : UI_Popup
     {
         UIController.instance.ShowEquipment();
     }
+
+    public override string PopUpName()
+    {
+        return "Equip";
+    }
 }

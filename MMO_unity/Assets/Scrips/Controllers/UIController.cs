@@ -21,11 +21,9 @@ public class UIController : MonoBehaviour
     }
     #endregion
 
-    bool _isInventory= false;
-    bool _isEquipment = false;
-
     UI_Inventory _Inven;
     UI_Equipment _Equip;
+    UI_SkillTree _SkillTree;
     
     // Update is called once per frame
     void Update()
@@ -40,37 +38,80 @@ public class UIController : MonoBehaviour
             ShowEquipment();
         }
 
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            ShowSkillTree();
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            //Managers.UI.ClosePopupUI();
+            CloseUI();
+        }
+    }
+
+    public void CloseUI()
+    {
+        UI_Popup LastPopUp = Managers.UI.PeekUI();
+        if (LastPopUp != null)
+        {
+            string temp = LastPopUp.PopUpName();
+            Debug.Log($"{temp}");
+            if (LastPopUp.ClosePopupUI())
+            {
+                //하드코딩 나중에 수정하기
+                Debug.Log($"{temp} == Inven: {temp == "Inven" }");
+                if (temp == "Inven")
+                {
+                    Debug.Log("인벤토리");
+                    _Inven = null;
+                }
+                else if (temp == "Equip")
+                {
+                    _Equip = null;
+                }
+
+                else if (temp == "SkillTree")
+                {
+                    _SkillTree = null;
+                }
+            }
         }
     }
 
     public void ShowInventory()
     {
-        _isInventory = !_isInventory;
-        if (_isInventory)
-        {
+        if (_Inven == null)
             _Inven = Managers.UI.ShowPopupUI<UI_Inventory>("UI_Inven");
-        }
         else
         {
-            if (!_Inven.ClosePopupUI())
-                _isInventory = !_isInventory;
+            if (_Inven.ClosePopupUI())
+                _Inven = null;
         }
     }
 
     public void ShowEquipment()
     {
-        _isEquipment = !_isEquipment;
-        if (_isEquipment)
+        if (_Equip == null)
         {
             _Equip = Managers.UI.ShowPopupUI<UI_Equipment>("UI_Equipment");
         }
         else
         {
-            if (!_Equip.ClosePopupUI())
-                _isEquipment = !_isEquipment;
+            if (_Equip.ClosePopupUI())
+                _Equip = null;
+        }
+    }
+
+    public void ShowSkillTree()
+    {
+        if (_SkillTree == null)
+        {
+            _SkillTree = Managers.UI.ShowPopupUI<UI_SkillTree>("UI_SkillTree");
+        }
+        else
+        {
+            if (_SkillTree.ClosePopupUI())
+                _SkillTree = null;
         }
     }
 }

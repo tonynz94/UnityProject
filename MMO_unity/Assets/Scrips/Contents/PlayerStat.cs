@@ -14,6 +14,15 @@ public class PlayerStat : Stat
     int _itemDefense;
     int _itemCritical;
 
+    private int _buffAttack = 0;
+    private int _buffDefense = 0;
+    private int _buffCritical = 0;
+
+    public int BuffAttack { get { return _buffAttack; } set { _buffAttack = value; } }
+    public int BuffDefense { get { return _buffDefense; } set { _buffDefense = value; } }
+    public int BuffCritical { get { return _buffCritical; } set { _buffCritical = value; } }
+
+
     [SerializeField]
     int _exp;
     [SerializeField]
@@ -42,7 +51,9 @@ public class PlayerStat : Stat
             if(level != Level)
             {
                 Debug.Log("Level Up");
+                
                 Level = level;
+                Managers.Skill.LevelUp(Level);
                 SetStat(Level);
                 if (UpdateStatText != null)
                 {
@@ -60,12 +71,13 @@ public class PlayerStat : Stat
        
         _player = Managers.Game.GetPlayer();
         _level = 1;
+        Managers.Skill._level = _level;
 
         playerUI = GameObject.Find("UI_HPMPEXPBar").GetComponent<UI_PlayerHPBar>();
         Dictionary<int, Data.Stat> dict = Managers.Data.StatDict;
         Data.Stat stat = dict[1];
         SetStat(_level);
-        _moveSpeed = 20.0f; //임시<<<<<<<<<<<<<<<<<<<
+        _moveSpeed = 35.0f; //임시<<<<<<<<<<<<<<<<<<<
         _exp = 0;
         _gold = 0;
     }
@@ -75,6 +87,7 @@ public class PlayerStat : Stat
     {
         SetStat(_level);
     }
+
     public void SetStat(int level)
     {
         //json의 값들이  Dictionary로 StatDict에 저장되어있음.
@@ -87,15 +100,13 @@ public class PlayerStat : Stat
         _maxHp = stat.maxHp;
         _maxMp = stat.maxMp;
 
-        _attack = stat.attack + Managers.Equip.SumAttack;
-        _defense = stat.defense + Managers.Equip.SumDefense;
-        _critical = stat.critical + Managers.Equip.SumDefense;
+        _attack = stat.attack + Managers.Equip.SumAttack + _buffAttack;
+        _defense = stat.defense + Managers.Equip.SumDefense + _buffDefense;
+        _critical = stat.critical + Managers.Equip.SumDefense + _buffCritical;
         _evasive = stat.evasive;
 
         playerUI.LevelUp(level);     
     }
-
-
 
     protected override void OnDead(Stat attacker)
     {

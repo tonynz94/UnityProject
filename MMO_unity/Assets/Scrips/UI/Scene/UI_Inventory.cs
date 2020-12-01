@@ -41,4 +41,9 @@ public class UI_Inventory : UI_Popup
         }
         return false;
     }
+
+    public override string PopUpName()
+    {
+        return "Inven";
+    }
 }

@@ -13,7 +13,6 @@ public class UI_DmgTxt : UI_Base
     }
     public override void Init()
     {
-        Debug.Log("DmgTxt Bind");
         base.Bind<GameObject>(typeof(GameObjects));
     }
 

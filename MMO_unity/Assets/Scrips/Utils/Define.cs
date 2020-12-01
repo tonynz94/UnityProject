@@ -22,6 +22,7 @@ public class Define
         Idle,
         Skill,
         Walk,
+        SkillHit,
 
         SkillQ,
         SkillW,
@@ -82,4 +83,11 @@ public class Define
         MaxSlot,
     };
 
+    public enum SkillName
+    { 
+        SkillQ,
+        SkillW,
+        SkillE,
+        SkillR
+    }
 }

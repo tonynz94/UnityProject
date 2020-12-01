@@ -1,0 +1,144 @@
+{
+  "skills": [
+    {
+      "skillTempelateId": "1000",
+      "skillName": "Big Cutter",
+      "coolDown": "12.0",
+      "skillDamage": "1.1",
+      "requireLevel":  "1"
+    },
+    {
+      "skillTempelateId": "1001",
+      "skillName": "Big Cutter",
+      "coolDown": "11.0",
+      "skillDamage": "1.2",
+      "requireLevel": "1"
+    },
+    {
+      "skillTempelateId": "1002",
+      "skillName": "Big Cutter",
+      "coolDown": "10.0",
+      "skillDamage": "1.3",
+      "requireLevel": "1"
+    },
+    {
+      "skillTempelateId": "1003",
+      "skillName": "Big Cutter",
+      "coolDown": "9.0",
+      "skillDamage": "1.4",
+      "requireLevel": "1"
+    },
+    {
+      "skillTempelateId": "1004",
+      "skillName": "Big Cutter",
+      "coolDown": "8.0",
+      "skillDamage": "1.5",
+      "requireLevel": "1"
+    },
+    {
+      "skillTempelateId": "2000",
+      "skillName": "Anger",
+      "coolDown": "60",
+      "skillDamage": "1.5",
+      "requireLevel": "3"
+    },
+    {
+      "skillTempelateId": "2001",
+      "skillName": "Anger",
+      "coolDown": "60",
+      "skillDamage": "1.6",
+      "requireLevel": "3"
+    },
+    {
+      "skillTempelateId": "2002",
+      "skillName": "Anger",
+      "coolDown": "60",
+      "skillDamage": "1.7",
+      "requireLevel": "3"
+    },
+    {
+      "skillTempelateId": "2003",
+      "skillName": "Anger",
+      "coolDown": "60",
+      "skillDamage": "1.8",
+      "requireLevel": "3"
+    },
+    {
+      "skillTempelateId": "2004",
+      "skillName": "Anger",
+      "coolDown": "60",
+      "skillDamage": "2.0",
+      "requireLevel": "3"
+    },
+    {
+      "skillTempelateId": "3000",
+      "skillName": "Ground Smash",
+      "coolDown": "30",
+      "skillDamage": "2.0",
+      "requireLevel": "6"
+    },
+    {
+      "skillTempelateId": "3001",
+      "skillName": "Ground Smash",
+      "coolDown": "28",
+      "skillDamage": "2.0",
+      "requireLevel": "6"
+    },
+    {
+      "skillTempelateId": "3002",
+      "skillName": "Ground Smash",
+      "coolDown": "26",
+      "skillDamage": "2.0",
+      "requireLevel": "6"
+    },
+    {
+      "skillTempelateId": "3003",
+      "skillName": "Ground Smash",
+      "coolDown": "24",
+      "skillDamage": "2.0",
+      "requireLevel": "6"
+    },
+    {
+      "skillTempelateId": "3004",
+      "skillName": "Ground Smash",
+      "coolDown": "22",
+      "skillDamage": "2.0",
+      "requireLevel": "6"
+    },
+    {
+      "skillTempelateId": "4000",
+      "skillName": "Tornado",
+      "coolDown": "22",
+      "skillDamage": "2.0",
+      "requireLevel": "8"
+    },
+    {
+      "skillTempelateId": "4001",
+      "skillName": "Tornado",
+      "coolDown": "22",
+      "skillDamage": "2.0",
+      "requireLevel": "8"
+    },
+    {
+      "skillTempelateId": "4002",
+      "skillName": "Tornado",
+      "coolDown": "22",
+      "skillDamage": "2.0",
+      "requireLevel": "8"
+    },
+    {
+      "skillTempelateId": "4003",
+      "skillName": "Tornado",
+      "coolDown": "22",
+      "skillDamage": "2.0",
+      "requireLevel": "8"
+    },
+    {
+      "skillTempelateId": "4004",
+      "skillName": "Tornado",
+      "coolDown": "22",
+      "skillDamage": "2.0",
+      "requireLevel": "8"
+    }
+  ]
+}

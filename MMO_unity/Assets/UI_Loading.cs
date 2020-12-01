@@ -59,4 +59,9 @@ public class UI_Loading : UI_Popup
 
 
     }
+
+    public override string PopUpName()
+    {
+        return "Loading";
+    }
 }

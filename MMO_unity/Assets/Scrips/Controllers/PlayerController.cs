@@ -16,6 +16,10 @@ public class PlayerController : BaseController
     public GameObject _speekingNPC;
     public GameObject _guideText;
 
+    public GameObject SkillQRange;
+    public GameObject SkillERange;
+    public GameObject SkillRRange;
+
     float _radius = 1.0f;
 
     //수확 , 대화 관련 변수들
@@ -30,6 +34,58 @@ public class PlayerController : BaseController
     //Skills
     public List<UI_SkillButton> skillList = new List<UI_SkillButton>();
 
+    public override Define.State State
+    {
+        get { return _state; }
+        set
+        {
+            _state = value;
+            string WeaponType;
+            Animator anim = GetComponent<Animator>();
+
+            if(Managers.Equip.wearItems[0] == 0 ||
+                Managers.Data.ItemDict[Managers.Equip.wearItems[0]].equipPart == "OneHandWeapon")
+            {
+                WeaponType = "OneHand";
+            }
+            else
+                WeaponType = "TwoHand";
+
+
+            Debug.Log($"{WeaponType}");
+            switch (_state)
+            {
+                case Define.State.DIe:
+                    //croofade 2번째 인자 => 어느정도 시간이 걸려서 넘어 갈것인지.           
+                    break;
+                case Define.State.Idle:
+                    anim.CrossFade($"{WeaponType}IDLE", 0.1f);
+                    break;
+                case Define.State.Moving:
+                    anim.CrossFade($"{WeaponType}RUN", 0.1f);
+                    break;
+                case Define.State.Skill:
+                    //ATTACK에 0.1초의 진입시간, layer는 필요 없기에 -1, 마지막은 다시 하면 0(처음부터) 다시 실행 되는 것.
+                    anim.CrossFade($"{WeaponType}ATTACK", 0.1f, -1, 0);
+                    break;
+                case Define.State.Walk:
+                    anim.CrossFade("WALK", 0.1f);
+                    break;
+                case Define.State.SkillQ:
+                    anim.CrossFade($"{WeaponType}SKILL1", 0.1f, -1, 0);
+                    break;
+                case Define.State.SkillW:
+                    anim.CrossFade($"{WeaponType}SKILL2", 0.1f, -1, 0);
+                    break;
+                case Define.State.SkillE:
+                    anim.CrossFade($"{WeaponType}SKILL3", 0.1f, -1, 0);
+                    break;
+                case Define.State.SkillR:
+                    anim.CrossFade($"{WeaponType}SKILL4", 0.1f, -1, 0);
+                    break;
+            }
+        }
+    }
 
     public override void Init()
     {
@@ -152,7 +208,29 @@ public class PlayerController : BaseController
                         _stopSkill = true;
                 }
                 break;
+            case Define.State.SkillQ:
+            case Define.State.SkillW:
+            case Define.State.SkillE:
+            case Define.State.SkillR:
+                {
+                    StartCoroutine(CheckIfSkillisFinish());
+                }
+                break;
         }
+    }
+
+    IEnumerator CheckIfSkillisFinish()
+    {
+        float exitTime = 0.9f;
+        Animator anim = GetComponent<Animator>();
+
+        while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < exitTime)
+        {
+            yield return null;
+        }
+
+        State = Define.State.Idle;
+        Debug.Log(_stopSkill);
     }
 
     void OnMouseEvent_IdleRun(Define.MouseEvent evt)
@@ -231,25 +309,16 @@ public class PlayerController : BaseController
         //만약 말하고 있다면 스킬 사용 불가.
         if (_isTalking)
             return;
-
-        if(Input.GetKeyDown(KeyCode.Q))
+        if (WeaponChange._equipedWeapon != null)
         {
-            skillList[0].Ability(5.0f);
-        }
-
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            skillList[1].Ability(5.0f);
-        }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            skillList[2].Ability(5.0f);
-        }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            skillList[3].Ability(5.0f);
+            if (Input.GetKeyDown(KeyCode.Q))
+                skillList[0].Ability();
+            if (Input.GetKeyDown(KeyCode.W))
+                skillList[1].Ability();
+            if (Input.GetKeyDown(KeyCode.E))
+                skillList[2].Ability();
+            if (Input.GetKeyDown(KeyCode.R))
+                skillList[3].Ability();
         }
     }
 
@@ -339,5 +408,24 @@ public class PlayerController : BaseController
         }
     }
 
+    public void SkillQColliderOn()
+    {
+        SkillQRange.SetActive(true);
+    }
 
+    public void SkillQColliderOff()
+    {
+        SkillQRange.SetActive(false);
+    }
+
+
+    public void SkillRColliderOn()
+    {
+        SkillRRange.SetActive(true);
+    }
+
+    public void SkillRColliderOff()
+    {
+        SkillRRange.SetActive(false);
+    }
 }

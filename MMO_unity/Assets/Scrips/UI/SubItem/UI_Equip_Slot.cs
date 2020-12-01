@@ -46,18 +46,23 @@ public class UI_Equip_Slot : UI_Base
 
     //장비 해제
     public void ItemClick(PointerEventData evt)
-    {
-        
-        UI_Equipment UIEquip = gameObject.transform.GetComponentInParent<UI_Equipment>();
+    {     
+        WeaponChange _weaponChange = Managers.Game.GetPlayer().GetComponent<WeaponChange>();
         int removeItemID = Managers.Equip.wearItems[(int)slotName];
+
+
         if (removeItemID == 0) {
             Debug.Log("No item clicked");
             return;
         }
+
+        if(slotName == UI_Equipment.GameObjects.UI_Weapon_Slot)
+        {
+            _weaponChange.OnWeaponRemoveEquip();
+        }
         
         //인벤토리에 추가
-        if(!Managers.Inven.Add(removeItemID))
-        {
+        if(!Managers.Inven.Add(removeItemID)) {
             Debug.Log("No space to UnAttach");
             return;
         }

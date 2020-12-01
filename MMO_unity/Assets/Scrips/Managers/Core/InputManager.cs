@@ -23,18 +23,26 @@ public class InputManager
             KeyAction.Invoke();
         }
 
-        if (EventSystem.current.IsPointerOverGameObject())   //ui가 클릭 됐을때 
+        if (EventSystem.current.IsPointerOverGameObject())
+        {   //ui가 클릭 됐을때 
+            
+            Debug.Log($"UI Click : {EventSystem.current.gameObject.name}");
             return;
+        }
 
-        if (Managers.Game.GetPlayer().GetComponent<PlayerController>()._isTalking) //대화하고 있을 시.
+        if (Managers.Game.GetPlayer().GetComponent<PlayerController>()._isTalking)
+        { //대화하고 있을 시.
+            Debug.Log("Talking");
             return;
+        }
 
         if(MouseAction != null)
         {
             if(Input.GetMouseButton(1)) //누르고 있으면 True
             {
+                Debug.Log("Click");
                 //한번도 누르지 않은 상태일때 실행.
-                if(!_pressed)
+                if (!_pressed)
                 {
                     //델리게이트 함수 호출
                     MouseAction.Invoke(Define.MouseEvent.PointerDown);
@@ -47,6 +55,7 @@ public class InputManager
             //누르고 있지 않는 상태라면.
             else
             {
+                Debug.Log("UnClick");
                 if (_pressed) //뗏을때 최초 실행.
                 {
                     //만약 마우스를 최초로 뗏을때는 실행 해주지 않음 즉 클릭으로 인식하지 않음.

@@ -18,7 +18,7 @@ public class Managers : MonoBehaviour
     QuestManager _quest = new QuestManager();
     InvenManager _invent = new InvenManager();
     EquipManager _equip = new EquipManager();
-
+    SkillManager _skill = new SkillManager();
 
 
     public static Managers Instance { get { init(); return s_Instance; } }
@@ -34,6 +34,7 @@ public class Managers : MonoBehaviour
     public static QuestManager Quest { get { return Instance._quest; } }
     public static InvenManager Inven { get { return Instance._invent; } }
     public static EquipManager Equip { get { return Instance._equip; } }
+    public static SkillManager Skill { get { return Instance._skill; } }
 
     void Start()
     {

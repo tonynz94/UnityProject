@@ -7,7 +7,10 @@ using UnityEngine.UI;
 
 public class UI_Button : UI_Popup
 {
-    
+    public override string PopUpName()
+    {
+        return null;
+    }
     enum Buttons
     {
         PointButton

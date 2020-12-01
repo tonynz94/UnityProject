@@ -5,7 +5,7 @@ using UnityEngine;
 public class WeaponChange : MonoBehaviour
 {
     public Transform _rightSocket;
-    public Object _equipedWeapon;
+    public static Object _equipedWeapon;
 
     private void Start()
     {
@@ -13,18 +13,17 @@ public class WeaponChange : MonoBehaviour
         Managers.Equip.OnWeaponChange += OnWeaponEquip;
         _equipedWeapon = null;
     }
-    void OnWeaponEquip(int weaponId)
+    public void OnWeaponEquip(int weaponId)
     {
         if (_equipedWeapon != null)
             OnWeaponRemoveEquip();
 
-        string _tempWeapon = Managers.Data.ItemDict[weaponId].name;
-        _equipedWeapon = Resources.Load($"Prefabs/Items/Equip/{_tempWeapon}");
-
-        Instantiate(_equipedWeapon, _rightSocket);
+        string _tempWeapon = Managers.Data.ItemDict[weaponId].name;       
+        _equipedWeapon = Instantiate(Resources.Load($"Prefabs/Items/Equip/{_tempWeapon}"), _rightSocket);      
+        gameObject.GetComponent<PlayerController>().State = Define.State.Idle;
     }
 
-    void OnWeaponRemoveEquip()
+    public void OnWeaponRemoveEquip()
     {
         Destroy(_equipedWeapon);
         _equipedWeapon = null;

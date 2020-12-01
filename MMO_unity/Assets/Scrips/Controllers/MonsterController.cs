@@ -1,11 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.AI;
 
 public class MonsterController : BaseController
 {
     MonsterStat _stat;
+
+    bool _hit = false;
+
+    Rigidbody _rigidbody;
 
     [SerializeField]
     float _scanRange = 10;
@@ -16,13 +21,12 @@ public class MonsterController : BaseController
     [SerializeField]
     Vector3 _firstSpawnPoint;
 
-
-
     int movementFlag = 0; //0 Idle , 1 move
 
     public override void Init()
-    {
+    {        
         WorldObjectType = Define.WorldObject.Monster;
+        _rigidbody = gameObject.GetComponent<Rigidbody>();
         _stat = gameObject.GetComponent<MonsterStat>();
 
         //최초 발결 된 것.
@@ -30,31 +34,6 @@ public class MonsterController : BaseController
             Managers.UI.MakeWorldSpaceUI<UI_HPBar>(transform);
 
     }
-
-/*
-    IEnumerator NonTargetChange()
-    {
-        movementFlag = Random.Range(0, 2);
-
-        if (movementFlag == 0)
-        {
-            State = Define.State.Idle;
-        }
-        else if (movementFlag == 1)
-        {
-            State = Define.State.Walk;
-            _desPos = Random.insideUnitSphere * 3.0f + _firstSpawnPos;
-            see = _desPos;
-            _desPos.y = 0;
-        }
-
-        yield return new WaitForSeconds(3.0f);
-
-
-        StartCoroutine("NonTargetChange");
-    }
-
-        */
 
     protected override void UpdateIdle()
     {
@@ -70,21 +49,8 @@ public class MonsterController : BaseController
             _lockTarget = player;
             State = Define.State.Moving;
             return;
-        }
-        //근처에 공격할 대상이 없을 시.     
+        }    
     }
-
-/*
-    protected override void UpdateWalk()
-    {
-        //타켓이 없을 시 실행.
-        Vector3 dir = (_desPos - transform.position).normalized;
-        transform.position += dir * Time.deltaTime * 10.0f;
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), 0.2f);
-    }
-    */
-
-
 
     protected override void UpdateMoving()
     {
@@ -104,8 +70,6 @@ public class MonsterController : BaseController
             else if(distance > _scanRange)
             {
                 _lockTarget = null;
-
-                //이때 다시 원위치로 돌아가기.
             }
         }
 
@@ -135,7 +99,9 @@ public class MonsterController : BaseController
     //때리는 함수
     void OnHitEvent()
     {
-        if(_lockTarget != null)
+        if (_hit)
+            return;
+        if (_lockTarget != null)
         {
             Stat targetStat = _lockTarget.GetComponent<PlayerStat>();
             targetStat.OnAttacked(_stat);
@@ -150,8 +116,37 @@ public class MonsterController : BaseController
             }
             else
             {
-
+                //몬스터 제자리로 가기.
             }
         } 
+    }
+    void FixedUpdate()
+    {
+           
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.layer == (LayerMask.NameToLayer("SkillRange")))
+        {
+            Debug.Log($"other Name : {other.name}");
+            StartCoroutine("coGetHit");
+            gameObject.GetComponent<MonsterStat>().OnAttackedBySkill(other);
+
+        }
+    }
+
+    IEnumerator coGetHit()
+    {
+        float exitTime = 0.9f;
+        Animator anim = GetComponent<Animator>();
+        State = Define.State.SkillHit;
+        _hit = true;
+        while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < exitTime)
+        {
+            yield return null;
+        }
+        State = Define.State.Idle;
+        _hit = false;
     }
 }

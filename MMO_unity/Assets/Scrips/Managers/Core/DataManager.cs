@@ -19,6 +19,9 @@ public class DataManager
     //Item
     public Dictionary<int, Data.Item> ItemDict { get; private set; } = new Dictionary<int, Data.Item>();
 
+    //Skill
+    public Dictionary<int, Data.Skill> SkillDict { get; private set; } = new Dictionary<int, Data.Skill>();
+
     //NPC
     public Dictionary<int, Data.NPC> NpcDict { get; private set; } = new Dictionary<int, Data.NPC>();
 
@@ -34,6 +37,7 @@ public class DataManager
     {
         StatDict = LoadJson<Data.StatData, int, Data.Stat>("StatData").MakeDict();
         ItemDict = LoadJson<Data.ItemData, int, Data.Item>("ItemData").MakeDict();
+        SkillDict = LoadJson<Data.SkillData, int, Data.Skill>("SkillData").MakeDict();
         NpcDict = Data.NPCData.MakeDict();
         QuestDict = Data.QuestData.MakeDict();
 
