@@ -28,6 +28,10 @@ public class Define
         SkillW,
         SkillE,
         SkillR,
+
+        BossMeleeAttack,
+        BossStoneSkill,
+        BossJumpSkill,
     };
 
     public enum Layer
