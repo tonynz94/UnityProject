@@ -40,7 +40,6 @@ public class UI_Loading : UI_Popup
         Debug.Log($"{maxWaitTime} {loadingText}");
         _LoadingText.text = loadingText;
         StartCoroutine("coLoadingStart", maxWaitTime);
-        Debug.Log("코루틴 이후");
     }
 
     IEnumerator coLoadingStart(float maxWaitTime)

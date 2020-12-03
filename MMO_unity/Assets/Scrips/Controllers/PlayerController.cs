@@ -8,9 +8,15 @@ public class PlayerController : BaseController
     int _mask = (1 << (int)Define.Layer.Ground) | (1 << (int)Define.Layer.Monster);
 
     public PlayerStat _stat;
-    
 
+    //퀘스트 QuestManager에 우선적으로 코딩 만약 완성하면 밑에 지워
+    public List<Data.Quest> quest = new List<Data.Quest>();
+    
+    
     bool _stopSkill = false;
+
+    Rigidbody _rigid;
+    NavMeshAgent _nav;
 
     public GameObject _scanObject = null;
     public GameObject _speekingNPC;
@@ -90,7 +96,10 @@ public class PlayerController : BaseController
     public override void Init()
     {
         WorldObjectType = Define.WorldObject.Player;
+
         _stat = gameObject.GetComponent<PlayerStat>();
+        _rigid = gameObject.GetComponent<Rigidbody>();
+        _nav = gameObject.GetComponent<NavMeshAgent>();
 
         Managers.Input.KeyAction -= OnKeyBoard;
         Managers.Input.KeyAction += OnKeyBoard;
@@ -275,22 +284,24 @@ public class PlayerController : BaseController
     }
 
     void OnKeyBoard()
-    {
-       
+    { 
         if (Input.GetKeyDown(KeyCode.F))
         {
             Debug.Log("F 키를 눌름 ");
             if (_scanObject == null)
                 return;
 
-            _isTalking = true;
+            
             _guideText.SetActive(false);
             _npcID = _scanObject.GetComponent<ObjData>()._NpcId;
 
             if (_scanObject.layer == LayerMask.NameToLayer("NPC"))
             {
-                SpeakWithNpc(_npcID);
+                _isTalking = true;
+                Managers.Talk.SpeakWithNpc(_npcID);
             }
+            
+            
             else if (_scanObject.layer == LayerMask.NameToLayer("Collecting"))
             {
                 _isPressingF = true;
@@ -319,23 +330,6 @@ public class PlayerController : BaseController
                 skillList[2].Ability();
             if (Input.GetKeyDown(KeyCode.R))
                 skillList[3].Ability();
-        }
-    }
-
-    void SpeakWithNpc(int npcId)
-    {
-        //첫 대화인것.
-        if(_speechBox == null)
-            _speechBox = Managers.UI.ShowPopupUI<UI_SpeechBox>("UI_Speech");
-
-        //true이면 대화가 끝났다는 것.
-        if (_speechBox.TalkingAction(npcId))
-        {
-            _isTalking = false;
-            _guideText.SetActive(true);
-
-            Managers.UI.ClosePopupUI(_speechBox);
-            _speechBox = null;
         }
     }
 
@@ -372,6 +366,8 @@ public class PlayerController : BaseController
             _isPressingF = false;
             Managers.UI.ClosePopupUI(_LoadingBar);
             Debug.Log("수확 성공");
+            Debug.Log("해당 수확한 아이템 인벤토리에 추가");
+            Debug.Log("Quest 검사");
         }
     }
 
@@ -396,6 +392,12 @@ public class PlayerController : BaseController
             _guideText.GetComponent<UI_PlayerGuide>()._speech = "수확하기 [F]";
             _scanObject = other.gameObject;
         }
+
+        if(other.gameObject.name == "JumpAttackArea")
+        {
+            Debug.Log("넉백");
+            StartCoroutine(coFourBack());
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -418,7 +420,6 @@ public class PlayerController : BaseController
         SkillQRange.SetActive(false);
     }
 
-
     public void SkillRColliderOn()
     {
         SkillRRange.SetActive(true);
@@ -427,5 +428,20 @@ public class PlayerController : BaseController
     public void SkillRColliderOff()
     {
         SkillRRange.SetActive(false);
+    }
+
+    IEnumerator coFourBack()
+    {
+        _nav.enabled = false;
+        _rigid.isKinematic = false;
+
+        _rigid.useGravity = true;
+        _rigid.AddForce(Vector3.back * 2, ForceMode.Impulse);
+        _rigid.AddForce(Vector3.up * 3, ForceMode.Impulse);
+
+        yield return new WaitForSeconds(1.3f);
+
+        _nav.enabled = true;
+        _rigid.isKinematic = true;
     }
 }

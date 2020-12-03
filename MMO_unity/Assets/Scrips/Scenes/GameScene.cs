@@ -4,17 +4,11 @@ using UnityEngine;
 
 public class GameScene : BaseScene
 {
-
     // Start is called before the first frame update
-
-    Coroutine co;
-    
 
     protected override void Init()
     {
         base.Init();
-
-        Managers.Quest._questId = 10;
 
         SceneType = Define.Scene.Game;
         
@@ -26,8 +20,6 @@ public class GameScene : BaseScene
        GameObject player = Managers.Game.Spawn(Define.WorldObject.Player, "UnityChan");
        Camera.main.gameObject.GetOrAddComponent<CameraController>().SetPlayer(player);
         
-
-
         Managers.Game.Spawn(Define.WorldObject.Monster, "Knight");
 
         GameObject go = new GameObject { name = "SpawningPool" };

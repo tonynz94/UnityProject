@@ -26,8 +26,9 @@ public class DataManager
     public Dictionary<int, Data.NPC> NpcDict { get; private set; } = new Dictionary<int, Data.NPC>();
 
     //Quest
-    public Dictionary<int, Data.Quest> QuestDict {get; private set; } = new Dictionary<int, Data.Quest>(); 
+    public Dictionary<int, Data.Quest> QuestDict {get; private set; } = new Dictionary<int, Data.Quest>();
 
+    public Dictionary<int, Data.Act> ActDict { get; private set; } = new Dictionary<int, Data.Act>();
     //Quest
     //public Dictionary<int,>
 
@@ -39,6 +40,7 @@ public class DataManager
         ItemDict = LoadJson<Data.ItemData, int, Data.Item>("ItemData").MakeDict();
         SkillDict = LoadJson<Data.SkillData, int, Data.Skill>("SkillData").MakeDict();
         NpcDict = Data.NPCData.MakeDict();
+        ActDict = Data.ActData.MakeDict();
         QuestDict = Data.QuestData.MakeDict();
 
         //StatData.MakeDIct() 함수를 실행해주고 있음.

@@ -94,4 +94,17 @@ public class Define
         SkillE,
         SkillR
     }
+
+    public enum BossDoor
+    {
+        Open,
+        Close,
+    }
+
+    public enum QuestGoalType
+    { 
+        Kill,
+        Gathering,
+    }
+
 }

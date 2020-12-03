@@ -5,13 +5,24 @@ using UnityEngine.AI;
 
 public class BossController : BaseController
 {
-    public bool isInBattleField;
+    public bool _isLooking;
+    public bool _isInBattleField;
     
 
     float MeleeAttackScanRange;
+    float movePerSecond;
+    float distance;
+
+
     public float _jumpPower;
+
+    Vector3 dir;
+    Vector3 _jumpPosition;
+
     Rigidbody _rigid;
     GameObject _target;
+    GameObject _meleeAttackArea;
+    GameObject _jumpAttackArea;
     NavMeshAgent _navMeshAgent;
 
     public override Define.State State
@@ -63,22 +74,51 @@ public class BossController : BaseController
         MeleeAttackScanRange = 7.0f;
         _rigid = GetComponent<Rigidbody>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
-        isInBattleField = false;
+        _isInBattleField = false;
+
+        _meleeAttackArea = transform.Find("MeleeAttackArea").gameObject;
+        _jumpAttackArea = transform.Find("JumpAttackArea").gameObject;
+
+        _meleeAttackArea.SetActive(false);
+        _jumpAttackArea.SetActive(false);
     }
     // Start is called before the first frame update
     void Start()
-    {
+    {     
         _jumpPower = 10.0f;
-        _target = Managers.Game.GetPlayer();
+        _target = Managers.Game.GetPlayer();     
+    }
+
+    public void StartBossStage()
+    {
+        _isInBattleField = true;
         StartCoroutine(ThinkSkill());
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isInBattleField)
+        if (!_isInBattleField)
+            return;
+
+        if (_isLooking)
         {
-            transform.LookAt(_target.transform);
+            Vector3 dir = (_target.transform.position - transform.position).normalized;
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir.normalized), 0.2f);
+        }
+        else
+        {
+            float distance = (_jumpPosition - transform.position).magnitude;
+            float speed = Mathf.Clamp(movePerSecond * Time.deltaTime, 0, distance);
+           
+            if(distance < 1.0f)
+            {
+                _isLooking = true;
+            }
+            else
+            {
+                this.transform.position += dir * (speed);
+            }
         }
     }
 
@@ -99,7 +139,6 @@ public class BossController : BaseController
         {
             //int ranAction = Random.Range(0, 1);
             int ranAction = 0;
-            Debug.Log(ranAction);
             switch (ranAction)
             {
                 case 0:
@@ -121,16 +160,34 @@ public class BossController : BaseController
 
     IEnumerator coJumpAttack()
     {
-       
+
         State = Define.State.BossJumpSkill;
 
-        yield return new WaitForSeconds(1.7f);
-        _navMeshAgent.enabled = false;
-       _rigid.AddForce(Vector3.up * _jumpPower, ForceMode.Impulse);
+        _jumpPosition = _target.transform.position;
+        distance = (_jumpPosition - transform.position).magnitude;    
+        dir = (_jumpPosition - transform.position).normalized;
 
-        //transform.Translate(_target.transform.position);
-        yield return new WaitForSeconds(3.0f);
+        movePerSecond = distance / 2.0f;
+
+        yield return new WaitForSeconds(1.7f);
+        _isLooking = false;
+        //점프 직후
+        _navMeshAgent.enabled = false;
+        _rigid.isKinematic = false;
+        
+        _rigid.AddForce(Vector3.up * _jumpPower, ForceMode.Impulse);
+        _jumpAttackArea.SetActive(true);
+        
+        yield return new WaitForSeconds(2.0f);
+        //착지 직후
+        _isLooking = true;
         _navMeshAgent.enabled = true;
+        _rigid.isKinematic = true;
+        State = Define.State.Idle;
+        _jumpAttackArea.SetActive(false);
+
+        yield return new WaitForSeconds(1.0f);
+        
         StartCoroutine(ThinkSkill());
     }
 
@@ -140,6 +197,19 @@ public class BossController : BaseController
         yield return new WaitForSeconds(3.0f);
 
         StartCoroutine(ThinkSkill());
+    }
+
+    IEnumerator CheckIfSkillisFinish()
+    {
+        float exitTime = 0.9f;
+        Animator anim = GetComponent<Animator>();
+
+        while (anim.GetCurrentAnimatorStateInfo(0).normalizedTime < exitTime)
+        {
+            yield return null;
+        }
+
+        State = Define.State.Idle;
     }
 
 }

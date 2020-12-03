@@ -100,20 +100,31 @@ namespace Data
     #endregion
 
     #region NPC
+
+    public class SpeechSelection
+    {
+        public string speech;
+        public bool isSelection;
+
+        public SpeechSelection(string mSpeech, bool mIsSecection)
+        {
+            speech = mSpeech;
+            isSelection = mIsSecection;
+        }
+    }
     public class NPC
     {
         public int npcId;
         public string name;
-        public string[] screenPlay;
+        public SpeechSelection[] screenPlay;
         
-        public NPC(int mId, string mName, string[] mScreenPlay)
+        public NPC(int mId, string mName, SpeechSelection[] mScreenPlay)
         {
             npcId = mId;
             name = mName;
             screenPlay = mScreenPlay;
         }
     }
-
     //스태틱.
     public static class NPCData
     {
@@ -134,36 +145,130 @@ namespace Data
 
         private static void GenerateData()
         {
-            npcs.Add(new NPC(1000, "죠지", new String[] { "처음보는 친군데??", "이 섬에 언제 들어온거야??" }) );
-            npcs.Add(new NPC(2000, "제인", new String[] { "벌써 어두워지고 있는데.."}));
+            SpeechSelection[] speech;
+            
+            speech = new SpeechSelection[4];
+            speech[0] = new SpeechSelection("처음보는 친군데?", false);
+            speech[1] = new SpeechSelection("복장을 보아하니 현재 전쟁중인 크로토피 사람이구만", false);
+            speech[2] = new SpeechSelection("여튼 이 섬도 안전하지 않으니 무기를 만드는것이 좋을꺼야", false);
+            speech[3] = new SpeechSelection("안쪽에 들어가봐, 무기를 제작해주는 사람이 있을꺼야.", false);
+            npcs.Add(new NPC(1000, "죠지", speech));
+            speech = null;
 
-            npcs.Add(new NPC(10 + 1000, "죠지", new String[] { "이 전쟁에 생존자가 있었구만..어떻게 이런일이..",
-                                                                              "마을 안쪽에 제인 아줌마를 한번 찾아가볼래??",
-                                                                              "아마 너에게 도움을 주실꺼야." }));
+            speech = new SpeechSelection[3];
+            speech[0] = new SpeechSelection("너가 크로토피 친구구만", false);
+            speech[1] = new SpeechSelection("이 섬은 비밀이라는게 없네 친구", false);
+            speech[2] = new SpeechSelection("무기가 없는거 같은데, 재료만 가져다주면 무기를 만들어주겠네, 어때 하겠는가?", true);
+            npcs.Add(new NPC(2000, "제인", speech));
+            speech = null;
 
-            npcs.Add(new NPC(11 + 2000, "제인", new String[] { "뭐야 생존자라니..",
-                                                                              "일단 여기도 위험하니 무기를 만들어야 하는데..",
-                                                                              "재료좀 구해와줄래?? 무기를 만들어줄게." }));
+            //Yes Click
+            speech = new SpeechSelection[2];
+            speech[0] = new SpeechSelection("좋은 생각이야 친구", false);
+            speech[1] = new SpeechSelection("돌조각 3개와, 나무조각 3개만 가져와 주겠나?? ", false);
+            npcs.Add(new NPC(2100, "제인", speech));
+            speech = null;
 
+            //No Click
+            speech = new SpeechSelection[1];
+            speech[0] = new SpeechSelection("무기 만들고 싶을때 언제든지 이야기 하라고~", false);
+            npcs.Add(new NPC(2200, "제인", speech));
+            speech = null;
+
+            speech = new SpeechSelection[2];
+            speech[0] = new SpeechSelection("여기는 정말 위험한 곳이야..", false);
+            speech[1] = new SpeechSelection("그래도 들어가고 싶은가?", true);
+            npcs.Add(new NPC(3000, "문지기", speech));
+            speech = null;
+
+            //Yes 선택 시
+            speech = new SpeechSelection[1];
+            speech[0] = new SpeechSelection("행운을 비네, 이 마을의 평화를 꼭 가져와 주게나.", false);
+            npcs.Add(new NPC(3100, "문지기", speech));
+            speech = null;
+
+            //No 선택 시
+            speech = new SpeechSelection[1];
+            speech[0] = new SpeechSelection("들어가고 싶으면 언제든지 이야기 하게나.", false);
+            npcs.Add(new NPC(3200, "문지기", speech));
+            speech = null;
         }
     }
+    #endregion
 
+    #region Act
+    public class Act
+    {
+        public int npcId;
+        public Action act;
+
+        public Act(int mNpcId, Action mAct)
+        {
+            npcId = mNpcId;
+            act = mAct;
+        }
+    }
+    public class ActData
+    {
+        public static List<Act> acts = new List<Act>();
+
+        public static Dictionary<int, Act> MakeDict()
+        {
+            GenerateData();
+            Dictionary<int, Act> dict = new Dictionary<int, Act>();
+
+            foreach (Act act in acts)
+            {
+                dict.Add(act.npcId, act);
+            }
+
+            return dict;
+        }
+
+        private static void GenerateData()
+        {
+            acts.Add(new Act(2100, () => { Managers.Quest.QuestAdd(2100);}));
+            acts.Add(new Act(3100, () => { Managers.Game.BossDoorOpenClose(Define.BossDoor.Open); } ));
+        }
+    }
     #endregion
 
     #region Quest
     public class Quest
     {
-        public int questId; //현재 진행중인 퀘스트
-        public string questName;    //퀘스트 이름.
-        public int[] npcId; //퀘스트와 연관된 다른 NPC 
+        public int giverNpcID;
+        public string title;    //제목
+        public string description; //설명
+        public int experienceReward;
+        public int goldReward;
+        public int[] itemReward;
 
-        public Quest(int mQuestId, string mQuestName, int[] mNpcId)
+        public QuestGoal questGoal;
+
+        public Quest(int mGiverNpcID, string mTitle, string mDescription, int mExperienceReward, int mGoldReward, int[] mItemReward, QuestGoal mQuestGoal)
         {
-            questId = mQuestId;
-            questName = mQuestName;
-            npcId = mNpcId;
+            giverNpcID = mGiverNpcID;
+            title = mTitle;
+            description = mDescription;
+            experienceReward = mExperienceReward;
+            goldReward = mGoldReward;
+            itemReward = mItemReward;
+            questGoal = mQuestGoal;
         }
+    }
 
+    public class QuestGoal
+    {
+        public Define.QuestGoalType goalType;
+        public Dictionary<int, int> requiredAmount;
+        public Dictionary<int, int> currentAmount;
+
+        public QuestGoal(Define.QuestGoalType mGoalType, Dictionary<int, int> mRequiredAmount, Dictionary<int, int> mCurrentAmount)
+        {
+            goalType = mGoalType;
+            requiredAmount = mRequiredAmount;
+            currentAmount = mCurrentAmount;
+        }
     }
 
     public static class QuestData
@@ -176,15 +281,17 @@ namespace Data
             Dictionary<int, Quest> dict = new Dictionary<int, Quest>();
 
             foreach (Quest quest in quests)
-                dict.Add(quest.questId, quest);
+                dict.Add(quest.giverNpcID, quest);
 
             return dict;
         }
 
         private static void GenerateData()
         {
-            quests.Add(new Quest(10, "첫 마을 방문", new int[] { 1000, 2000 }));
-            quests.Add(new Quest(20, "무기 재료 구해오기", new int[] { 1000, 2000 }));
+            quests.Add(new Quest(2100, "제인의 부탁","돌조각과 나무조각을 각각 3개씩 채집하세요.", 0 , 0, new int[] { 10001, 20001},
+                            new QuestGoal(Define.QuestGoalType.Gathering, 
+                            new Dictionary<int, int> { { 101, 3 }, { 102, 3 } } ,   //Require
+                            new Dictionary<int, int> { { 101, 0 }, { 102, 0 } }))); //current << 퀘스트를 받을때 인벤토리르 검사하여 current 값 높여주기!!
 
         }
     }

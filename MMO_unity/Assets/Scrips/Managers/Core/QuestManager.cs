@@ -4,31 +4,51 @@ using UnityEngine;
 
 public class QuestManager
 {
-    public int _questId;
-    public int _questActionIndex = 0; //퀘스트 순서
+    public List<Data.Quest> questActive = new List<Data.Quest>();
 
-    public int GetQuestTalkIndex(int id)
+    public void QuestAdd(int QuestID)
     {
-        return _questId + _questActionIndex;
+        questActive.Add(Managers.Data.QuestDict[QuestID]);
+        Debug.Log("퀘스트 추가");
     }
 
-    //대화가 끝이 났을때. 올려줌.(대화를 나눴던 npc id)
-    public string CheckQuest(int id)
+    public bool IsReached(Data.Quest ActiveQuest)
     {
-        //
-        if(id == Managers.Data.QuestDict[_questId].npcId[_questActionIndex])
-            _questActionIndex++;
-
-        if (_questActionIndex == Managers.Data.QuestDict[_questId].npcId.Length)
-            nextQuest();
-
-        return Managers.Data.QuestDict[_questId].questName;
+        foreach (KeyValuePair<int, int> require in ActiveQuest.questGoal.requiredAmount)
+        {
+            if (!(require.Value <= ActiveQuest.questGoal.currentAmount[require.Key]))
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
-    //새로운 퀘스트가 들어왔을 시.
-    void nextQuest()
+
+    public void CollectOrKill(int Id)
     {
-        _questId += 10;
-        _questActionIndex = 0;
+        if (questActive.Count == 0)
+        {
+            Debug.Log("수락한 퀘스트가 없습니다.");
+            return;
+        }
+
+        foreach (Data.Quest quest in questActive)
+        {
+            if(quest.questGoal.currentAmount.TryGetValue(Id, out int value))
+            {
+                value++;
+                if(IsReached(quest))
+                {
+                    CompleteQuest();
+                }                           
+            }
+        }
     }
+
+    public void CompleteQuest()
+    {
+        Debug.Log("퀘스트 완료");
+    }
+
 }

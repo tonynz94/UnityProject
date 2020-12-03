@@ -10,6 +10,8 @@ public class GameManager
     //서버와 연동한다는 가정.
     //int(id) <-> 짝을 지은 GameObject 상황(이를 dictionary로 관리)
     public GameObject _player;
+    GameObject _smallDoor;
+
     HashSet<GameObject> _players = new HashSet<GameObject>();
     HashSet<GameObject> _monsters = new HashSet<GameObject>();
 
@@ -75,5 +77,24 @@ public class GameManager
                 break;
         }
         Managers.Resource.Destory(go);
+    }
+
+    public void BossDoorOpenClose(Define.BossDoor mOpenClose)
+    {
+        if (_smallDoor == null)
+        {
+            _smallDoor = GameObject.FindGameObjectWithTag("SmallDoor");
+        }
+
+        Animator anim = _smallDoor.GetComponent<Animator>();
+        switch (mOpenClose)
+        {
+            case Define.BossDoor.Open:
+                anim.CrossFade("DoorOpen", 0.0f);
+                break;
+            case Define.BossDoor.Close:
+                anim.CrossFade("DoorClose", 0.0f);
+                break;
+        }
     }
 }
