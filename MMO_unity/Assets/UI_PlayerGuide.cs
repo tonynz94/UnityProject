@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class UI_PlayerGuide : UI_Base
 {
     public GameObject _guideText;
-    public string _speech;
 
     enum GameObjects
     {
@@ -18,19 +17,28 @@ public class UI_PlayerGuide : UI_Base
     {
         base.Bind<GameObject>(typeof(GameObjects));
         _guideText = Get<GameObject>((int)GameObjects.GuideText);
-
-        _guideText.GetComponent<Text>().text = _speech;
-
     }
     // Start is called before the first frame update
-    public override void Start()
+    public void Awake()
     {
         Init();
     }
 
+    public override void Start()
+    {
+
+    }
+
     // Update is called once per frame
+
     void Update()
     {
         _guideText.transform.rotation = Camera.main.transform.rotation;
     }
+
+    public void SetText(string guideText)
+    {
+        _guideText.GetComponent<Text>().text = guideText;
+    }
+
 }

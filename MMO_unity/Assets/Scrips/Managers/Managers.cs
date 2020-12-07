@@ -16,7 +16,7 @@ public class Managers : MonoBehaviour
     DataManager _data = new DataManager();
     TalkManager _talk = new TalkManager();
     QuestManager _quest = new QuestManager();
-    InvenManager _invent = new InvenManager();
+    InvenManager _inven = new InvenManager();
     EquipManager _equip = new EquipManager();
     SkillManager _skill = new SkillManager();
 
@@ -32,13 +32,17 @@ public class Managers : MonoBehaviour
     public static DataManager Data { get { return Instance._data; } }
     public static TalkManager Talk { get { return Instance._talk; } }
     public static QuestManager Quest { get { return Instance._quest; } }
-    public static InvenManager Inven { get { return Instance._invent; } }
+    public static InvenManager Inven { get { return Instance._inven; } }
     public static EquipManager Equip { get { return Instance._equip; } }
     public static SkillManager Skill { get { return Instance._skill; } }
 
+    void Awake()
+    {
+        _inven.Init();
+    }
     void Start()
     {
-        init(); 
+        init();
     }
 
     void Update()

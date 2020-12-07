@@ -25,8 +25,8 @@ public class UI_Inventory : UI_Popup
     {
         for (int i = 0; i < Managers.Inven.Space; i++)
         {
-            if (Managers.Inven.items[i] != 0)
-                slots[i].AddItem(Managers.Inven.items[i]);
+            if (Managers.Inven.items[i].ItemId != 0)
+                slots[i].AddItem(Managers.Inven.items[i].ItemId, Managers.Inven.items[i].invenType);
             else
                 slots[i].ClearSlot();
         }

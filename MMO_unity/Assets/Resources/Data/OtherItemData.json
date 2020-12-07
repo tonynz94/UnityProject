@@ -1,0 +1,29 @@
+{
+  "otherItems": [
+    {
+      "otherItemId": "100",
+      "name": "Wood Piece",
+      "description": "나무 조각이다."
+    },
+    {
+      "otherItemId": "101",
+      "name": "Rock Piece",
+      "description": "돌 조각이다."
+    },
+    {
+      "otherItemId": "102",
+      "name": "Fish",
+      "description": "낚시를 하면 나오는 전리품이다."
+    },
+    {
+      "otherItemId": "103",
+      "name": "Skull",
+      "description": "나이트 몬스터에게 나오는 전리품이다."
+    },
+    {
+      "otherItemId": "104",
+      "name": "Monster Eye",
+      "description": "보스에게서 나오는 전리품이다."
+    }
+  ]
+}

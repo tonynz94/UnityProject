@@ -20,7 +20,7 @@ public class PlayerController : BaseController
 
     public GameObject _scanObject = null;
     public GameObject _speekingNPC;
-    public GameObject _guideText;
+    public GameObject _guide;
 
     public GameObject SkillQRange;
     public GameObject SkillERange;
@@ -96,11 +96,12 @@ public class PlayerController : BaseController
     public override void Init()
     {
         WorldObjectType = Define.WorldObject.Player;
-
+        _guide = gameObject.transform.Find("UI_PlayerGuide").gameObject;
         _stat = gameObject.GetComponent<PlayerStat>();
         _rigid = gameObject.GetComponent<Rigidbody>();
         _nav = gameObject.GetComponent<NavMeshAgent>();
 
+        _guide.SetActive(false);
         Managers.Input.KeyAction -= OnKeyBoard;
         Managers.Input.KeyAction += OnKeyBoard;
         Managers.Input.MouseAction -= OnMouseEvent;
@@ -284,31 +285,34 @@ public class PlayerController : BaseController
     }
 
     void OnKeyBoard()
-    { 
+    {
+        #region F_KeyDown
         if (Input.GetKeyDown(KeyCode.F))
         {
             Debug.Log("F 키를 눌름 ");
             if (_scanObject == null)
                 return;
 
-            
-            _guideText.SetActive(false);
-            _npcID = _scanObject.GetComponent<ObjData>()._NpcId;
+
+            TurnOFFGuide();
+            _npcID = _scanObject.GetComponent<ObjData>()._Id;
 
             if (_scanObject.layer == LayerMask.NameToLayer("NPC"))
             {
                 _isTalking = true;
                 Managers.Talk.SpeakWithNpc(_npcID);
             }
-            
-            
             else if (_scanObject.layer == LayerMask.NameToLayer("Collecting"))
             {
                 _isPressingF = true;
                 CollectingThings();
             }
         }
+        #endregion
+        if (_isTalking)
+            return;
 
+        #region F_KeyUp
         if (Input.GetKeyUp(KeyCode.F))
         {
             Debug.Log("키를 땜");
@@ -316,10 +320,9 @@ public class PlayerController : BaseController
             _isPressingF = false;
             CollectingThings();
         }
+        #endregion
 
         //만약 말하고 있다면 스킬 사용 불가.
-        if (_isTalking)
-            return;
         if (WeaponChange._equipedWeapon != null)
         {
             if (Input.GetKeyDown(KeyCode.Q))
@@ -331,11 +334,14 @@ public class PlayerController : BaseController
             if (Input.GetKeyDown(KeyCode.R))
                 skillList[3].Ability();
         }
+        else
+        {
+            Debug.Log("무기가 없는 상태에서는 스킬을 사용 할 수 없습니다.");
+        }
     }
 
     void CollectingThings()
     {
-
         if (_LoadingBar == null)
         {
             _LoadingBar = Managers.UI.ShowPopupUI<UI_Loading>("UI_Loading");
@@ -353,9 +359,12 @@ public class PlayerController : BaseController
             if (_LoadingBar._isFinished)
             {
                 Managers.UI.ClosePopupUI(_LoadingBar);
+                //Managers.Inven.Add()
                 Debug.Log("수확성공");
+
             }
         }
+
     }
 
     public void LoadingSuccess(bool isFinished)
@@ -365,9 +374,16 @@ public class PlayerController : BaseController
             _isTalking = false;
             _isPressingF = false;
             Managers.UI.ClosePopupUI(_LoadingBar);
-            Debug.Log("수확 성공");
-            Debug.Log("해당 수확한 아이템 인벤토리에 추가");
-            Debug.Log("Quest 검사");
+            ObjData scanObject = _scanObject.GetComponent<ObjData>();
+
+            if(scanObject._InteractionType == Define.InteractionType.Collecting)
+                Managers.Inven.Add(scanObject._Id, Define.InvenType.Others);
+            else
+                Debug.Log("수확물이 아님");
+
+            Destroy(scanObject.gameObject);
+
+            Managers.Quest.CollectOrKill(scanObject._Id);
         }
     }
 
@@ -380,16 +396,14 @@ public class PlayerController : BaseController
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("NPC"))
-        {    
-            _guideText.SetActive(true);
-            _guideText.GetComponent<UI_PlayerGuide>()._speech = "대화하기 [F]";
+        {
+            TurnOnGuide("대화하기");
             _scanObject = other.gameObject;
         }
 
         if (other.gameObject.layer == LayerMask.NameToLayer("Collecting"))
-        {         
-            _guideText.SetActive(true);
-            _guideText.GetComponent<UI_PlayerGuide>()._speech = "수확하기 [F]";
+        {
+            TurnOnGuide("수확하기");
             _scanObject = other.gameObject;
         }
 
@@ -405,7 +419,7 @@ public class PlayerController : BaseController
         if ((other.gameObject.layer == (LayerMask.NameToLayer("NPC")) ||
             (other.gameObject.layer == LayerMask.NameToLayer("Collecting"))))
         {
-            _guideText.SetActive(false);
+            TurnOFFGuide();
             _scanObject = null;
         }
     }
@@ -443,5 +457,17 @@ public class PlayerController : BaseController
 
         _nav.enabled = true;
         _rigid.isKinematic = true;
+    }
+
+    void TurnOnGuide(string guideText)
+    {
+        _guide.GetComponent<UI_PlayerGuide>().SetText(guideText);
+        _guide.SetActive(true);
+    }
+
+    void TurnOFFGuide()
+    {
+        _guide.GetComponent<UI_PlayerGuide>().SetText("");
+        _guide.SetActive(false);
     }
 }

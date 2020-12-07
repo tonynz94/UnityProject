@@ -33,10 +33,16 @@ public class UI_Inven_Slot : UI_Base, IDropHandler
     }
 
 
-    public void AddItem(int itemTemplateId)
+    public void AddItem(int itemTemplateId, Define.InvenType type)
     {
         itemId = itemTemplateId;
-        icon.GetComponent<Image>().sprite = Managers.Data.ItemDict[itemTemplateId].icon;
+        if(type == Define.InvenType.Equipments)
+            icon.GetComponent<Image>().sprite = Managers.Data.ItemDict[itemTemplateId].icon;
+        else if(type == Define.InvenType.Consume)
+            icon.GetComponent<Image>().sprite = Managers.Data.ConsumeItemDict[itemTemplateId].icon;
+        else if(type == Define.InvenType.Others)
+            icon.GetComponent<Image>().sprite = Managers.Data.OtherItemDict[itemTemplateId].icon;
+
         Debug.Log("enable true");
         icon.GetComponent<Image>().enabled = true;
     }
@@ -50,12 +56,10 @@ public class UI_Inven_Slot : UI_Base, IDropHandler
     public void ItemClick(PointerEventData evt)
     {
         if(evt.button == PointerEventData.InputButton.Left)
-        {
+        {          
             if (!icon.GetComponent<Image>().IsActive())
                 return;
-
-            Debug.Log("right click");
-            
+    
             //커서에 클릭한 아이템의 반투명 이미지를 따라 다니게 함.
         }
 
@@ -63,6 +67,8 @@ public class UI_Inven_Slot : UI_Base, IDropHandler
         else if(evt.button == PointerEventData.InputButton.Right)
         {
             if (!icon.GetComponent<Image>().IsActive())
+                return;
+            if (Managers.Inven.items[slotPos].invenType != Define.InvenType.Equipments)
                 return;
 
             int tempId = itemId;

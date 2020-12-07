@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
-    Animator ani;
+    public class hello
+    {
+        public int a = 0;
+        public string h = "aa";
+    }
+
+    hello[] _hi = new hello[10];
     // Start is called before the first frame update
     void Start()
     {
-        ani = gameObject.GetComponent<Animator>();
-        Debug.Log(ani.layerCount);
-    }
+        Debug.Log(_hi[5].a);    }
 
     // Update is called once per frame
     void Update()

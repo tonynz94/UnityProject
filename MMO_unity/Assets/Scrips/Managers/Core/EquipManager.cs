@@ -36,7 +36,7 @@ public class EquipManager
 
         //해당 장비창에 이미 다른 아이템을 장착하고 있다면.
         if (wearItems[equipSlot] != 0)
-            Managers.Inven.Add(wearItems[equipSlot]);
+            Managers.Inven.Add(wearItems[equipSlot], Define.InvenType.Equipments);
 
         wearItems[equipSlot] = itemId;
 

@@ -62,7 +62,7 @@ public class UI_Equip_Slot : UI_Base
         }
         
         //인벤토리에 추가
-        if(!Managers.Inven.Add(removeItemID)) {
+        if(!Managers.Inven.Add(removeItemID,Define.InvenType.Equipments)) {
             Debug.Log("No space to UnAttach");
             return;
         }

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ObjData : MonoBehaviour
 {
-    public int _NpcId;
-    public bool isNpc;
+//NPC에 있는 것들.
+    public Define.InteractionType _InteractionType;
+    public int _Id;
 
 }

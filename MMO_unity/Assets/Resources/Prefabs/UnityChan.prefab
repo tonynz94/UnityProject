@@ -1465,7 +1465,7 @@ Transform:
   m_LocalScale: {x: 39.5085, y: 39.5085, z: 39.5085}
   m_Children: []
   m_Father: {fileID: 4971802319415903965}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!212 &1251280485023445743
 SpriteRenderer:
@@ -1969,11 +1969,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3210032647216044542}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.194, y: 0.736, z: -0.59}
-  m_LocalScale: {x: 0.5103918, y: 1, z: 0.42852908}
+  m_LocalPosition: {x: -0.014, y: 0.988, z: -0.59}
+  m_LocalScale: {x: 0.21252657, y: 1, z: 0.20061745}
   m_Children: []
   m_Father: {fileID: 4971802319415903965}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &5841004687467151078
 MeshFilter:
@@ -4525,11 +4525,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5840303031725255572}
   m_LocalRotation: {x: -0, y: 0.9999942, z: -0, w: -0.0033946307}
-  m_LocalPosition: {x: -0, y: 1.14, z: 0.92}
+  m_LocalPosition: {x: 0, y: 1.14, z: 0.92}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4971802319415903965}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 180.389, z: 0}
 --- !u!20 &7394068405515097862
 Camera:
@@ -6258,10 +6258,10 @@ Transform:
   m_Children:
   - {fileID: 440920639986265069}
   - {fileID: 4472791118831080718}
-  - {fileID: 4130241440464670139}
-  - {fileID: 8829457781410749608}
   - {fileID: 130727527252679956}
   - {fileID: 8412597538218066862}
+  - {fileID: 4130241440464670139}
+  - {fileID: 8829457781410749608}
   - {fileID: 6607466391940307314}
   - {fileID: 4170756732317046793}
   - {fileID: 1708804087220756483}
@@ -6343,7 +6343,7 @@ MonoBehaviour:
   _stat: {fileID: 0}
   _scanObject: {fileID: 0}
   _speekingNPC: {fileID: 0}
-  _guideText: {fileID: 2671338453990325455}
+  _guide: {fileID: 0}
   SkillQRange: {fileID: 1764783465858607413}
   SkillERange: {fileID: 6173468764272697758}
   SkillRRange: {fileID: 4988169477970017202}
@@ -7724,7 +7724,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5636096520509435317, guid: ac76917adf2f0e642bac677a3a25d6f6, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5636096520509435317, guid: ac76917adf2f0e642bac677a3a25d6f6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

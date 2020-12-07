@@ -35,6 +35,70 @@ namespace Data
     }
     #endregion
 
+    #region ConsumeItem
+    [Serializable]
+    public class ConsumeItem
+    {
+        public int consumeItemId;  //변수의 이름과 json의 이름이 같지 않으면 찾지 못함.
+        public string name;      
+        public int hp;
+        public int mp;
+        public string description;
+
+        public Sprite icon;
+    }
+    //인터페이스를 상속받음
+    [Serializable]
+    public class ConsumeItemData : ILoader<int, ConsumeItem>
+    {
+        Sprite tempIcon;
+        public List<ConsumeItem> consumeItems = new List<ConsumeItem>();
+
+        public Dictionary<int, ConsumeItem> MakeDict()
+        {
+            Dictionary<int, ConsumeItem> dict = new Dictionary<int, ConsumeItem>();
+            foreach (ConsumeItem consumeItem in consumeItems)
+            {            
+                dict.Add(consumeItem.consumeItemId, consumeItem);
+                dict[consumeItem.consumeItemId].icon = Resources.Load<Sprite>($"Textures/ConsumeItem/{consumeItem.name} Icon");
+                Debug.Log($"{consumeItem.name} : {dict[consumeItem.consumeItemId].icon}");
+            }
+            return dict;
+        }
+    }
+    #endregion
+
+    #region OtherItem
+    [Serializable]
+    public class OtherItem
+    {
+        public int otherItemId;  //변수의 이름과 json의 이름이 같지 않으면 찾지 못함.
+        public string name;
+        public string description;
+
+        public Sprite icon;
+    }
+    //인터페이스를 상속받음
+    [Serializable]
+    public class OtherItemData : ILoader<int, OtherItem>
+    {
+        Sprite tempIcon;
+        public List<OtherItem> otherItems = new List<OtherItem>();
+
+        public Dictionary<int, OtherItem> MakeDict()
+        {
+            Dictionary<int, OtherItem> dict = new Dictionary<int, OtherItem>();
+            foreach (OtherItem otherItem in otherItems)
+            {
+                dict.Add(otherItem.otherItemId, otherItem);
+                dict[otherItem.otherItemId].icon = Resources.Load<Sprite>($"Textures/OtherItem/{otherItem.name} Icon");
+                Debug.Log($"{otherItem.name} : {dict[otherItem.otherItemId].icon}");
+            }
+            return dict;
+        }
+    }
+#endregion
+
     #region Item
     [Serializable]
     public class Item

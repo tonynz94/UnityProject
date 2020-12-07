@@ -107,4 +107,18 @@ public class Define
         Gathering,
     }
 
+    public enum InteractionType
+    { 
+        NPC,
+        Collecting,
+    }
+
+    public enum InvenType
+    {
+        None,
+        Equipments,
+        Consume,
+        Others,
+    }
+
 }

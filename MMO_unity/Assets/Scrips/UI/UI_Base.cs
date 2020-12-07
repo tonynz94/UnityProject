@@ -34,6 +34,7 @@ public abstract class UI_Base : MonoBehaviour
     {
         //Enum안에 있는 값들의 이름을 가져 옴 
         //type은 enum을 가리킴. enum안에 있는 값들을 string으로 가져옴
+        Debug.Log($"{type}");
         String[] names = Enum.GetNames(type);
         //enum안에 갯수 만큼 배열 생성
         UnityEngine.Object[] objects = new UnityEngine.Object[names.Length];

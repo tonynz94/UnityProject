@@ -35,7 +35,7 @@ public class ItemPickUp : MonoBehaviour
 
     void PickUp()
     {
-        bool wasPickedUp = Managers.Inven.Add(_itemTemplateId);
+        bool wasPickedUp = Managers.Inven.Add(_itemTemplateId,Define.InvenType.Equipments);
         if (wasPickedUp)
         {
             Destroy(gameObject);

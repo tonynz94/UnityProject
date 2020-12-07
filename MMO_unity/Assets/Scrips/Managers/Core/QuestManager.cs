@@ -1,15 +1,22 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class QuestManager
 {
+    public Action<int> onQuestAddCallBack;
+
     public List<Data.Quest> questActive = new List<Data.Quest>();
 
     public void QuestAdd(int QuestID)
     {
         questActive.Add(Managers.Data.QuestDict[QuestID]);
-        Debug.Log("퀘스트 추가");
+
+        if (onQuestAddCallBack != null)
+            onQuestAddCallBack.Invoke(QuestID);
+        
+        Debug.Log("퀘스트 추가 완료");
     }
 
     public bool IsReached(Data.Quest ActiveQuest)
@@ -40,14 +47,16 @@ public class QuestManager
                 value++;
                 if(IsReached(quest))
                 {
-                    CompleteQuest();
+                    CompleteQuest(Id);
                 }                           
             }
         }
     }
 
-    public void CompleteQuest()
+    public void CompleteQuest(int Id)
     {
+        //퀘스트 알림창
+        Debug.Log("보상");
         Debug.Log("퀘스트 완료");
     }
 
