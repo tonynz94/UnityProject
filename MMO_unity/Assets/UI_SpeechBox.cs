@@ -28,10 +28,6 @@ public class UI_SpeechBox : UI_Popup
         _nameBox = Get<GameObject>((int)GameObjects.NameText).GetComponent<Text>();
         _yesButton = Get<GameObject>((int)GameObjects.YesButton).GetComponent<Button>();
         _noButton = Get<GameObject>((int)GameObjects.NoButton).GetComponent<Button>();
-    }
-
-    private void Start()
-    {
         _yesButton.gameObject.SetActive(false);
         _noButton.gameObject.SetActive(false);
     }
@@ -39,13 +35,15 @@ public class UI_SpeechBox : UI_Popup
     public void TalkingAction(int mNpcID, int mScreenPlayIndex)
     {
         _talkingNPCID = mNpcID;
+        Debug.Log($"_talkingNPCID : {_talkingNPCID}");
         //int questTalkIndex = Managers.Quest.GetQuestTalkIndex(NpcId);
         _nameBox.text = Managers.Data.NpcDict[_talkingNPCID].name;
-        _speechBox.text = Managers.Data.NpcDict[_talkingNPCID].screenPlay[mScreenPlayIndex].speech; ;
+        _speechBox.text = Managers.Data.NpcDict[_talkingNPCID].screenPlay[mScreenPlayIndex].speech;
         bool select = Managers.Data.NpcDict[_talkingNPCID].screenPlay[mScreenPlayIndex].isSelection;
-        
+        Debug.Log($"select : {select}");
         if (select)
         {
+            Debug.Log("선택지가 있는 말유아이");
             _yesButton.gameObject.SetActive(true);
             _noButton.gameObject.SetActive(true);
             return;
@@ -69,7 +67,11 @@ public class UI_SpeechBox : UI_Popup
         //퀘스트를 받는것 일 수도 있으며 다른 동작을 하는 것일 수 도 있음.
         Debug.Log("Yes Click");
         Managers.Talk.StartNewSpeechAgain();
+
+        //지금 이 확인 버튼을 누르면 100으로 가는 것 때문에 오류가 나고 있음.
         Managers.Talk.ConversationByChoice(100);
+        
+        //여기서 오류가 나는것 ~~~~~~~~~~@@@@@@@@@@@@@@@@@@@@@
         Managers.Talk.SpeakWithNpc();
 
         //수행.

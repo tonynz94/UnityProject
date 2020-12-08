@@ -1,13 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UI_Equipment : UI_Popup
 {
     // Start is called before the first frame update
     GameObject _player;
-    
+
+
+
     //List<int> _equipedItems = new List<int>();
 
     public enum GameObjects
@@ -17,7 +20,7 @@ public class UI_Equipment : UI_Popup
         UI_Upper_Slot,
         UI_Under_Slot,
         UI_Shoe_Slot,
-        
+
 
         //보여지는 stat창.
         LevelText,
@@ -44,12 +47,11 @@ public class UI_Equipment : UI_Popup
         _player.GetComponent<PlayerStat>().UpdateStatText -= SetStatText;
         _player.GetComponent<PlayerStat>().UpdateStatText += SetStatText;
 
-        Bind<GameObject>(typeof(GameObjects));      
+        Bind<GameObject>(typeof(GameObjects));
     }
 
-    void Start()
+    public override void Start()
     {
-        Init();
         UpdateEquipIconUI();
     }
 
@@ -57,6 +59,7 @@ public class UI_Equipment : UI_Popup
     public void SetStatText()
     {
         PlayerStat stat = _player.GetComponent<PlayerStat>();
+
 
         Get<GameObject>((int)GameObjects.LevelText).GetComponent<Text>().text = $"{stat.Level}";
         Get<GameObject>((int)GameObjects.HPText).GetComponent<Text>().text = $"{stat.MaxHp}";
@@ -85,7 +88,8 @@ public class UI_Equipment : UI_Popup
 
     public override bool ClosePopupUI()
     {
-        if(base.ClosePopupUI()){
+        if (base.ClosePopupUI())
+        {
             _player.GetComponent<PlayerStat>().UpdateStatText = null;
             Managers.Equip.UpdateStatText = null;
             Managers.Equip.OnEquipChangedCallback = null;

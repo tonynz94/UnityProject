@@ -126,7 +126,6 @@ namespace Data
             {
                 dict.Add(item.itemTemplateId, item);
                 dict[item.itemTemplateId].icon = Resources.Load<Sprite>($"Textures/Item/{item.name} Icon");
-                Debug.Log(dict[item.itemTemplateId].icon);
             }
             return dict;
         }
@@ -239,6 +238,26 @@ namespace Data
             npcs.Add(new NPC(2200, "제인", speech));
             speech = null;
 
+            //퀘스트 진행 중 완료 했을때
+            speech = new SpeechSelection[1];
+            speech[0] = new SpeechSelection("오 재료를 다 모아온 모양이군 무기는 여기있네 행운울 비네. ", true);
+            npcs.Add(new NPC(2110, "제인", speech));
+            speech = null;
+            
+            //퀘스트 진행 중 완료 못했을 때
+            speech = new SpeechSelection[1];
+            speech[0] = new SpeechSelection("아직 재료를 못구한 모양이구만 조금만 힘내보라고~", false);
+            npcs.Add(new NPC(2120, "제인", speech));
+            speech = null;
+
+            speech = new SpeechSelection[1];
+            speech[0] = new SpeechSelection("내가 준 무기는 마음에 드는가??", false);
+            npcs.Add(new NPC(2130, "제인", speech));
+            speech = null;
+
+
+
+
             speech = new SpeechSelection[2];
             speech[0] = new SpeechSelection("여기는 정말 위험한 곳이야..", false);
             speech[1] = new SpeechSelection("그래도 들어가고 싶은가?", true);
@@ -291,7 +310,9 @@ namespace Data
 
         private static void GenerateData()
         {
-            acts.Add(new Act(2100, () => { Managers.Quest.QuestAdd(2100);}));
+            acts.Add(new Act(2100, () => { Managers.Quest.QuestAdd(2100);} ));
+            acts.Add(new Act(2110, () => { Debug.Log("퀘스트 완료");} ));
+
             acts.Add(new Act(3100, () => { Managers.Game.BossDoorOpenClose(Define.BossDoor.Open); } ));
         }
     }
@@ -354,8 +375,8 @@ namespace Data
         {
             quests.Add(new Quest(2100, "제인의 부탁","돌조각과 나무조각을 각각 3개씩 채집하세요.", 0 , 0, new int[] { 10001, 20001},
                             new QuestGoal(Define.QuestGoalType.Gathering, 
-                            new Dictionary<int, int> { { 101, 3 }, { 102, 3 } } ,   //Require
-                            new Dictionary<int, int> { { 101, 0 }, { 102, 0 } }))); //current << 퀘스트를 받을때 인벤토리르 검사하여 current 값 높여주기!!
+                            new Dictionary<int, int> { { 101, 1 } } ,   //Require
+                            new Dictionary<int, int> { { 101, 0 } } ))); //current << 퀘스트를 받을때 인벤토리르 검사하여 current 값 높여주기!!
 
         }
     }

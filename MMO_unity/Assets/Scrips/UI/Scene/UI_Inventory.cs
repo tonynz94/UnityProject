@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class UI_Inventory : UI_Popup
 {
@@ -13,11 +14,12 @@ public class UI_Inventory : UI_Popup
         Managers.Inven.OnItemChangedCallback += loadInvenUI;
 
         slots = transform.GetComponentsInChildren<UI_Inven_Slot>();
-        Debug.Log(Managers.Inven.Space);
+
         for(int i = 0; i < Managers.Inven.Space; i++)
             slots[i].slotPos = i;
         
         loadInvenUI();
+        BindEvent(gameObject, OnWindowDragging,Define.UIEvent.Drag);
     }
 
     //기타창이 켜진 상태에서 아이템이 삽입 될때 들어갈때.(invenManager에서 실행이 됨.)
@@ -45,5 +47,10 @@ public class UI_Inventory : UI_Popup
     public override string PopUpName()
     {
         return "Inven";
+    }
+
+    public void OnWindowDragging(PointerEventData evt)
+    {
+        Debug.Log("dragging");
     }
 }

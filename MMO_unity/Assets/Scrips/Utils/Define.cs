@@ -121,4 +121,11 @@ public class Define
         Others,
     }
 
+    public enum Quest
+    {
+        Quest = 100,
+        Reached = 10,
+        OnGoing = 20,    //진행 중(아직 재료를 못구한 것)
+        Complete = 30,
+    }
 }

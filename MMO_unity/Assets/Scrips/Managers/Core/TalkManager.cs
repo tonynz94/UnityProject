@@ -16,17 +16,18 @@ public class TalkManager
     //F키를 눌렀을때 실행.
     public void SpeakWithNpc(int mNpcID = 0)
     {
+        mNpcID += OnQuest(mNpcID);
         //첫 대화인것.
         if (_speechBox == null && mNpcID != 0)
         {
-            Debug.Log($"{mNpcID}");
             _isTalking = true;
             _NpcID = mNpcID;
             _speechBox = Managers.UI.ShowPopupUI<UI_SpeechBox>("UI_Speech");
             _screenPlayIndex = 0;
         }
-        Debug.Log($"{mNpcID}");
+
         //대화가 끝났다는 것.
+        Debug.Log($"Managers.Data.NpcDict[{_NpcID}]");
         if (Managers.Data.NpcDict[_NpcID].screenPlay.Length == _screenPlayIndex)
         {
             //_NpcID, _screenPlayIndex
@@ -34,7 +35,35 @@ public class TalkManager
             return;
         }
 
+        Debug.Log($"{_NpcID}, {_screenPlayIndex}");
         _speechBox.TalkingAction(_NpcID, _screenPlayIndex);
+    }
+
+    //진행중인 퀘스트 인지 
+    public int OnQuest(int id)
+    {
+        //대화하는 NPC가 진행중인 퀘스트 인지 확인
+        int goingQuest = id + 100;
+
+        //진행중이지만 아직 못끝냈을 때
+        if (Managers.Quest.questActive.IndexOf(goingQuest) != -1)
+        {
+            Debug.Log("진행중 퀘스트");
+            return (int)Define.Quest.Quest + (int)Define.Quest.OnGoing;
+        }
+        else if (Managers.Quest.ReachQuest.IndexOf(goingQuest) != -1)
+        {
+            Debug.Log("완료에 도달한 퀘스트");
+            return (int)Define.Quest.Quest + (int)Define.Quest.Reached;
+        }
+        else if (Managers.Quest.ReachQuest.IndexOf(goingQuest) != -1)
+        {
+            Debug.Log("완료한 퀘스트");
+            return (int)Define.Quest.Quest + (int)Define.Quest.Complete;
+        }
+
+        Debug.Log("퀘스트가 아님");
+        return 0;
     }
 
     public void ConversationByChoice(int mSelectionNum)
@@ -54,6 +83,7 @@ public class TalkManager
 
     public void FinishSpeech()
     {
+        Debug.Log("대화 끝남");
         Managers.UI.ClosePopupUI(_speechBox);
         _isTalking = false;
         _speechBox = null;

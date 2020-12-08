@@ -27,7 +27,10 @@ public class UI_EventHandler : MonoBehaviour,IPointerDownHandler ,IDragHandler, 
     {
         Debug.Log("Draging");
         if (OnDragHandler != null)
+        {
+            Debug.Log("Action 실행");
             OnDragHandler.Invoke(eventData);
+        }
     }
 
     public void OnBeginDrag(PointerEventData eventData)

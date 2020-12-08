@@ -96,9 +96,10 @@ public class UIManager
 
     //name : Prefab의 이름
     //<T> : 스크립트
-    public T ShowPopupUI<T>(string name = null) where T : UI_Popup
+    public T ShowPopupUI<T>(string name = null, Transform parent = null) where T : UI_Popup
     {
-        //script와 Prefab 이름이 대부분 같음
+       
+       //script와 Prefab 이름이 대부분 같음
         if (string.IsNullOrEmpty(name))
             name = typeof(T).Name;  //T스크립트의 이름
 
@@ -109,7 +110,10 @@ public class UIManager
         T popup = Util.GetOrAddComponent<T>(go);
         _popupStack.Push(popup);
 
-        go.transform.SetParent(Root.transform);
+        if (parent != null)
+            go.transform.SetParent(parent);
+        else
+            go.transform.SetParent(Root.transform);
 
         return popup;
     }

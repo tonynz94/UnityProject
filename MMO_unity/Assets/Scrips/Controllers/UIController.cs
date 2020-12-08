@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,7 +25,21 @@ public class UIController : MonoBehaviour
     UI_Inventory _Inven;
     UI_Equipment _Equip;
     UI_SkillTree _SkillTree;
-    
+
+
+    [SerializeField]
+    GameObject QuestParent;
+    [SerializeField]
+    public GameObject QuestFrameLoad;
+    public GameObject QuestFrame;
+
+    public Action<GameObject> onQuestFrame;
+    public Action offQuestFrame;
+    private void Start()
+    {
+        
+        QuestFrameLoad = Resources.Load<GameObject>("Prefabs/UI/Popup/QuestFrame");
+    }
     // Update is called once per frame
     void Update()
     {
@@ -76,6 +91,27 @@ public class UIController : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void ShowQuestDetail()
+    {
+        //켜질때
+        if (QuestFrame == null)
+        {
+            //껏다가 다시 켜질때 실행되는 부분
+            QuestFrame = Instantiate<GameObject>(QuestFrameLoad, QuestParent.transform);
+            onQuestFrame.Invoke(QuestFrame);
+            Managers.Quest.onQuestAddCallBack();
+            
+        }
+        //꺼질때
+        else
+        {
+            Destroy(QuestFrame);
+            QuestFrame = null;
+            offQuestFrame.Invoke();
+        }
+
     }
 
     public void ShowInventory()
