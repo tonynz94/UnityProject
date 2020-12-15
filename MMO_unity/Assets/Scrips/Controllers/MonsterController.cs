@@ -32,7 +32,6 @@ public class MonsterController : BaseController
         //최초 발결 된 것.
         if (gameObject.GetComponentInChildren<UI_HPBar>() == null)
             Managers.UI.MakeWorldSpaceUI<UI_HPBar>(transform);
-
     }
 
     protected override void UpdateIdle()
@@ -94,6 +93,20 @@ public class MonsterController : BaseController
             Vector3 dir = _lockTarget.transform.position - transform.position;
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir.normalized), 20 * Time.deltaTime);
         }
+    }
+
+    protected override void UpdateDie()
+    {
+        _died = true;
+        StartCoroutine(OnDie());
+    }
+
+    protected IEnumerator OnDie()
+    {
+        State = Define.State.DIe;
+        
+        yield return new WaitForSeconds(2.0f);
+        Managers.Game.Despawn(gameObject);
     }
 
     //때리는 함수

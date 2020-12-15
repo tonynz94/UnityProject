@@ -59,9 +59,12 @@ public class Define
     public enum UIEvent
     {
         Click,
+        ClickDown,
         Drag,
         DragBegin,
         DragEnd,
+        MoushEnter,
+        MoushExit,
     };
 
     public enum MouseEvent

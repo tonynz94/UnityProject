@@ -8,10 +8,20 @@ public class SceneManagerEx
 {
     public BaseScene CurrentScene{ get { return GameObject.FindObjectOfType<BaseScene>();} }
 
-    public void LoadScene(Define.Scene type)
+    public void LoadScene(int sceneIndex)
     {
-        Managers.Clear();
-        SceneManager.LoadScene(GetSceneName(type));
+
+        
+    }
+
+    IEnumerator LoadAsynchronously(int sceneIndex)
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
+
+        while (!operation.isDone)
+        {
+            yield return null;
+        }
     }
 
     string GetSceneName(Define.Scene type)

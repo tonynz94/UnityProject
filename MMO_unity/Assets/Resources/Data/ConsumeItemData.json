@@ -5,35 +5,35 @@
       "name": "Red Potion1",
       "hp" :  "50",
       "mp" :  "0",
-      "description" :  "체력을 50만큼 회복 시켜주는 포션이다."
+      "description" :  "It's a potion that recharge your HP 50"
     },
     {
       "consumeItemId": "1001",
       "name": "Red Potion2",
       "hp": "100",
       "mp": "0",
-      "description": "체력을 100만큼 회복 시켜주는 포션이다."
+      "description": "It's a potion that recharge your HP 100"
     },
     {
       "consumeItemId": "1002",
       "name": "Blue Potion1",
       "hp": "0",
       "mp": "100",
-      "description": "마나를 100만큼 회복 시켜주는 포션이다."
+      "description": "It's a potion that recharge your MP 100"
     },
     {
       "consumeItemId": "1003",
       "name": "Blue Potion2",
       "hp": "0",
       "mp": "200",
-      "description": "마나를 200만큼 회복 시켜주는 포션이다."
+      "description": "It's a potion that recharge your MP 200"
     },
     {
       "consumeItemId": "1004",
       "name": "Apple",
       "hp": "100",
       "mp": "100",
-      "description": "체력과 마나를 각각 100만큼 회복 시켜주는 음식이다."
+      "description": "It's a food that recharge your HP 100 and MP 100"
     }  
   ]
 }

@@ -68,6 +68,7 @@ public class UI_Equip_Slot : UI_Base
         }
 
         //장비창의 정보를 삭제 시켜주고 아이템 스탯도 다시 계산해 줌.
+        Managers.Sound.Play("Sounds/GameSound/EquipItem");
         Managers.Equip.wearItems[(int)slotName] = 0;
         Managers.Equip.WearingItemsSumStats();
 

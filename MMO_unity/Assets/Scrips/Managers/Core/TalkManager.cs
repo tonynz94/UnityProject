@@ -27,7 +27,7 @@ public class TalkManager
         }
 
         //대화가 끝났다는 것.
-        Debug.Log($"Managers.Data.NpcDict[{_NpcID}]");
+        Debug.Log($"{Managers.Data.NpcDict[_NpcID].screenPlay.Length} == {_screenPlayIndex}");
         if (Managers.Data.NpcDict[_NpcID].screenPlay.Length == _screenPlayIndex)
         {
             //_NpcID, _screenPlayIndex
@@ -46,23 +46,19 @@ public class TalkManager
         int goingQuest = id + 100;
 
         //진행중이지만 아직 못끝냈을 때
-        if (Managers.Quest.questActive.IndexOf(goingQuest) != -1)
+        if (Managers.Quest.QuestActive.IndexOf(goingQuest) != -1)
         {
-            Debug.Log("진행중 퀘스트");
             return (int)Define.Quest.Quest + (int)Define.Quest.OnGoing;
         }
         else if (Managers.Quest.ReachQuest.IndexOf(goingQuest) != -1)
         {
-            Debug.Log("완료에 도달한 퀘스트");
             return (int)Define.Quest.Quest + (int)Define.Quest.Reached;
         }
-        else if (Managers.Quest.ReachQuest.IndexOf(goingQuest) != -1)
+        else if (Managers.Quest.FinshQuest.IndexOf(goingQuest) != -1)
         {
-            Debug.Log("완료한 퀘스트");
             return (int)Define.Quest.Quest + (int)Define.Quest.Complete;
         }
 
-        Debug.Log("퀘스트가 아님");
         return 0;
     }
 
@@ -83,7 +79,7 @@ public class TalkManager
 
     public void FinishSpeech()
     {
-        Debug.Log("대화 끝남");
+        Debug.Log("대화 종료@@@@@@@@@");
         Managers.UI.ClosePopupUI(_speechBox);
         _isTalking = false;
         _speechBox = null;

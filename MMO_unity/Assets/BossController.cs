@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BossController : BaseController
+public class BossController : MonsterController
 {
     public bool _isLooking;
     public bool _isInBattleField;
-    
+    public bool _isInAir;
+
 
     float MeleeAttackScanRange;
     float movePerSecond;
@@ -23,6 +24,9 @@ public class BossController : BaseController
     GameObject _target;
     GameObject _meleeAttackArea;
     GameObject _jumpAttackArea;
+    GameObject _stoneSpawnArea;
+    
+    GameObject _stone;
     NavMeshAgent _navMeshAgent;
 
     public override Define.State State
@@ -31,13 +35,13 @@ public class BossController : BaseController
         set
         {
             _state = value;
-
+            
             Animator anim = GetComponent<Animator>();
 
             switch (_state)
             {
                 case Define.State.DIe:
-                    //croofade 2번째 인자 => 어느정도 시간이 걸려서 넘어 갈것인지.           
+                    anim.CrossFade("DIE", 0.1f);
                     break;
                 case Define.State.Idle:
                     anim.CrossFade("IDLE", 0.1f);
@@ -62,8 +66,6 @@ public class BossController : BaseController
         }
     }
 
-
-
     public override void Init()
     {
         throw new System.NotImplementedException();
@@ -75,9 +77,13 @@ public class BossController : BaseController
         _rigid = GetComponent<Rigidbody>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _isInBattleField = false;
+        _isInAir = false;
+        _isLooking = true;
 
         _meleeAttackArea = transform.Find("MeleeAttackArea").gameObject;
-        _jumpAttackArea = transform.Find("JumpAttackArea").gameObject;
+        _jumpAttackArea = transform.Find("JumpArea").gameObject;
+        _stoneSpawnArea = transform.Find("StoneSpawnArea").gameObject;
+        _stone = Managers.Resource.Load<GameObject>("");
 
         _meleeAttackArea.SetActive(false);
         _jumpAttackArea.SetActive(false);
@@ -96,11 +102,15 @@ public class BossController : BaseController
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
         if (!_isInBattleField)
             return;
 
+        if (State == Define.State.DIe)
+            return;
+
+        //플레이어가 근처에 있는가??
         if (_isLooking)
         {
             Vector3 dir = (_target.transform.position - transform.position).normalized;
@@ -124,6 +134,9 @@ public class BossController : BaseController
 
     IEnumerator ThinkSkill()
     {
+        if (State == Define.State.DIe)
+            yield break;
+
         State = Define.State.Idle;
         GameObject player = Managers.Game.GetPlayer();
         yield return new WaitForSeconds(1.0f);
@@ -137,8 +150,8 @@ public class BossController : BaseController
         }
         else
         {
-            //int ranAction = Random.Range(0, 1);
-            int ranAction = 0;
+            int ranAction = Random.Range(0, 2);
+            Debug.Log(ranAction);
             switch (ranAction)
             {
                 case 0:
@@ -153,7 +166,11 @@ public class BossController : BaseController
     IEnumerator coMeleeAttack()
     {
         State = Define.State.BossMeleeAttack;
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(1.5f);
+        _meleeAttackArea.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        _meleeAttackArea.SetActive(false);
+        yield return new WaitForSeconds(1.3f);
 
         StartCoroutine(ThinkSkill());
     }
@@ -168,7 +185,7 @@ public class BossController : BaseController
         dir = (_jumpPosition - transform.position).normalized;
 
         movePerSecond = distance / 2.0f;
-
+        _isInAir = true;
         yield return new WaitForSeconds(1.7f);
         _isLooking = false;
         //점프 직후
@@ -194,6 +211,9 @@ public class BossController : BaseController
     IEnumerator coStoneAttack()
     {
         State = Define.State.BossStoneSkill;
+        GameObject go= Instantiate(Managers.Resource.Load<GameObject>($"Prefabs/Stone"),
+                                                    _stoneSpawnArea.transform.position,
+                                                    _stoneSpawnArea.transform.rotation);
         yield return new WaitForSeconds(3.0f);
 
         StartCoroutine(ThinkSkill());
@@ -210,6 +230,26 @@ public class BossController : BaseController
         }
 
         State = Define.State.Idle;
+    }
+
+    protected void BossDie()
+    {
+        StartCoroutine(OnDie());
+    }
+
+    protected IEnumerator OnDie()
+    {
+        yield return new WaitForSeconds(2.0f);
+        Managers.Game.Despawn(gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("MainPlayer"))
+        {
+            _jumpAttackArea.SetActive(false);
+            _meleeAttackArea.SetActive(false);
+        }
     }
 
 }

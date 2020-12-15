@@ -52,14 +52,21 @@ public class UI_SkillButton : UI_Base
     {
         if (!_isSkillOn)
             return;
+
         //만약 쿨다운이면 스킬 사용이 안됨.
         if (_isCoolDown == true)
             return;
 
-        Debug.Log($"{((int)_thisSkillName + 1) * 1000}");
+        //Mp 부족
+        if (Managers.Game.GetPlayer().GetComponent<PlayerStat>().Mp - 20 < 0)
+            return;
+        
+        Managers.Game.GetPlayer().GetComponent<PlayerStat>().Mp -= 20;
         int skillPoint = Managers.Skill.SkillListAndPoint[((int)_thisSkillName + 1) * 1000];
         float coolDown = Managers.Data.SkillDict[((int)_thisSkillName + 1) * 1000 + (skillPoint - 1)].coolDown;
         Debug.Log($"{((int)_thisSkillName + 1) * 1000 + (skillPoint - 1)}");
+
+
         StartCoroutine("coAbility", coolDown);
         ActionSkills(_thisSkillState);
     }

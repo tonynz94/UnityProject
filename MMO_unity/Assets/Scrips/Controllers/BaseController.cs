@@ -15,6 +15,8 @@ public abstract class BaseController : MonoBehaviour
 
     public Define.WorldObject WorldObjectType { get; protected set; } = Define.WorldObject.Unknown;
 
+    public bool _died = false;
+
     //혹시 모르기에 virtual로 설정
     public virtual Define.State State
     {
@@ -28,6 +30,7 @@ public abstract class BaseController : MonoBehaviour
             switch (_state)
             {
                 case Define.State.DIe:
+                    anim.CrossFade("DIE", 0.1f, -1, 0);
                     //croofade 2번째 인자 => 어느정도 시간이 걸려서 넘어 갈것인지.           
                     break;
                 case Define.State.Idle:
@@ -55,8 +58,11 @@ public abstract class BaseController : MonoBehaviour
         Init();
     }
    
-    protected void Update()
+    protected virtual void Update()
     {
+        if (_died)
+            return;
+
         switch (State)
         {
             case Define.State.DIe:

@@ -12,6 +12,7 @@ public class ResourceManager
         //pool은 최종적인 이름을 사용하고 있음.
         
         //Prefab인지 확인
+        //Pooling 인지 확인
         if(typeof(T) == typeof(GameObject))
         {
             string name = path;

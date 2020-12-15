@@ -52,7 +52,7 @@ public abstract class Stat : MonoBehaviour
         _maxHp = 100;
         _maxMp = 100;
 
-        _attack = 0;
+        _attack = 20;
         _defense = 5;
         _critical = 0;
         _evasive = 0;

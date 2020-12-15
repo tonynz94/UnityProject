@@ -539,7 +539,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128162, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_Name
-      value: UI_Inven_Slot (12)
+      value: UI_Inven_Slot
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128163, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -666,7 +666,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128162, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_Name
-      value: UI_Inven_Slot (9)
+      value: UI_Inven_Slot
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128163, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -793,7 +793,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128162, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_Name
-      value: UI_Inven_Slot (6)
+      value: UI_Inven_Slot
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128163, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -920,7 +920,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128162, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_Name
-      value: UI_Inven_Slot (15)
+      value: UI_Inven_Slot
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128163, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1047,7 +1047,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128162, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_Name
-      value: UI_Inven_Slot (7)
+      value: UI_Inven_Slot
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128163, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1174,7 +1174,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128162, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_Name
-      value: UI_Inven_Slot (11)
+      value: UI_Inven_Slot
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128163, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1301,7 +1301,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128162, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_Name
-      value: UI_Inven_Slot (19)
+      value: UI_Inven_Slot
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128163, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1428,7 +1428,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128162, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_Name
-      value: UI_Inven_Slot (2)
+      value: UI_Inven_Slot
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128163, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1555,7 +1555,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128162, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_Name
-      value: UI_Inven_Slot (10)
+      value: UI_Inven_Slot
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128163, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1682,7 +1682,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128162, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_Name
-      value: UI_Inven_Slot (14)
+      value: UI_Inven_Slot
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128163, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3024,7 +3024,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128162, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_Name
-      value: UI_Inven_Slot (16)
+      value: UI_Inven_Slot
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128163, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3151,7 +3151,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128162, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_Name
-      value: UI_Inven_Slot (4)
+      value: UI_Inven_Slot
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128163, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3278,7 +3278,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128162, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_Name
-      value: UI_Inven_Slot (8)
+      value: UI_Inven_Slot
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128163, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3405,7 +3405,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128162, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_Name
-      value: UI_Inven_Slot (3)
+      value: UI_Inven_Slot
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128163, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3532,7 +3532,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128162, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_Name
-      value: UI_Inven_Slot (18)
+      value: UI_Inven_Slot
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128163, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3659,7 +3659,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128162, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_Name
-      value: UI_Inven_Slot (5)
+      value: UI_Inven_Slot
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128163, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3786,7 +3786,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128162, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_Name
-      value: UI_Inven_Slot (17)
+      value: UI_Inven_Slot
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128163, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3913,7 +3913,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128162, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_Name
-      value: UI_Inven_Slot (1)
+      value: UI_Inven_Slot
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128163, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4040,7 +4040,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128162, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_Name
-      value: UI_Inven_Slot (13)
+      value: UI_Inven_Slot
       objectReference: {fileID: 0}
     - target: {fileID: 7794676070795128163, guid: a606f18bcd7710345b7c61b789d0d44d, type: 3}
       propertyPath: m_LocalPosition.x

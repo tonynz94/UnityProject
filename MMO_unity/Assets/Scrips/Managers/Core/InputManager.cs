@@ -26,7 +26,6 @@ public class InputManager
         if (EventSystem.current.IsPointerOverGameObject())
         {   //ui가 클릭 됐을때 
             
-            Debug.Log($"UI Click : {EventSystem.current.gameObject.name}");
             return;
         }
 

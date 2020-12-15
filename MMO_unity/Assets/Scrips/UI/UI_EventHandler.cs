@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UI_EventHandler : MonoBehaviour,IPointerDownHandler ,IDragHandler, IPointerClickHandler, IEndDragHandler, IBeginDragHandler
+public class UI_EventHandler : MonoBehaviour,IPointerExitHandler , IPointerEnterHandler ,IPointerDownHandler ,IDragHandler, IPointerClickHandler, IEndDragHandler, IBeginDragHandler
 {
     public Action<PointerEventData> OnClickHandler = null;
     public Action<PointerEventData> OnDragHandler = null;
@@ -13,6 +13,9 @@ public class UI_EventHandler : MonoBehaviour,IPointerDownHandler ,IDragHandler, 
     public Action<PointerEventData> OnPointerDownHandler = null;
     public Action<PointerEventData> OnBeginDragHandler = null;
     public Action<PointerEventData> OnEndDragHandler = null;
+
+    public Action<PointerEventData> OnPointerEnterHandler = null;
+    public Action<PointerEventData> OnPointerExitHandler = null;
 
     //클릭했을때 자동 실행
     public void OnPointerClick(PointerEventData eventData)
@@ -43,8 +46,26 @@ public class UI_EventHandler : MonoBehaviour,IPointerDownHandler ,IDragHandler, 
         Debug.Log("EndDrag");
     }
 
+
+
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (OnPointerDownHandler != null)
+            OnPointerDownHandler.Invoke(eventData);
         Debug.Log("ClickDown");
+    }
+
+
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (OnPointerEnterHandler != null)
+            OnPointerEnterHandler.Invoke(eventData);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (OnPointerExitHandler != null)
+            OnPointerExitHandler.Invoke(eventData);
     }
 }

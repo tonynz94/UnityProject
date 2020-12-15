@@ -6,6 +6,7 @@ public class ObjData : MonoBehaviour
 {
 //NPC에 있는 것들.
     public Define.InteractionType _InteractionType;
+    public string guideText;
     public int _Id;
 
 }

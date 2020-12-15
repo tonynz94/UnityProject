@@ -48,13 +48,13 @@ public class SoundManager
     }
 
 
-    public void Play(string path, Define.Sound type = Define.Sound.Effect, float pitch = 1.0f)
+    public void Play(string path, Define.Sound type = Define.Sound.Effect, float volume = 1.0f, float pitch = 1.0f)
     {
         AudioClip audioClip = GetOrAddAudioClip(path, type);
-        Play(audioClip, type, pitch);
+        Play(audioClip, type, volume, pitch);
     }
 
-    public void Play(AudioClip audioClip, Define.Sound type = Define.Sound.Effect, float pitch = 1.0f)
+    public void Play(AudioClip audioClip, Define.Sound type = Define.Sound.Effect, float volume = 1.0f ,float pitch = 1.0f)
     {
         //loop => BGM
         //path라는 경로에 sounds가 포함 되어 있지 않으면 문자열로 추가.
@@ -70,14 +70,16 @@ public class SoundManager
             {
                 audioSource.Stop(); //기존에 있는것을 멈춰주고
             }
-            audioSource.pitch = 1.0f;
+            audioSource.volume = volume;
+            audioSource.pitch = pitch;
             audioSource.clip = audioClip;  //새로운 클립을 넣어준 후
             audioSource.Play(); //실행해준다.
         }
         else
         {
             AudioSource audioSource = _audioSources[(int)Define.Sound.Effect];
-            audioSource.pitch = 1.0f;
+            audioSource.volume = volume;
+            audioSource.pitch = pitch;
             audioSource.PlayOneShot(audioClip);
         }
     }
@@ -91,14 +93,12 @@ public class SoundManager
 
         if (type == Define.Sound.Bgm)
         {
+            
             //오디오 클림을 찾음.
-            AudioClip _audioClip = Managers.Resource.Load<AudioClip>(path);
-
-
+            audioClip = Managers.Resource.Load<AudioClip>(path);
         }
         else
-        {
-            
+        {   
             //만약 딕셔너리에 없다면 (Key , out 반환값)
             if (_audioClips.TryGetValue(path, out audioClip) == false)
             {

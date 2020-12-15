@@ -108,10 +108,50 @@ public class PlayerStat : Stat
         playerUI.LevelUp(level);     
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.layer == LayerMask.NameToLayer("BossSkill"))
+        {
+            Debug.Log($"보슬 스킬@@@@ {other.gameObject.name}");
+            
+            OnBossAttack(other.gameObject);
+        }
+    }
+
+    public void OnBossAttack(GameObject boss)
+    {
+        BossSkill bossSkill = boss.GetComponent<BossSkill>();
+        int damage = Mathf.Max(0, bossSkill.attack - Defense);
+        Debug.Log($"damage : {damage}");
+        GameObject go = Instantiate(DamageTxt, transform.position, Camera.main.transform.rotation);
+        
+        go.GetComponent<UI_DmgTxt>().SetDmgText(damage, false, false, Color.blue);
+
+        Hp -= damage;
+        if (Hp < 0)
+        {
+            Hp = 0;
+            OnDead(null);
+        }
+    }
+
     protected override void OnDead(Stat attacker)
     {
         //자기 자신 삭제.
         Managers.Game.Despawn(gameObject);
+    }
+
+    public void EatConsumeItems(int consumeID)
+    {
+        Debug.Log("포션 사용!");
+        Hp += Managers.Data.ConsumeItemDict[consumeID].hp;
+        Mp += Managers.Data.ConsumeItemDict[consumeID].mp;
+
+        if (Hp > MaxHp)
+            Hp = MaxHp;
+
+        if (Mp > MaxMp)
+            Mp = MaxMp;
     }
 
     public GameObject GetPlayerObject()

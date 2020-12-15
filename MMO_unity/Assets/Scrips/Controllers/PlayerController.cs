@@ -12,7 +12,6 @@ public class PlayerController : BaseController
     //퀘스트 QuestManager에 우선적으로 코딩 만약 완성하면 밑에 지워
     public List<Data.Quest> quest = new List<Data.Quest>();
     
-    
     bool _stopSkill = false;
 
     Rigidbody _rigid;
@@ -26,16 +25,17 @@ public class PlayerController : BaseController
     public GameObject SkillERange;
     public GameObject SkillRRange;
 
+    public AudioSource __audioSources;
+
     float _radius = 1.0f;
 
     //수확 , 대화 관련 변수들
     UI_SpeechBox _speechBox;
-    public bool _isTalking;
     int _npcID;
 
     UI_Loading _LoadingBar;
     public bool _isPressingF;
-
+    public bool _isInAir;
 
     //Skills
     public List<UI_SkillButton> skillList = new List<UI_SkillButton>();
@@ -57,8 +57,6 @@ public class PlayerController : BaseController
             else
                 WeaponType = "TwoHand";
 
-
-            Debug.Log($"{WeaponType}");
             switch (_state)
             {
                 case Define.State.DIe:
@@ -100,6 +98,7 @@ public class PlayerController : BaseController
         _stat = gameObject.GetComponent<PlayerStat>();
         _rigid = gameObject.GetComponent<Rigidbody>();
         _nav = gameObject.GetComponent<NavMeshAgent>();
+        __audioSources = gameObject.GetComponent<AudioSource>();
 
         _guide.SetActive(false);
         Managers.Input.KeyAction -= OnKeyBoard;
@@ -126,6 +125,8 @@ public class PlayerController : BaseController
     protected override void UpdateMoving()
     {
         //타켓이 있을시 몬스터가 내 사정거리보다 가까우면 공격
+        if (_isInAir)
+            return;
 
         if(_lockTarget != null) 
         {
@@ -133,7 +134,7 @@ public class PlayerController : BaseController
             //이게 없으면 공중에 찍어서 1의 값이 넘어가서 가까이 접근을 못하는 상황이 발생
             _desPos = _lockTarget.transform.position;
             float distance = (_desPos - transform.position).magnitude;
-            if(distance <= 1)
+            if(distance <= 2)
             {
                 State = Define.State.Skill;
                 return;
@@ -175,7 +176,7 @@ public class PlayerController : BaseController
     protected override void UpdateSkill()
     {
         //공격하는 대상 바라보기.
-        if(_lockTarget != null)
+        if(_lockTarget !=  null)
         {
             Vector3 dir = _lockTarget.transform.position - transform.position;
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir.normalized), 20 * Time.deltaTime);
@@ -185,9 +186,11 @@ public class PlayerController : BaseController
     //애니메이션에서 호출해주고 있음.
     void OnHitEvent()
     {
-        if(_lockTarget != null)
-        {         
-            Stat targetStat = _lockTarget.GetComponent<MonsterStat>();
+        Debug.Log("공격애니이벤트");
+        if (_lockTarget != null)
+        {
+            Managers.Sound.Play("Sounds/GameSound/Beat1");
+            Stat targetStat = _lockTarget.GetComponent<Stat>();
             targetStat.OnAttacked(_stat);
         }
 
@@ -245,6 +248,9 @@ public class PlayerController : BaseController
 
     void OnMouseEvent_IdleRun(Define.MouseEvent evt)
     {
+        if(_LoadingBar != null)
+            Managers.UI.ClosePopupUI(_LoadingBar);
+
         if (State == Define.State.DIe)
             return;
 
@@ -265,7 +271,8 @@ public class PlayerController : BaseController
                         State = Define.State.Moving;
                         _stopSkill = false;
 
-                        if (hit.collider.gameObject.layer == (int)Define.Layer.Monster)
+                        if (hit.collider.gameObject.layer == (int)Define.Layer.Monster &&
+                            hit.collider.gameObject.GetComponent<BaseController>().State != Define.State.DIe)
                             _lockTarget = hit.collider.gameObject;              
                         else
                             _lockTarget = null;
@@ -299,7 +306,7 @@ public class PlayerController : BaseController
 
             if (_scanObject.layer == LayerMask.NameToLayer("NPC"))
             {
-                _isTalking = true;
+                Managers.Talk._isTalking = true;
                 Managers.Talk.SpeakWithNpc(_npcID);
             }
             else if (_scanObject.layer == LayerMask.NameToLayer("Collecting"))
@@ -309,14 +316,17 @@ public class PlayerController : BaseController
             }
         }
         #endregion
-        if (_isTalking)
+        if (Managers.Talk._isTalking)
+        {
+            Debug.Log("대화 중!!@@@@@@@@@");
             return;
+        }
 
         #region F_KeyUp
         if (Input.GetKeyUp(KeyCode.F))
         {
             Debug.Log("키를 땜");
-            _isTalking = false;
+            Managers.Talk._isTalking = false;
             _isPressingF = false;
             CollectingThings();
         }
@@ -325,18 +335,14 @@ public class PlayerController : BaseController
         //만약 말하고 있다면 스킬 사용 불가.
         if (WeaponChange._equipedWeapon != null)
         {
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.A))
                 skillList[0].Ability();
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.S))
                 skillList[1].Ability();
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.D))
                 skillList[2].Ability();
-            if (Input.GetKeyDown(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.F))
                 skillList[3].Ability();
-        }
-        else
-        {
-            Debug.Log("무기가 없는 상태에서는 스킬을 사용 할 수 없습니다.");
         }
     }
 
@@ -348,10 +354,8 @@ public class PlayerController : BaseController
             _LoadingBar.LoadingStart(4.0f, "수확 중");
         }
 
-        Debug.Log("수확 중");
         if (_isPressingF == false)
-        {
-            Debug.Log("수확실패");         
+        {   
             Managers.UI.ClosePopupUI(_LoadingBar);
         }
         else
@@ -360,8 +364,7 @@ public class PlayerController : BaseController
             {
                 Managers.UI.ClosePopupUI(_LoadingBar);
                 //Managers.Inven.Add()
-                Debug.Log("수확성공");
-
+                _isPressingF = false;
             }
         }
 
@@ -371,7 +374,7 @@ public class PlayerController : BaseController
     {
         if (isFinished)
         {
-            _isTalking = false;
+            Managers.Talk._isTalking = false;
             _isPressingF = false;
             Managers.UI.ClosePopupUI(_LoadingBar);
             ObjData scanObject = _scanObject.GetComponent<ObjData>();
@@ -382,8 +385,7 @@ public class PlayerController : BaseController
                 Debug.Log("수확물이 아님");
 
             Destroy(scanObject.gameObject);
-
-            Managers.Quest.CollectOrKill(scanObject._Id);
+            Managers.Quest.IsCollectOrKill(scanObject._Id);
         }
     }
 
@@ -395,21 +397,15 @@ public class PlayerController : BaseController
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("NPC"))
-        {
-            TurnOnGuide("대화하기");
+        if (other.gameObject.layer == LayerMask.NameToLayer("NPC") ||
+            other.gameObject.layer == LayerMask.NameToLayer("Collecting"))
+        {     
+            TurnOnGuide(other.gameObject.GetComponent<ObjData>().guideText);
             _scanObject = other.gameObject;
         }
 
-        if (other.gameObject.layer == LayerMask.NameToLayer("Collecting"))
+        if(other.gameObject.layer == LayerMask.NameToLayer("BossSkill"))
         {
-            TurnOnGuide("수확하기");
-            _scanObject = other.gameObject;
-        }
-
-        if(other.gameObject.name == "JumpAttackArea")
-        {
-            Debug.Log("넉백");
             StartCoroutine(coFourBack());
         }
     }
@@ -446,15 +442,17 @@ public class PlayerController : BaseController
 
     IEnumerator coFourBack()
     {
+        yield return new WaitForSeconds(0.05f);
         _nav.enabled = false;
-        _rigid.isKinematic = false;
-
+        _rigid.isKinematic = false; 
+        _isInAir = true;
         _rigid.useGravity = true;
-        _rigid.AddForce(Vector3.back * 2, ForceMode.Impulse);
-        _rigid.AddForce(Vector3.up * 3, ForceMode.Impulse);
+        _rigid.AddRelativeForce(Vector3.back * 4, ForceMode.Impulse);
+        _rigid.AddRelativeForce(Vector3.up * 5, ForceMode.Impulse);
 
-        yield return new WaitForSeconds(1.3f);
+        yield return new WaitForSeconds(0.9f);
 
+        _isInAir = false;
         _nav.enabled = true;
         _rigid.isKinematic = true;
     }
@@ -469,5 +467,13 @@ public class PlayerController : BaseController
     {
         _guide.GetComponent<UI_PlayerGuide>().SetText("");
         _guide.SetActive(false);
+    }
+
+    //Sound
+
+    void SoundWalkingStep()
+    {
+        __audioSources.volume = 1.0f;
+       __audioSources.Play();
     }
 }

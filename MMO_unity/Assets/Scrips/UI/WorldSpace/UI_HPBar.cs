@@ -5,12 +5,13 @@ using UnityEngine.UI;
 
 public class UI_HPBar : UI_Base
 {
-    enum GameObjects
+    protected enum GameObjects
     {
         HPBar,
+        HPText,
     }
 
-    Stat _stat;
+    protected Stat _stat;
 
     //부모클래스에서 실행해줌.
     public override void Init()
@@ -19,18 +20,19 @@ public class UI_HPBar : UI_Base
         _stat = transform.parent.GetComponent<MonsterStat>();
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         Transform parent = gameObject.transform.parent;
         transform.position = parent.position + Vector3.up * (parent.GetComponent<Collider>().bounds.size.y);
         transform.rotation = Camera.main.transform.rotation;
        
-        float ratio = (float)_stat.Hp / _stat.MaxHp;
-        SetHPRatio(ratio);
+        
+        SetHPRatio();
     }
 
-    public void SetHPRatio(float ratio)
+    public virtual void SetHPRatio()
     {
+        float ratio = (float)_stat.Hp / _stat.MaxHp;
         GetObject((int)GameObjects.HPBar).GetComponent<Slider>().value = ratio;
     }
 }

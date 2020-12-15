@@ -12,7 +12,7 @@ public class UI_DmgTxt : UI_Base
         DamageText,
     }
     public override void Init()
-    {
+    { 
         base.Bind<GameObject>(typeof(GameObjects));
     }
 

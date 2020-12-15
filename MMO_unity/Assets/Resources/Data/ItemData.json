@@ -7,7 +7,8 @@
 			"equipSlot": "0",
 			"attack": "50",
 			"defense": "0",
-			"critical": "5"
+			"critical": "5",
+			"description": "Attack : 50\nCritical : 5%\nAttackSpeed : Slow"
 		},
 		{
 			"itemTemplateId": "20001",
@@ -16,7 +17,8 @@
 			"equipSlot": "0",
 			"attack": "30",
 			"defense": "0",
-			"critical": "5"
+			"critical": "5",
+			"description": "Attack : 30\nCritical : 5%\nAttackSpeed : Fast"
 		},
 		{
 			"itemTemplateId": "30001",
@@ -25,7 +27,8 @@
 			"equipSlot": "1",
 			"attack": "0",
 			"defense": "5",
-			"critical": "0"
+			"critical": "0",
+			"description": "Defense : 5"
 		},
 		{
 			"itemTemplateId": "30002",
@@ -34,7 +37,8 @@
 			"equipSlot": "1",
 			"attack": "0",
 			"defense": "10",
-			"critical": "0"
+			"critical": "0",
+			"description": "Defense : 10"
 		},
 		{
 			"itemTemplateId": "40001",
@@ -43,7 +47,8 @@
 			"equipSlot": "2",
 			"attack": "0",
 			"defense": "10",
-			"critical": "0"
+			"critical": "0",
+			"description": "Defense : 10"
 		},
 		{
 			"itemTemplateId": "40002",
@@ -52,7 +57,8 @@
 			"equipSlot": "2",
 			"attack": "0",
 			"defense": "15",
-			"critical": "0"
+			"critical": "0",
+			"description": "Defense : 15"
 		},
 		{
 			"itemTemplateId": "50001",
@@ -61,7 +67,8 @@
 			"equipSlot": "3",
 			"attack": "0",
 			"defense": "5",
-			"critical": "0"
+			"critical": "0",
+			"description": "Defense : 5"
 		},
 		{
 			"itemTemplateId": "50002",
@@ -70,7 +77,8 @@
 			"equipSlot": "3",
 			"attack": "0",
 			"defense": "10",
-			"critical": "0"
+			"critical": "0",
+			"description": "Defense : 10"
 		},
 		{
 			"itemTemplateId": "60001",
@@ -79,7 +87,8 @@
 			"equipSlot": "4",
 			"attack": "0",
 			"defense": "3",
-			"critical": "0"
+			"critical": "0",
+			"description": "Defense : 3"
 		},
 		{
 			"itemTemplateId": "60002",
@@ -88,7 +97,8 @@
 			"equipSlot": "4",
 			"attack": "0",
 			"defense": "6",
-			"critical": "0"
+			"critical": "0",
+			"description": "Defense : 6"
 		}
 	]
 }

@@ -38,6 +38,7 @@ public class ItemPickUp : MonoBehaviour
         bool wasPickedUp = Managers.Inven.Add(_itemTemplateId,Define.InvenType.Equipments);
         if (wasPickedUp)
         {
+            Managers.Sound.Play("Sounds/GameSound/PickupItem01");
             Destroy(gameObject);
         }
     }

@@ -45,13 +45,14 @@ public class Util
                 if (string.IsNullOrEmpty(name) || transform.name == name)
                 {
                     T component = transform.GetComponent<T>();
-                    if (component == null)
+                    if (component != null)
                         return component;
                 }
             }
         }
         else
         {
+           
             foreach(T component in go.GetComponentsInChildren<T>())
             {
                 if (string.IsNullOrEmpty(name) || component.name == name)

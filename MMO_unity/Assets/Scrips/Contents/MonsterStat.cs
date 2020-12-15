@@ -18,6 +18,12 @@ public class MonsterStat : Stat
     //공격을 맞았을 때
     public override void OnAttacked(Stat attacker)
     {
+        if (gameObject.GetComponent<BaseController>()._died)
+            return;
+
+        if (gameObject.GetComponent<BaseController>().State == Define.State.DIe)
+            return;
+
         int damage = Mathf.Max(0, attacker.Attack - Defense);
         bool critical = false;
 
@@ -40,15 +46,21 @@ public class MonsterStat : Stat
         if (Hp < 0)
         {
             Hp = 0;
+            Debug.Log("몬스터 죽음@@");
             OnDead(attacker);
         }
     }
 
+    //스킬로 공격을 맞았을때.
     public void OnAttackedBySkill(Collider skillName)
     {
+        if (gameObject.GetComponent<BaseController>()._died)
+            return;
+
         Define.SkillName _skill = skillName.GetComponent<PlayerSkill>()._skillName;
         Debug.Log((int)_skill);
 
+        //스킬스텟을 가져와야함.
         int skillId = ((int)_skill + 1)*1000;
         skillId = (Managers.Skill.SkillListAndPoint[skillId]-1) + skillId;
         Debug.Log(skillId);
@@ -73,6 +85,7 @@ public class MonsterStat : Stat
         if (Hp < 0)
         {
             Hp = 0;
+            Debug.Log("몬스터 죽음@@");
             OnDead(Managers.Game.GetPlayer().GetComponent<PlayerStat>());
         }
 
@@ -84,7 +97,7 @@ public class MonsterStat : Stat
 
     protected override void OnDead(Stat attacker)
     {
-        Managers.Game.Despawn(gameObject);
+        gameObject.GetComponent<BaseController>().State = Define.State.DIe;
         PlayerStat playerStat = attacker as PlayerStat;
         playerStat.Exp += _monsterExp;
     }

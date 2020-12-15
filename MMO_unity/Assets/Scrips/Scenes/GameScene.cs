@@ -22,8 +22,19 @@ public class GameScene : BaseScene
         
         Managers.Game.Spawn(Define.WorldObject.Monster, "Knight");
 
+        Managers.Sound.Play("Sounds/GameSound/AboveTheTreetops", Define.Sound.Bgm,0.45f);
+
         GameObject go = new GameObject { name = "SpawningPool" };
         SpawningPool pool =  go.GetOrAddComponent<SpawningPool>();
+
+        //임시
+        for (int i = 0; i < 30; i++)
+        {
+            Managers.Inven.Add(1000, Define.InvenType.Consume);
+            Managers.Inven.Add(1002, Define.InvenType.Consume);
+        }
+
+
         pool.SetKeepMonsterCount(5);
     }
 

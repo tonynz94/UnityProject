@@ -66,13 +66,18 @@ public class UI_Skill_Tree : UI_Base
     public void UpButtonClick()
     {
         if (!Managers.Skill.SkillUp(SlotSkillId))
+        {
+            Managers.Sound.Play("Sounds/GameSound/ButtonClick1");
             return;
+        }
 
         _skillTree.UpdateSkillPointText();
+        Managers.Sound.Play("Sounds/GameSound/ButtonClick");
 
         if (Managers.Skill.SkillListAndPoint[_slotSkillId] >= 5)
         {
             SkillMax();
+            Managers.Sound.Play("Sounds/GameSound/ButtonClick1");
             return;
         }
 

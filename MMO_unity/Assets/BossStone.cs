@@ -29,10 +29,19 @@ public class BossStone : MonoBehaviour
         while(!_isShoot)
         {
             _angluerPower += 0.02f;
-            _scaleValue += 0.05f;
+            _scaleValue += 0.01f;
             transform.localScale = Vector3.one * _scaleValue;
             _rigid.AddTorque(transform.right * _angluerPower, ForceMode.Acceleration);
             yield return null;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Block") ||
+           other.gameObject.layer == LayerMask.NameToLayer("MainPlayer"))
+        {
+            Destroy(gameObject);
         }
     }
 }

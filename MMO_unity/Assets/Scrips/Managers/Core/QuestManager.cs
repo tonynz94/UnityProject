@@ -5,24 +5,37 @@ using UnityEngine;
 
 public class QuestManager
 {
-    public Action onQuestAddCallBack;
-    public Action<int> OnQuestTurnOnCallBack;
-    public Action<int> OnQuestContentTextUpdate;
+    public Action onQuestContentsUpdateCallBack;
 
-    public List<int> questActive = new List<int>();  //진행 중인 퀘스트
+    public Action<int> onQuestUpdateCallBack;
+    public Action<int> onQuestContentTextUpdate;
+    public Action<int> onQuestFinshProgressTextUpdate;
+
+    public List<int> QuestActive = new List<int>();  //진행 중인 퀘스트
     public List<int> ReachQuest = new List<int>();  //진행 중 완료된 퀘스트 
     public List<int> FinshQuest = new List<int>();   //완전히 완료된 퀘스트
 
-    public void QuestAdd(int QuestID)
+    //퀘스트가 추가되었을때.
+    public void UpdateQuestAdd(int QuestID)
     {
-        questActive.Add(QuestID);
+
+        Debug.Log("진행중인 퀘스트로 추가~~");
+        QuestActive.Add(QuestID);
 
         //켜져 있는 상태일때.
         if (UIController.instance.QuestFrame != null)
-            OnQuestTurnOnCallBack.Invoke(QuestID);
+            onQuestUpdateCallBack.Invoke(QuestID);
     }
 
-    //재료들을 다 확인.
+    //퀘스트를 완료하여 삭제했을 때.
+    public void UpdateQuestRemove()
+    {
+        Debug.Log("퀘스트 창에서 삭제하기");
+        if (UIController.instance.QuestFrame != null)
+            onQuestContentsUpdateCallBack();
+    }
+
+    //완료했는지 확인
     public bool IsReached(int ActiveQuestID)
     {
         foreach (KeyValuePair<int, int> require in Managers.Data.QuestDict[ActiveQuestID].questGoal.requiredAmount)
@@ -35,26 +48,26 @@ public class QuestManager
         return true;
     }
 
-
-    public void CollectOrKill(int Id)
+    //수집했을때 실행
+    public void IsCollectOrKill(int Id)
     {
         Debug.Log("방금 수확한 아이템 ID" + Id);
-        if (questActive.Count == 0)
+        if (QuestActive.Count == 0)
         {
             Debug.Log("수락한 퀘스트가 없습니다.");
             return;
         }
 
-        foreach (int questID in questActive.ToArray())
+        foreach (int questID in QuestActive.ToArray())
         {       
             if (Managers.Data.QuestDict[questID].questGoal.currentAmount.TryGetValue(Id, out int value))
             {
                 Managers.Data.QuestDict[questID].questGoal.currentAmount[Id] += 1;
-                OnQuestContentTextUpdate(questID);
-                Debug.Log("값에 업데이트 함.");
+                onQuestContentTextUpdate(questID);
                 if (IsReached(questID))
                 {
-                    Debug.Log("완료한 상태");
+                    if (UIController.instance.QuestFrame != null)
+                        onQuestFinshProgressTextUpdate.Invoke(questID);
                     CompleteQuest(questID);
                 }                           
             }
@@ -65,11 +78,47 @@ public class QuestManager
     {
         Debug.Log("Reached로 옮김");
         //진행중인 퀘스트가 완료 되면 추가하기.
-        if (questActive.Remove(questID))
+        if (QuestActive.Remove(questID))
         {
+            Debug.Log("진행중인 퀘스트 삭제");
+            for (int i = 0; i < QuestActive.Count; i++)
+            {
+                Debug.Log(QuestActive[i]);
+            }
+            
+            Managers.Sound.Play("Sounds/GameSound/MissionCompleteCheck");
             ReachQuest.Add(questID);
             Debug.Log("퀘스트가 완료로 옮김 상태");
         }
+    }
+
+    public void FinishQuest(int questID)
+    {
+        if (ReachQuest.Remove(questID))
+        {
+            FinshQuest.Add(questID);
+            FinshQuestReward(questID);
+            UpdateQuestRemove();
+        }
+    }
+
+    public void FinshQuestReward(int questID)
+    {
+        //보상을 줄때 퀘스트가 요구하는 아이템을 삭제.
+        foreach(int ItemID in Managers.Data.QuestDict[questID].questGoal.requiredAmount.Keys)
+        {
+            for (int i = 0; i < Managers.Data.QuestDict[questID].questGoal.requiredAmount[ItemID]; i++)
+            {
+                Managers.Inven.RemoveByItemID(ItemID);
+            }
+        }
+
+        //아이템 보상
+        foreach(int ItemID in Managers.Data.QuestDict[questID].itemReward)
+        {
+            Managers.Inven.Add(ItemID,Define.InvenType.Equipments);
+        }
+
     }
 
 }
