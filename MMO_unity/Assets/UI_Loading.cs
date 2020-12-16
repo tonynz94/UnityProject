@@ -45,7 +45,8 @@ public class UI_Loading : UI_Popup
     IEnumerator coLoadingStart(float maxWaitTime)
     {
         float currentTime = 0;
-        while(_LoadingBar.value != 1.0f)
+        Managers.Sound.Play("Sounds/GameSound/Collecting");
+        while (_LoadingBar.value != 1.0f)
         {
             currentTime += Time.deltaTime;
             _LoadingBar.value = currentTime / maxWaitTime;

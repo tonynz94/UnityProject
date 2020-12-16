@@ -34,6 +34,8 @@ public class PlayerController : BaseController
     int _npcID;
 
     UI_Loading _LoadingBar;
+    Animator _anim;
+
     public bool _isPressingF;
     public bool _isInAir;
 
@@ -47,7 +49,7 @@ public class PlayerController : BaseController
         {
             _state = value;
             string WeaponType;
-            Animator anim = GetComponent<Animator>();
+            
 
             if(Managers.Equip.wearItems[0] == 0 ||
                 Managers.Data.ItemDict[Managers.Equip.wearItems[0]].equipPart == "OneHandWeapon")
@@ -63,29 +65,29 @@ public class PlayerController : BaseController
                     //croofade 2번째 인자 => 어느정도 시간이 걸려서 넘어 갈것인지.           
                     break;
                 case Define.State.Idle:
-                    anim.CrossFade($"{WeaponType}IDLE", 0.1f);
+                    _anim.CrossFade($"{WeaponType}IDLE", 0.1f);
                     break;
                 case Define.State.Moving:
-                    anim.CrossFade($"{WeaponType}RUN", 0.1f);
+                    _anim.CrossFade($"{WeaponType}RUN", 0.1f);
                     break;
                 case Define.State.Skill:
                     //ATTACK에 0.1초의 진입시간, layer는 필요 없기에 -1, 마지막은 다시 하면 0(처음부터) 다시 실행 되는 것.
-                    anim.CrossFade($"{WeaponType}ATTACK", 0.1f, -1, 0);
+                    _anim.CrossFade($"{WeaponType}ATTACK", 0.1f, -1, 0);
                     break;
                 case Define.State.Walk:
-                    anim.CrossFade("WALK", 0.1f);
+                    _anim.CrossFade("WALK", 0.1f);
                     break;
                 case Define.State.SkillQ:
-                    anim.CrossFade($"{WeaponType}SKILL1", 0.1f, -1, 0);
+                    _anim.CrossFade($"{WeaponType}SKILL1", 0.1f, -1, 0);
                     break;
                 case Define.State.SkillW:
-                    anim.CrossFade($"{WeaponType}SKILL2", 0.1f, -1, 0);
+                    _anim.CrossFade($"{WeaponType}SKILL2", 0.1f, -1, 0);
                     break;
                 case Define.State.SkillE:
-                    anim.CrossFade($"{WeaponType}SKILL3", 0.1f, -1, 0);
+                    _anim.CrossFade($"{WeaponType}SKILL3", 0.1f, -1, 0);
                     break;
                 case Define.State.SkillR:
-                    anim.CrossFade($"{WeaponType}SKILL4", 0.1f, -1, 0);
+                    _anim.CrossFade($"{WeaponType}SKILL4", 0.1f, -1, 0);
                     break;
             }
         }
@@ -99,6 +101,7 @@ public class PlayerController : BaseController
         _rigid = gameObject.GetComponent<Rigidbody>();
         _nav = gameObject.GetComponent<NavMeshAgent>();
         __audioSources = gameObject.GetComponent<AudioSource>();
+        _anim = GetComponent<Animator>();
 
         _guide.SetActive(false);
         Managers.Input.KeyAction -= OnKeyBoard;
@@ -306,7 +309,9 @@ public class PlayerController : BaseController
 
             if (_scanObject.layer == LayerMask.NameToLayer("NPC"))
             {
+                _scanObject.GetComponent<ObjData>().Talking(true);
                 Managers.Talk._isTalking = true;
+                Managers.Talk.SpeakingNPCObject(_scanObject);
                 Managers.Talk.SpeakWithNpc(_npcID);
             }
             else if (_scanObject.layer == LayerMask.NameToLayer("Collecting"))
@@ -325,10 +330,13 @@ public class PlayerController : BaseController
         #region F_KeyUp
         if (Input.GetKeyUp(KeyCode.F))
         {
-            Debug.Log("키를 땜");
-            Managers.Talk._isTalking = false;
-            _isPressingF = false;
-            CollectingThings();
+            if (_scanObject != null && _scanObject.layer == LayerMask.NameToLayer("Collecting"))
+            {
+                Debug.Log("키를 땜");
+                Managers.Talk._isTalking = false;
+                _isPressingF = false;
+                CollectingThings();
+            }
         }
         #endregion
 
@@ -341,7 +349,7 @@ public class PlayerController : BaseController
                 skillList[1].Ability();
             if (Input.GetKeyDown(KeyCode.D))
                 skillList[2].Ability();
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.G))
                 skillList[3].Ability();
         }
     }
@@ -352,18 +360,20 @@ public class PlayerController : BaseController
         {
             _LoadingBar = Managers.UI.ShowPopupUI<UI_Loading>("UI_Loading");
             _LoadingBar.LoadingStart(4.0f, "수확 중");
+            _anim.CrossFade("PICKING", 0.1f);
         }
 
         if (_isPressingF == false)
-        {   
+        {
             Managers.UI.ClosePopupUI(_LoadingBar);
+            
         }
         else
         {
             if (_LoadingBar._isFinished)
             {
                 Managers.UI.ClosePopupUI(_LoadingBar);
-                //Managers.Inven.Add()
+                //Managers.Inven.Add()              
                 _isPressingF = false;
             }
         }
@@ -377,6 +387,7 @@ public class PlayerController : BaseController
             Managers.Talk._isTalking = false;
             _isPressingF = false;
             Managers.UI.ClosePopupUI(_LoadingBar);
+            Managers.Sound.Play("Sounds/GameSound/MissionCompleteCheck01");
             ObjData scanObject = _scanObject.GetComponent<ObjData>();
 
             if(scanObject._InteractionType == Define.InteractionType.Collecting)
@@ -447,6 +458,7 @@ public class PlayerController : BaseController
         _rigid.isKinematic = false; 
         _isInAir = true;
         _rigid.useGravity = true;
+        Managers.Sound.Play("Sounds/GameSound/Hit");
         _rigid.AddRelativeForce(Vector3.back * 4, ForceMode.Impulse);
         _rigid.AddRelativeForce(Vector3.up * 5, ForceMode.Impulse);
 

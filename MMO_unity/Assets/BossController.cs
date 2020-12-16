@@ -250,6 +250,11 @@ public class BossController : MonsterController
             _jumpAttackArea.SetActive(false);
             _meleeAttackArea.SetActive(false);
         }
+
+        if (other.gameObject.layer == (LayerMask.NameToLayer("SkillRange")))
+        {
+            gameObject.GetComponent<BossStat>().OnAttackedBySkill(other);
+        }
     }
 
 }

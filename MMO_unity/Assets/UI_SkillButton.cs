@@ -108,20 +108,24 @@ public class UI_SkillButton : UI_Base
     {
         _player.GetComponent<PlayerController>().State = state;
         GameObject weapon = WeaponChange._equipedWeapon as GameObject;
-
+        Managers.Sound.Play("Sounds/GameSound/SkillA");
+        weapon.transform.Find("Effect").gameObject.GetComponent<TrailRenderer>().enabled = true;
         yield return new WaitForSeconds(2.0f);
-
+        weapon.transform.Find("Effect").gameObject.GetComponent<TrailRenderer>().enabled = false;
     }
 
     IEnumerator coWAction(Define.State state)
     {
         _player.GetComponent<PlayerController>().State = state;
         GameObject weapon = WeaponChange._equipedWeapon as GameObject;
-
+       
+        Managers.Sound.Play("Sounds/GameSound/SkillS");
+        _player.transform.Find("SkillDEffect").gameObject.SetActive(true);
         _player.GetComponent<PlayerStat>().Attack += 30;
         
         yield return new WaitForSeconds(30.0f);
 
+        _player.transform.Find("SkillDEffect").gameObject.SetActive(false);
         _player.GetComponent<PlayerStat>().Attack -= 30;
     }
 
@@ -139,6 +143,7 @@ public class UI_SkillButton : UI_Base
     IEnumerator coRAction(Define.State state)
     {
         _player.GetComponent<PlayerController>().State = state;
+        Managers.Sound.Play("Sounds/GameSound/SkillF");
         GameObject weapon = WeaponChange._equipedWeapon as GameObject;
 
         yield return new WaitForSeconds(2.0f);

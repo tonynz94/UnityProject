@@ -70,7 +70,7 @@ public class UI_SpeechBox : UI_Popup
         Debug.Log("Yes Click");
 
 
-
+        Managers.Sound.Play("Sounds/GameSound/MissionCompleteCheck01");
         //Debug.Log($"{Managers.Data.NpcDict[Managers.Talk._NpcID].screenPlay.Length - 1} == {Managers.Talk._screenPlayIndex}");
 
         if (Managers.Talk._NpcID % 1000 == 0)

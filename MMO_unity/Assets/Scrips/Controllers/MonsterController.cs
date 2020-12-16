@@ -36,6 +36,9 @@ public class MonsterController : BaseController
 
     protected override void UpdateIdle()
     {
+        if (State == Define.State.DIe)
+            return;
+
         GameObject player = Managers.Game.GetPlayer();
         //player가 유효한지
         if (player.isValid() == false)
@@ -53,6 +56,9 @@ public class MonsterController : BaseController
 
     protected override void UpdateMoving()
     {
+        if (State == Define.State.DIe)
+            return;
+
         if (_lockTarget != null)
         {
             _desPos = _lockTarget.transform.position;
@@ -87,6 +93,8 @@ public class MonsterController : BaseController
 
     protected override void UpdateSkill()
     {
+        if (State == Define.State.DIe)
+            return;
         //공격하는 대상 바라보기.
         if (_lockTarget != null)
         {
@@ -112,6 +120,9 @@ public class MonsterController : BaseController
     //때리는 함수
     void OnHitEvent()
     {
+        if (State == Define.State.DIe)
+            return;
+
         if (_hit)
             return;
         if (_lockTarget != null)
@@ -143,7 +154,7 @@ public class MonsterController : BaseController
         if(other.gameObject.layer == (LayerMask.NameToLayer("SkillRange")))
         {
             Debug.Log($"other Name : {other.name}");
-            StartCoroutine("coGetHit");
+            StartCoroutine(coGetHit());
             gameObject.GetComponent<MonsterStat>().OnAttackedBySkill(other);
 
         }
@@ -159,7 +170,9 @@ public class MonsterController : BaseController
         {
             yield return null;
         }
-        State = Define.State.Idle;
+        if(!_died)
+            State = Define.State.Idle;
+            
         _hit = false;
     }
 }

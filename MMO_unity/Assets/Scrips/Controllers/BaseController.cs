@@ -61,8 +61,10 @@ public abstract class BaseController : MonoBehaviour
     protected virtual void Update()
     {
         if (_died)
+        {
+            Debug.Log($"{State}라 아무것도 하지 않음");
             return;
-
+        }
         switch (State)
         {
             case Define.State.DIe:

@@ -57,6 +57,9 @@ public class MonsterStat : Stat
         if (gameObject.GetComponent<BaseController>()._died)
             return;
 
+        if (gameObject.GetComponent<BaseController>().State == Define.State.DIe)
+            return;
+
         Define.SkillName _skill = skillName.GetComponent<PlayerSkill>()._skillName;
         Debug.Log((int)_skill);
 
@@ -77,6 +80,8 @@ public class MonsterStat : Stat
         {
             critical = false;
         }
+
+        Managers.Sound.Play("Sounds/GameSound/Beat2");
 
         GameObject go = Object.Instantiate(DamageTxt, transform.position, Camera.main.transform.rotation);
         go.GetComponent<UI_DmgTxt>().SetDmgText(damage, critical, false, Color.yellow);

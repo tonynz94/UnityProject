@@ -15,6 +15,7 @@ public class NPCController : BaseController
     Sprite _image;
 
     GameObject _player;
+    Animator _anim;
 
     public string Speech { get { return _speech; } }
     public string Name { get { return _name; } }
@@ -23,6 +24,12 @@ public class NPCController : BaseController
     public override void Init()
     {
         _player = Managers.Game.GetPlayer();
+        _anim = gameObject.GetComponent<Animator>();
+    }
+
+    public void Talking(bool talking)
+    {
+        _anim.SetBool("Talking", talking);
     }
 
 }

@@ -350,6 +350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _InteractionType: 1
+  _anim: {fileID: 0}
   guideText: "\uB09A\uC2DC\uD558\uAE30 [F]"
   _Id: 102
 --- !u!64 &3671724
@@ -2611,7 +2612,7 @@ PrefabInstance:
     - target: {fileID: 5146509226465764996, guid: f9485aedd97f16445a693fea83e9ff6d, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 22100000, guid: 8bafd3b5e123df347a798b27b5f5b04f, type: 2}
+      objectReference: {fileID: 9100000, guid: bf485b80db974c84cb824d5dd346f464, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9485aedd97f16445a693fea83e9ff6d, type: 3}
 --- !u!1001 &135036231
@@ -3277,6 +3278,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _InteractionType: 1
+  _anim: {fileID: 0}
   guideText: "\uB09A\uC2DC\uD558\uAE30 [F]"
   _Id: 102
 --- !u!64 &160737694
@@ -4361,7 +4363,7 @@ PrefabInstance:
     - target: {fileID: 6055961066526476596, guid: c416195f50044e445af759c093fa5f99, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 22100000, guid: 8bafd3b5e123df347a798b27b5f5b04f, type: 2}
+      objectReference: {fileID: 9100000, guid: bf485b80db974c84cb824d5dd346f464, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c416195f50044e445af759c093fa5f99, type: 3}
 --- !u!1 &244846543
@@ -4492,6 +4494,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _InteractionType: 1
+  _anim: {fileID: 0}
   guideText: "\uB3CC \uC218\uC9D1\uD558\uAE30 [F]"
   _Id: 101
 --- !u!135 &247140828
@@ -10868,6 +10871,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _InteractionType: 1
+  _anim: {fileID: 0}
   guideText: "\uB3CC \uC218\uC9D1\uD558\uAE30 [F]"
   _Id: 101
 --- !u!135 &379331607
@@ -11860,6 +11864,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _InteractionType: 1
+  _anim: {fileID: 0}
   guideText: 
   _Id: 100
 --- !u!135 &447758402
@@ -12606,7 +12611,7 @@ PrefabInstance:
     - target: {fileID: 6105469967876312967, guid: e8de7a054cfd06742b288dcf8e53913e, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 22100000, guid: 8bafd3b5e123df347a798b27b5f5b04f, type: 2}
+      objectReference: {fileID: 9100000, guid: bf485b80db974c84cb824d5dd346f464, type: 2}
     - target: {fileID: 6105469967883542567, guid: e8de7a054cfd06742b288dcf8e53913e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 92.77876
@@ -13357,7 +13362,7 @@ PrefabInstance:
     - target: {fileID: 5146509226465764996, guid: f9485aedd97f16445a693fea83e9ff6d, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 22100000, guid: 8bafd3b5e123df347a798b27b5f5b04f, type: 2}
+      objectReference: {fileID: 9100000, guid: bf485b80db974c84cb824d5dd346f464, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9485aedd97f16445a693fea83e9ff6d, type: 3}
 --- !u!1001 &552029566
@@ -15849,6 +15854,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _InteractionType: 0
+  _anim: {fileID: 0}
   guideText: "\uB300\uD654\uD558\uAE30 [F]"
   _Id: 3000
 --- !u!135 &688165628
@@ -16178,6 +16184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _InteractionType: 1
+  _anim: {fileID: 0}
   guideText: "\uB09A\uC2DC\uD558\uAE30 [F]"
   _Id: 102
 --- !u!64 &718515707
@@ -17347,6 +17354,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _InteractionType: 1
+  _anim: {fileID: 0}
   guideText: "\uB09A\uC2DC\uD558\uAE30 [F]"
   _Id: 102
 --- !u!65 &786463190
@@ -17926,6 +17934,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _InteractionType: 0
+  _anim: {fileID: 0}
   guideText: "\uB300\uD654\uD558\uAE30 [F]"
   _Id: 6000
 --- !u!135 &825465604
@@ -17975,6 +17984,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _InteractionType: 0
+  _anim: {fileID: 0}
   guideText: "\uB300\uD654\uD558\uAE30 [F]"
   _Id: 4000
 --- !u!135 &829136046
@@ -21506,6 +21516,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _InteractionType: 1
+  _anim: {fileID: 0}
   guideText: "\uB3CC \uC218\uC9D1\uD558\uAE30 [F]"
   _Id: 101
 --- !u!135 &1109808457
@@ -25342,6 +25353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _InteractionType: 0
+  _anim: {fileID: 0}
   guideText: "\uB300\uD654\uD558\uAE30 [F]"
   _Id: 1000
 --- !u!135 &1407628528
@@ -28208,6 +28220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _InteractionType: 1
+  _anim: {fileID: 0}
   guideText: "\uB3CC \uC218\uC9D1\uD558\uAE30 [F]"
   _Id: 101
 --- !u!135 &1558026522
@@ -29240,7 +29253,7 @@ PrefabInstance:
     - target: {fileID: 5146509226465764996, guid: f9485aedd97f16445a693fea83e9ff6d, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 22100000, guid: 8bafd3b5e123df347a798b27b5f5b04f, type: 2}
+      objectReference: {fileID: 9100000, guid: bf485b80db974c84cb824d5dd346f464, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9485aedd97f16445a693fea83e9ff6d, type: 3}
 --- !u!1001 &1603263753
@@ -29924,6 +29937,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _InteractionType: 0
+  _anim: {fileID: 0}
   guideText: "\uB300\uD654\uD558\uAE30 [F]"
   _Id: 5000
 --- !u!135 &1644301475
@@ -30692,6 +30706,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _InteractionType: 0
+  _anim: {fileID: 0}
   guideText: "\uB300\uD654\uD558\uAE30 [F]"
   _Id: 2000
 --- !u!1 &1703863883
@@ -32286,6 +32301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _InteractionType: 1
+  _anim: {fileID: 0}
   guideText: "\uB09A\uC2DC\uD558\uAE30 [F]"
   _Id: 102
 --- !u!64 &1815972870
@@ -32350,7 +32366,7 @@ PrefabInstance:
     - target: {fileID: 1283135281093733077, guid: 76d8e7101074a5b48af010ad982f8f18, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 22100000, guid: 8bafd3b5e123df347a798b27b5f5b04f, type: 2}
+      objectReference: {fileID: 9100000, guid: bf485b80db974c84cb824d5dd346f464, type: 2}
     - target: {fileID: 1283135281100883253, guid: 76d8e7101074a5b48af010ad982f8f18, type: 3}
       propertyPath: m_LocalPosition.x
       value: 184.43

@@ -10,7 +10,7 @@ public class TalkManager
 
     public int _screenPlayIndex;
     public int _NpcID;
-
+    public GameObject _npc;
     UI_SpeechBox _speechBox;
 
     //F키를 눌렀을때 실행.
@@ -77,11 +77,19 @@ public class TalkManager
         _screenPlayIndex += 1;
     }
 
+    public void SpeakingNPCObject(GameObject npc)
+    {
+        if(_npc == null)
+            _npc = npc;
+    }
+
     public void FinishSpeech()
     {
         Debug.Log("대화 종료@@@@@@@@@");
         Managers.UI.ClosePopupUI(_speechBox);
+        _npc.GetComponent<ObjData>().Talking(false);
         _isTalking = false;
         _speechBox = null;
+        _npc = null;
     }
 }
