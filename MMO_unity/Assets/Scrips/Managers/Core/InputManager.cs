@@ -6,60 +6,64 @@ using UnityEngine.EventSystems;
 
 public class InputManager 
 {
+    //비어 있는 델리게이트를 선언 해줌(PlayerController에서 넣어 주고 있음) 
+    //KeyAction -> PlayerController에서 키보드 입력에 따른 코드를 넣어줬음.
     public Action KeyAction = null;
+
+    //KeyAction -> PlayerController에서 마우스 입력에 따른 코드를 넣어줬음.
     public Action<Define.MouseEvent> MouseAction = null;
 
-    //반환형, 매개변수가 없는 델리게이트
     // Start is called before the first frame update
 
     bool _pressed = false;
     float _pressedTime = 0f;
 
-    // OnUpdate is called in Manager
+    //해당 OnUpdate문 함수를 Managers에서 Update()함수에서 실행하고 있음.
     public void OnUpdate()
     {
+        //키보드 감지에 따른 이벤트 함수  
         if (KeyAction != null)
-        {
             KeyAction.Invoke();
-        }
 
+        //True -> UI위에 클릭이 됐을때 실행.
         if (EventSystem.current.IsPointerOverGameObject())
-        {   //ui가 클릭 됐을때 
-            
             return;
-        }
 
+        //True -> 메인 캐릭터가 말을 하고 있을때 실행.
         if (Managers.Talk._isTalking)
-        { //대화하고 있을 시.
-            Debug.Log("Talking");
             return;
-        }
 
+        //마우스 감지에 따른 이벤트 함수 
         if(MouseAction != null)
         {
-            if(Input.GetMouseButton(1)) //누르고 있으면 True
+            //True -> 우측마우스가 눌러지면 실행.
+            if(Input.GetMouseButton(1)) 
             {
-                //한번도 누르지 않은 상태일때 실행.
+                //True -> 첫 클릭일때
                 if (!_pressed)
-                {
-                    //델리게이트 함수 호출
+                {    
+                    //마우스 델리게이트를 실행시켜줌(PlayerController에 OnMoushEvent실행)
                     MouseAction.Invoke(Define.MouseEvent.PointerDown);
-                    _pressedTime = Time.time;   //마우스를 눌렀을때 실행 됨 시간(초)
-                    //Debug.Log(_pressedTime);
+                    //마우스를 최초 클릭시의 시간을 저장 함.
+                    _pressedTime = Time.time;   
                 }
+                //마우스가 Pressed 델리게이트 실행.
                 MouseAction.Invoke(Define.MouseEvent.Press);
                 _pressed = true;
             }
             //누르고 있지 않는 상태라면.
             else
             {
-                if (_pressed) //뗏을때 최초 실행.
+                //True -> 마우스 우측을 클릭 후 최초로 땠을 때 실행 됨
+                if (_pressed) 
                 {
-                    //만약 마우스를 최초로 뗏을때는 실행 해주지 않음 즉 클릭으로 인식하지 않음.
-                    if (Time.time < _pressedTime + 0.2f) //누른후 0.2초 내에 땟다면 클릭으로 인정
+                    //True -> 마우스 우측을 클릭하고 땠을때의 시간 차가 0.2초 내 일때 실행 됨.
+                    if (Time.time < _pressedTime + 0.2f) 
                     {
+                        //클릭으로 인식.
                         MouseAction.Invoke(Define.MouseEvent.Click);
                     }
+                    //마우스를 그냥 뗀걸로 인식
                     MouseAction.Invoke(Define.MouseEvent.PointerUp);
                 }
                 _pressed = false;

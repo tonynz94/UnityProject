@@ -151,7 +151,6 @@ public class BossController : MonsterController
         else
         {
             int ranAction = Random.Range(0, 2);
-            Debug.Log(ranAction);
             switch (ranAction)
             {
                 case 0:

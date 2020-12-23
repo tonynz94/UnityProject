@@ -95,10 +95,8 @@ public class UI_Quest : MonoBehaviour
 
     public void UpdateQuestContent(int questID)
     {
-        Debug.Log(contentsList.Count);
         foreach(UI_Quest_Content content in contentsList)
         {
-            Debug.Log($"{content.thisQuestID} == {questID}");
             if (content.thisQuestID == questID)
                 content.UpdateContentRequest();
         }

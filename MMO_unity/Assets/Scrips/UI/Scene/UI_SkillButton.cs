@@ -64,8 +64,6 @@ public class UI_SkillButton : UI_Base
         Managers.Game.GetPlayer().GetComponent<PlayerStat>().Mp -= 20;
         int skillPoint = Managers.Skill.SkillListAndPoint[((int)_thisSkillName + 1) * 1000];
         float coolDown = Managers.Data.SkillDict[((int)_thisSkillName + 1) * 1000 + (skillPoint - 1)].coolDown;
-        Debug.Log($"{((int)_thisSkillName + 1) * 1000 + (skillPoint - 1)}");
-
 
         StartCoroutine("coAbility", coolDown);
         ActionSkills(_thisSkillState);
@@ -93,7 +91,6 @@ public class UI_SkillButton : UI_Base
 
     void ActionSkills(Define.State state)
     {
-        Debug.Log($"{state}");
         if (state == Define.State.SkillQ)
             StartCoroutine(coQAction(state));
         else if (state == Define.State.SkillW)
@@ -158,7 +155,6 @@ public class UI_SkillButton : UI_Base
     public void SkillOff()
     {
         _isSkillOn = false;
-        Debug.Log(_skillImage);
         _skillImage.color = new Color(_skillImage.color.r, _skillImage.color.g, _skillImage.color.b, 0.3f);
     }
 

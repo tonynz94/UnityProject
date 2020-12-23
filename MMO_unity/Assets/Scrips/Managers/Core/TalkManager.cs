@@ -27,15 +27,12 @@ public class TalkManager
         }
 
         //대화가 끝났다는 것.
-        Debug.Log($"{Managers.Data.NpcDict[_NpcID].screenPlay.Length} == {_screenPlayIndex}");
         if (Managers.Data.NpcDict[_NpcID].screenPlay.Length == _screenPlayIndex)
         {
             //_NpcID, _screenPlayIndex
             FinishSpeech();
             return;
         }
-
-        Debug.Log($"{_NpcID}, {_screenPlayIndex}");
         _speechBox.TalkingAction(_NpcID, _screenPlayIndex);
     }
 
@@ -85,7 +82,6 @@ public class TalkManager
 
     public void FinishSpeech()
     {
-        Debug.Log("대화 종료@@@@@@@@@");
         Managers.UI.ClosePopupUI(_speechBox);
         _npc.GetComponent<ObjData>().Talking(false);
         _isTalking = false;

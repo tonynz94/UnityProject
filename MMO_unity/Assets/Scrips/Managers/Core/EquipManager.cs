@@ -32,7 +32,6 @@ public class EquipManager
     //캐릭터가 장착하고 있는 아이템 저장하기
     public void Add(int itemId)
     {
-        Debug.Log($"장비 장착할 아이템 아이디 : {itemId}");
         int equipSlot = Managers.Data.ItemDict[itemId].equipSlot;
 
         //해당 장비창에 이미 다른 아이템을 장착하고 있다면.

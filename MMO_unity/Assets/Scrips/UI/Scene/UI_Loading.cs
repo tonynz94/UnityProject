@@ -27,7 +27,6 @@ public class UI_Loading : UI_Popup
 
     public void Init()
     {
-        Debug.Log("Init");
         _playerController = Managers.Game.GetPlayer().GetComponent<PlayerController>();
         _LoadingBar = Get<GameObject>((int)GameObjects.LoadingBar).GetComponent<Slider>();
         _LoadingText = Get<GameObject>((int)GameObjects.LoadingText).GetComponent<Text>();
@@ -37,7 +36,6 @@ public class UI_Loading : UI_Popup
 
     public void LoadingStart(float maxWaitTime, string loadingText)
     {
-        Debug.Log($"{maxWaitTime} {loadingText}");
         _LoadingText.text = loadingText;
         StartCoroutine("coLoadingStart", maxWaitTime);
     }
@@ -53,11 +51,8 @@ public class UI_Loading : UI_Popup
             yield return null;
 
         }
-        Debug.Log("Finish True");
         _isFinished = true;
         _playerController.LoadingSuccess(true);
-
-
     }
 
     public override string PopUpName()

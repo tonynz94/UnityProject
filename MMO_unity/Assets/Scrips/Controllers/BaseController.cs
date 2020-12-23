@@ -17,7 +17,7 @@ public abstract class BaseController : MonoBehaviour
 
     public bool _died = false;
 
-    //혹시 모르기에 virtual로 설정
+    //State 변수는 현재 적용되어 있는 몬스터나 캐릭터가 어떠한 상태인지를 저장해주는 변수
     public virtual Define.State State
     {
         get { return _state; }
@@ -30,8 +30,7 @@ public abstract class BaseController : MonoBehaviour
             switch (_state)
             {
                 case Define.State.DIe:
-                    anim.CrossFade("DIE", 0.1f, -1, 0);
-                    //croofade 2번째 인자 => 어느정도 시간이 걸려서 넘어 갈것인지.           
+                    anim.CrossFade("DIE", 0.1f, -1, 0);     
                     break;
                 case Define.State.Idle:
                     anim.CrossFade("IDLE", 0.1f);
@@ -40,7 +39,6 @@ public abstract class BaseController : MonoBehaviour
                     anim.CrossFade("RUN", 0.1f);
                     break;
                 case Define.State.Skill:
-                    //ATTACK에 0.1초의 진입시간, layer는 필요 없기에 -1, 마지막은 다시 하면 0(처음부터) 다시 실행 되는 것.
                     anim.CrossFade("ATTACK", 0.1f, -1, 0);
                     break;
                 case Define.State.Walk:
@@ -61,10 +59,8 @@ public abstract class BaseController : MonoBehaviour
     protected virtual void Update()
     {
         if (_died)
-        {
-            Debug.Log($"{State}라 아무것도 하지 않음");
             return;
-        }
+
         switch (State)
         {
             case Define.State.DIe:

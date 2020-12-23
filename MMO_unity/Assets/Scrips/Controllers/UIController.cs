@@ -74,14 +74,10 @@ public class UIController : MonoBehaviour
         if (LastPopUp != null)
         {
             string temp = LastPopUp.PopUpName();
-            Debug.Log($"{temp}");
             if (LastPopUp.ClosePopupUI())
             {
-                //하드코딩 나중에 수정하기
-                Debug.Log($"{temp} == Inven: {temp == "Inven" }");
                 if (temp == "Inven")
                 {
-                    Debug.Log("인벤토리");
                     _Inven = null;
                 }
                 else if (temp == "Equip")

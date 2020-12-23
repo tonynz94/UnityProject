@@ -50,8 +50,6 @@ public class PlayerStat : Stat
 
             if(level != Level)
             {
-                Debug.Log("Level Up");
-                
                 Level = level;
                 Managers.Skill.LevelUp(Level);
                 SetStat(Level);
@@ -77,7 +75,7 @@ public class PlayerStat : Stat
         Dictionary<int, Data.Stat> dict = Managers.Data.StatDict;
         Data.Stat stat = dict[1];
         SetStat(_level);
-        _moveSpeed = 35.0f; //임시<<<<<<<<<<<<<<<<<<<
+        _moveSpeed = 15.0f; //임시<<<<<<<<<<<<<<<<<<<
         _exp = 0;
         _gold = 0;
     }
@@ -112,8 +110,6 @@ public class PlayerStat : Stat
     {
         if(other.gameObject.layer == LayerMask.NameToLayer("BossSkill"))
         {
-            Debug.Log($"보슬 스킬@@@@ {other.gameObject.name}");
-            
             OnBossAttack(other.gameObject);
         }
     }
@@ -122,7 +118,6 @@ public class PlayerStat : Stat
     {
         BossSkill bossSkill = boss.GetComponent<BossSkill>();
         int damage = Mathf.Max(0, bossSkill.attack - Defense);
-        Debug.Log($"damage : {damage}");
         GameObject go = Instantiate(DamageTxt, transform.position, Camera.main.transform.rotation);
         
         go.GetComponent<UI_DmgTxt>().SetDmgText(damage, false, false, Color.blue);
@@ -143,7 +138,6 @@ public class PlayerStat : Stat
 
     public void EatConsumeItems(int consumeID)
     {
-        Debug.Log("포션 사용!");
         Hp += Managers.Data.ConsumeItemDict[consumeID].hp;
         Mp += Managers.Data.ConsumeItemDict[consumeID].mp;
 

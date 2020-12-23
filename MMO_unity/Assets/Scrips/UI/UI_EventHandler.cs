@@ -28,10 +28,8 @@ public class UI_EventHandler : MonoBehaviour,IPointerExitHandler , IPointerEnter
     //매 프레임마다 실행 됨.
     public void OnDrag(PointerEventData eventData)
     {
-        Debug.Log("Draging");
         if (OnDragHandler != null)
         {
-            Debug.Log("Action 실행");
             OnDragHandler.Invoke(eventData);
         }
     }
@@ -52,10 +50,7 @@ public class UI_EventHandler : MonoBehaviour,IPointerExitHandler , IPointerEnter
     {
         if (OnPointerDownHandler != null)
             OnPointerDownHandler.Invoke(eventData);
-        Debug.Log("ClickDown");
     }
-
-
 
     public void OnPointerEnter(PointerEventData eventData)
     {

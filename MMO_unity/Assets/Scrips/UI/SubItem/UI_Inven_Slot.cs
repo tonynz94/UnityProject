@@ -66,9 +66,6 @@ public class UI_Inven_Slot : UI_Base
         {
             itemCount.SetActive(false);
         }
-
-
-        Debug.Log("enable true");
         icon.GetComponent<Image>().enabled = true;
     }
 
@@ -103,10 +100,8 @@ public class UI_Inven_Slot : UI_Base
             if (Managers.Inven.items[slotPos].invenType == Define.InvenType.Equipments)
             {
                 Managers.Sound.Play("Sounds/GameSound/EquipItem");
-                Debug.Log(itemId);
                 int tempId = itemId;
                 Managers.Inven.Remove(slotPos);
-                Debug.Log(tempId);
                 Managers.Equip.Add(tempId);
             }
             else if(Managers.Inven.items[slotPos].invenType == Define.InvenType.Consume)

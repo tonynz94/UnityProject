@@ -63,7 +63,6 @@ public class UI_ClickItemIcon : UI_Base
                 {
                     foreach(RaycastResult raycastReult in _raycastResultList)
                     {
-                        Debug.Log($"{raycastReult.gameObject.name}");
                         if(raycastReult.gameObject.name == "UI_Inven_Slot")
                         {
                             UI_Inven_Slot uI_Inven_Slot = raycastReult.gameObject.GetComponent<UI_Inven_Slot>();

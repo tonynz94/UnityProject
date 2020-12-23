@@ -44,8 +44,6 @@ public class UI_SkillTree : UI_Popup
     {
         for (int i = 1000; (i / 1000) - 1 < Managers.Skill._totalSkillCount; i += 1000)
         {
-            Debug.Log(Managers.Data.SkillDict[i].requireLevel);
-
             if (Managers.Data.SkillDict[i].requireLevel <= Level)
             {
                 _skillSlots[(i/1000)-1].SkillOn();

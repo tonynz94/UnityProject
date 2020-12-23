@@ -153,7 +153,6 @@ public class MonsterController : BaseController
     {
         if(other.gameObject.layer == (LayerMask.NameToLayer("SkillRange")))
         {
-            Debug.Log($"other Name : {other.name}");
             StartCoroutine(coGetHit());
             gameObject.GetComponent<MonsterStat>().OnAttackedBySkill(other);
 

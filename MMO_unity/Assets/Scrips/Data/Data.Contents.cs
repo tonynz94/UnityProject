@@ -36,30 +36,38 @@ namespace Data
     #endregion
 
     #region ConsumeItem
+    //소비 아이템
     [Serializable]
     public class ConsumeItem
     {
-        public int consumeItemId;  //변수의 이름과 json의 이름이 같지 않으면 찾지 못함.
-        public string name;      
-        public int hp;
-        public int mp;
-        public string description;
+        //json에서 설정한 변수 이름과 같게 설정해야 함
+        public int consumeItemId;  //아이템 ID값
+        public string name;     //아이템 이름
+        public int hp;  //HP가 회복되는 양
+        public int mp; //MP가 회복되는 양
+        public string description; //아이템에 대한 설명
 
-        public Sprite icon;
+        public Sprite icon; //인벤토리에 표시될 아이템 이미지
     }
-    //인터페이스를 상속받음
+
+    //ILoader 인터페이스를 상속받음
     [Serializable]
     public class ConsumeItemData : ILoader<int, ConsumeItem>
     {
+        //아이템의 이미지를 담을 변수.
         Sprite tempIcon;
         public List<ConsumeItem> consumeItems = new List<ConsumeItem>();
 
+        //Json에 있는 소비아이템 갯수만큼 클래스값들을 딕셔너리로 만들어 반환해주는 함수 
         public Dictionary<int, ConsumeItem> MakeDict()
         {
             Dictionary<int, ConsumeItem> dict = new Dictionary<int, ConsumeItem>();
+
+            //각 소비 아이템 정보를 딕셔너리에 넣어주는 반복문 
             foreach (ConsumeItem consumeItem in consumeItems)
             {            
                 dict.Add(consumeItem.consumeItemId, consumeItem);
+                //인벤토리에 보여질 각 소비아이템의 이미지를 넣어 줌. 
                 dict[consumeItem.consumeItemId].icon = Resources.Load<Sprite>($"Textures/ConsumeItem/{consumeItem.name} Icon");
             }
             return dict;
@@ -208,7 +216,8 @@ namespace Data
         private static void GenerateData()
         {
             SpeechSelection[] speech;
-            
+           
+            //======죠지 NPC======
             speech = new SpeechSelection[4];
             speech[0] = new SpeechSelection("처음보는 친군데?", false);
             speech[1] = new SpeechSelection("복장을 보아하니 현재 전쟁중인 크로토피 사람이구만", false);
@@ -217,6 +226,8 @@ namespace Data
             npcs.Add(new NPC(1000, "죠지", speech));
             speech = null;
 
+            //==============================
+            //======제인 NPC==================
             speech = new SpeechSelection[3];
             speech[0] = new SpeechSelection("너가 크로토피 친구구만", false);
             speech[1] = new SpeechSelection("이 섬은 비밀이라는게 없네 친구", false);
@@ -224,14 +235,14 @@ namespace Data
             npcs.Add(new NPC(2000, "제인", speech));
             speech = null;
 
-            //Yes Click
+            //퀘스트 수락시 실행되는 부분
             speech = new SpeechSelection[2];
             speech[0] = new SpeechSelection("좋은 생각이야 친구", false);
-            speech[1] = new SpeechSelection("돌조각 3개와, 나무조각 3개만 가져와 주겠나?? ", false);
+            speech[1] = new SpeechSelection("돌조각 1조각좀 구해다 주겠나?? ", false);
             npcs.Add(new NPC(2100, "제인", speech));
             speech = null;
 
-            //No Click
+            //퀘스트 거절시 실행 되는 부분.
             speech = new SpeechSelection[1];
             speech[0] = new SpeechSelection("무기 만들고 싶을때 언제든지 이야기 하라고~", false);
             npcs.Add(new NPC(2200, "제인", speech));
@@ -243,17 +254,21 @@ namespace Data
             npcs.Add(new NPC(2110, "제인", speech));
             speech = null;
             
-            //퀘스트 진행 중 완료 못했을 때
+            //퀘스트 진행 중 완료 못한 상태에서 말을 걸었을 때
             speech = new SpeechSelection[1];
             speech[0] = new SpeechSelection("아직 재료를 못구한 모양이구만 조금만 힘내보라고~", false);
             npcs.Add(new NPC(2120, "제인", speech));
             speech = null;
 
+            //퀘스트를 완료 후 말을 걸었을 때
             speech = new SpeechSelection[1];
             speech[0] = new SpeechSelection("내가 준 무기는 마음에 드는가??", false);
             npcs.Add(new NPC(2130, "제인", speech));
             speech = null;
 
+
+            //==============================
+            //======문지기 NPC=================
             speech = new SpeechSelection[2];
             speech[0] = new SpeechSelection("여기는 정말 위험한 곳이야..", false);
             speech[1] = new SpeechSelection("그래도 들어가고 싶은가?", true);
@@ -283,7 +298,7 @@ namespace Data
 
             speech = new SpeechSelection[2];
             speech[0] = new SpeechSelection("좋은 생각이야 친구 당신에게 맞는 보상을 꼭 해주지", false);
-            speech[1] = new SpeechSelection("저기 물가에서 물고기 3마리좀 잡아줘 ", false);
+            speech[1] = new SpeechSelection("저기 물가에서 물고기 1마리만 잡아줘 ", false);
             npcs.Add(new NPC(4100, "요리사 제드", speech));
             speech = null;
 
@@ -309,7 +324,8 @@ namespace Data
             speech = null;
 
 
-
+            //==============================
+            //======케인 NPC=================
             speech = new SpeechSelection[3];
             speech[0] = new SpeechSelection("오 안녕 친구", false);
             speech[1] = new SpeechSelection("해가 지면 곧 추워질텐데 불을 때워야 할 장작이 부족해..", false);
@@ -345,9 +361,8 @@ namespace Data
             speech = null;
 
 
-
-
-
+            //==============================
+            //======토니 NPC==================
             speech = new SpeechSelection[2];
             speech[0] = new SpeechSelection("우리 마을이 습격당할려고 해..", false);
             speech[1] = new SpeechSelection("근처에 있는 Knight 몬스터좀 20마리 죽여 줄 수 있어??", true);
@@ -487,24 +502,24 @@ namespace Data
 
         private static void GenerateData()
         {
-            quests.Add(new Quest(2100, "제인의 부탁","돌조각 3개 채집하기.", 0 , 0, new int[] { 10001, 20001},
+            quests.Add(new Quest(2100, "제인의 부탁","돌조각 1조각 채집하기.", 0 , 0, new int[] { 10001, 20001},
                             new QuestGoal(Define.QuestGoalType.Gathering, 
-                            new Dictionary<int, int> { { 101, 3 } } ,   //Require
+                            new Dictionary<int, int> { { 101, 1 } } ,   //Require
                             new Dictionary<int, int> { { 101, 0 } } ))); //current << 퀘스트를 받을때 인벤토리르 검사하여 current 값 높여주기!!
 
-            quests.Add(new Quest(4100, "제드의 부탁", "낚시하여 생선 3마리 잡아오기.", 0, 0, new int[] { 30001, 40001, 60001 },
+            quests.Add(new Quest(4100, "제드의 부탁", "낚시하여 생선 1마리 잡아오기.", 0, 0, new int[] { 30001, 40001, 60001 },
                             new QuestGoal(Define.QuestGoalType.Gathering,
-                            new Dictionary<int, int> { { 102, 3 } },   //Require
+                            new Dictionary<int, int> { { 102, 1 } },   //Require
                             new Dictionary<int, int> { { 102, 0 } }))); //current << 퀘스트를 받을때 인벤토리르 검사하여 current 값 높여주기!!
 
             quests.Add(new Quest(5100, "케인의 부탁", "나무 토막 5개 채집하기.", 0, 0, new int[] {1004},
                             new QuestGoal(Define.QuestGoalType.Gathering,
-                            new Dictionary<int, int> { { 100, 3 } },   //Require
+                            new Dictionary<int, int> { { 100, 5 } },   //Require
                             new Dictionary<int, int> { { 100, 0 } }))); //current << 퀘스트를 받을때 인벤토리르 검사하여 current 값 높여주기!!
 
             quests.Add(new Quest(6100, "토니의 부탁", "Knight 20마리 잡기.", 0, 0, new int[] { 10001 },
                             new QuestGoal(Define.QuestGoalType.Gathering,
-                            new Dictionary<int, int> { { 100, 3 } },   //Require
+                            new Dictionary<int, int> { { 100, 20 } },   //Require
                             new Dictionary<int, int> { { 100, 0 } })));
         }
     }

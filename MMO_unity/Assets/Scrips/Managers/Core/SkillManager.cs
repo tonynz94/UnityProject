@@ -30,7 +30,6 @@ public class SkillManager
 
     public bool SkillUp(int skillId)
     {
-        Debug.Log("스킬 업");
         if (SkillPoint <= 0)
             return false;
 

@@ -38,8 +38,15 @@ public class BossStone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Block") ||
-           other.gameObject.layer == LayerMask.NameToLayer("MainPlayer"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("MainPlayer"))
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.layer == LayerMask.NameToLayer("Block"))
         {
             Destroy(gameObject);
         }

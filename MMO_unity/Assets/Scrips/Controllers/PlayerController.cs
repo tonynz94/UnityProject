@@ -113,28 +113,22 @@ public class PlayerController : BaseController
     void Update()
     {
         base.Update();
-        /*float distance = transform.position - gameObject.transform.position).magnitude;
-        if (distance <= radius)
-        {
-            _player.GetComponent<PlayerController>()._scanObject = gameObject;
-        }
-        else
-        {
-            _player.GetComponent<PlayerController>()._scanObject = null;
-        }*/
-
     }
 
     protected override void UpdateMoving()
     {
-        //타켓이 있을시 몬스터가 내 사정거리보다 가까우면 공격
+        //True -> 공중에 있을 때
+        //만약 캐릭터가 공중에 있다면 움직이지 못하도록 막아 줌.
         if (_isInAir)
             return;
 
+        //_lockTarget은 몬스터를 클릭하면 해당 몬스터에 대한 게임오브젝트 정보가 저장 됨 
+        //True -> 몬스터를 클릭하고 있다는 것. 거리를 계산하여 
+        //False -> 땅을 클릭했다는 것.(이동)
         if(_lockTarget != null) 
         {
-            //자신과 클릭된 적의 거리
-            //이게 없으면 공중에 찍어서 1의 값이 넘어가서 가까이 접근을 못하는 상황이 발생
+            //메인 캐릭터와 클릭한 몬스터의 거리를 측정합니다.
+            //거리가 2이하면 공격을 실행 해 줌.
             _desPos = _lockTarget.transform.position;
             float distance = (_desPos - transform.position).magnitude;
             if(distance <= 2)
@@ -144,24 +138,22 @@ public class PlayerController : BaseController
             }
         }
 
+        //여기가 실행됬다는건 땅을 클릭했다는 것.
         Vector3 dir = _desPos - transform.position;
         dir.y = 0;
 
+        //True -> 목적지(쿨릭한 땅)에 도착했을때 실행
+        //상태를 Idle로 바꿔 줌.
+        //False -> 목적지(클릭한 땅)에 도착하지 못했을 때 
+        //이동
         if (dir.magnitude < 0.1f)
         {
-            //이 함수를 실행을 멈춤.
             State = Define.State.Idle;
         }
         else
         {
-            //TODO
-         
-            //특점 지점으로 갈 수 있는지에 대한 여부
-            //nma.CalculatePath
-           
-            //포지션으로 바로 움직여주는 것이 아닌 navmasAgent로 움직임.
-            //정밀도 있게 원하는곳으로 가주지는 않음. 0.0001에서 0.1로 바꿔줘야함.
-            //충돌처리
+            //메인 캐릭터로 부터 바라보는 방향으로 Raycast를 쏜다
+            //만약 레이어가 Block이라는게 감지가 되면 메인 캐릭터를 Idle상태로 바꿔준다. 
             Debug.DrawRay(transform.position + Vector3.up * 0.5f, dir.normalized, Color.blue);
             if(Physics.Raycast(transform.position + Vector3.up * 0.5f, dir, 1.0f, LayerMask.GetMask("Block")))
             {
@@ -169,7 +161,8 @@ public class PlayerController : BaseController
                     State = Define.State.Idle;
                 return;
             }
-            //transform.position += dir.normalized * moveDist;
+
+            //캐릭터의 이동과 바라보는 방향을 설정해준다.
             float moveDist = Mathf.Clamp(_stat.MoveSpeed * Time.deltaTime, 0, dir.magnitude);
             transform.position += dir.normalized * moveDist;
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir.normalized), 0.2f);
@@ -189,7 +182,6 @@ public class PlayerController : BaseController
     //애니메이션에서 호출해주고 있음.
     void OnHitEvent()
     {
-        Debug.Log("공격애니이벤트");
         if (_lockTarget != null)
         {
             Managers.Sound.Play("Sounds/GameSound/Beat1");
@@ -207,14 +199,13 @@ public class PlayerController : BaseController
         }
     }
 
-    //클릭 관련 이벤트가 발생하면 inputManager에서 델리게이트로 실행함.
+    //클릭 관련 이벤트가 발생하면 inputManager에서 델리게이트로 실행 하고 있음.
     void OnMouseEvent(Define.MouseEvent evt)
     {
+        //캐릭터의 상태에 따른 함수 실행.
         switch (State)
         {
             case Define.State.Idle:
-                OnMouseEvent_IdleRun(evt);
-                break;
             case Define.State.Moving:
                 OnMouseEvent_IdleRun(evt);
                 break;
@@ -246,48 +237,55 @@ public class PlayerController : BaseController
         }
 
         State = Define.State.Idle;
-        Debug.Log(_stopSkill);
     }
 
+    //캐릭터가 땅을 클릭할때 실행되는 함수.
     void OnMouseEvent_IdleRun(Define.MouseEvent evt)
     {
+        //True ->무언가를 수확중일때 
+        //수확중에 움직이면 수확하는 것을 멈춤.
         if(_LoadingBar != null)
             Managers.UI.ClosePopupUI(_LoadingBar);
 
         if (State == Define.State.DIe)
             return;
 
+        //스크린에서 부터 Raycast를 쏴서 부딪친것을 hit에 저장시킴.
         RaycastHit hit;
-
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         bool raycastHit = Physics.Raycast(ray, out hit, 100.0f, _mask);
 
-        //Debug.DrawRay(Camera.main.transform.position, ray.direction * 10, Color.red, 1.0f);
         switch (evt)
         {       
-            case Define.MouseEvent.PointerDown: //마우스를 뗀 상태에서 처음으로 딱 누른 상태.
+            //최초로 마우스를 눌렀을때 실행.
+            case Define.MouseEvent.PointerDown: 
                 {
                     if (raycastHit)
                     {
-                        //부딪친 좌표
+                        //부딪친 오브젝트의 좌표를 가져 온 후
+                        //공격을 하고 있었다면 멈추고 움직 임.
                         _desPos = hit.point;
                         State = Define.State.Moving;
                         _stopSkill = false;
 
-                        if (hit.collider.gameObject.layer == (int)Define.Layer.Monster &&
-                            hit.collider.gameObject.GetComponent<BaseController>().State != Define.State.DIe)
+                        //Raycast에 부딪친 좌표가 만약 몬스터라면 _LockTarget에 값을 넣어 줌
+                        if (hit.collider.gameObject.layer == (int)Define.Layer.Monster)
                             _lockTarget = hit.collider.gameObject;              
                         else
                             _lockTarget = null;
                     }
                 }
                 break;
+            //마우스를 누르고 있을때 실행.
             case Define.MouseEvent.Press:
                 {
+                    //실시간으로 부딪친 위치를 바꿔 줌.
                     if (_lockTarget == null && raycastHit)
                         _desPos = hit.point;
                 }
                 break;
+            //땠을때 실행. 
+            //공격하고 있었다면 공격을 멈춤
             case Define.MouseEvent.PointerUp:
                 _stopSkill = true;
                 break;
@@ -299,7 +297,6 @@ public class PlayerController : BaseController
         #region F_KeyDown
         if (Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log("F 키를 눌름 ");
             if (_scanObject == null)
                 return;
 
@@ -323,7 +320,6 @@ public class PlayerController : BaseController
         #endregion
         if (Managers.Talk._isTalking)
         {
-            Debug.Log("대화 중!!@@@@@@@@@");
             return;
         }
 
@@ -332,7 +328,6 @@ public class PlayerController : BaseController
         {
             if (_scanObject != null && _scanObject.layer == LayerMask.NameToLayer("Collecting"))
             {
-                Debug.Log("키를 땜");
                 Managers.Talk._isTalking = false;
                 _isPressingF = false;
                 CollectingThings();

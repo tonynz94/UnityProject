@@ -85,8 +85,6 @@ public class GameManager
         {
             _smallDoor = GameObject.FindGameObjectWithTag("SmallDoor");
         }
-
-        Debug.Log("문 애니메이션 실행");
         Animator anim = _smallDoor.GetComponent<Animator>();
         switch (mOpenClose)
         {

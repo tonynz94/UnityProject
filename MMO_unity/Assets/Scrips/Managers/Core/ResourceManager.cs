@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class ResourceManager
 {
-    // Start is called before the first frame update
-
-
     public T Load<T>(string path) where T : Object
     {
         //pool은 최종적인 이름을 사용하고 있음.
@@ -29,10 +26,10 @@ public class ResourceManager
         return Resources.Load<T>(path);
     }
 
-    //게임씬에 생성을 해주는 것.
+    //게임오브젝트를 생성을 해주는 함수.
     public GameObject Instantiate(string path, Transform parent = null)
     {
-        //게임 오브젝트의 원본을 가져옴.
+        //게임 오브젝트의 원본을 가져온다.
         GameObject original = Load<GameObject>($"Prefabs/{path}");
 
         if(original == null)
@@ -41,31 +38,32 @@ public class ResourceManager
             return null;
         }
 
-        //혹시 폴링이 적용되는 오브젝트라면
+        //Poolable 스크립트가 있다는 것은 오브젝트 풀링을 사용하고 있다는 것.
         if(original.GetComponent<Poolable>() != null)
             return Managers.Pool.Pop(original, parent).gameObject;
 
         //풀링이 대상이 아니라면
-
-        //원본을 커피해서 go로 만든 것. (과부하)
-        //원본을 만들고 parent로 위치 시켜 주라는 뜻.
+        //원본을 커피하여 생성해줍니다. 
         GameObject go = Object.Instantiate(original, parent);
         go.name = original.name;
 
         return go;
     }
 
+    //게임오브젝트를 삭제 해주는 함수.
     public void Destory(GameObject go, float time = 0.0f)
     {
         if (go == null)
             return;
 
+        //Poolable 스크립트가 있다는 것은 오브젝트 풀링을 사용하고 있다는 것.
         Poolable poolable = go.GetComponent<Poolable>();
 
         //만약에 풀어블을 가지고 있다면
         if (poolable != null)
         {
-            Managers.Pool.Push(poolable); //다시 풀에다가 반환을 하는 것.
+            //오브젝트를 파괴시키지 않고 다시 풀에다가 반환을 하는 것.
+            Managers.Pool.Push(poolable);
             return;
         }
         Object.Destroy(go, time);

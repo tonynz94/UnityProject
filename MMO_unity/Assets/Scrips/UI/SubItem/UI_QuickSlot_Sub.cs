@@ -48,7 +48,6 @@ public class UI_QuickSlot_Sub : UI_Base
     {
         if (Managers.Inven.items[clickItemPos].invenType != Define.InvenType.Consume)
         {
-            Debug.Log("소비창만 등록할 수 있음");
             return;
         }
 
@@ -65,7 +64,6 @@ public class UI_QuickSlot_Sub : UI_Base
 
         if (Managers.Inven._quickSlotConsumeItems[_thisQuickSlotPos] != 0)
         {
-            Debug.Log("기존에 있던거 삭제");
             ClearQuickSlot();
         }
         _consumeID = Managers.Inven.items[clickItemPos].ItemId;

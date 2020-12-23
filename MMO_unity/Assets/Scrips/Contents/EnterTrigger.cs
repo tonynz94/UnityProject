@@ -11,7 +11,6 @@ public class EnterTrigger : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player") && !enterOnce)
         {
-            Debug.Log("Enter");
             if(!enterOnce)
             {
                 enterOnce = true;

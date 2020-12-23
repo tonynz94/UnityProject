@@ -46,7 +46,6 @@ public class MonsterStat : Stat
         if (Hp < 0)
         {
             Hp = 0;
-            Debug.Log("몬스터 죽음@@");
             OnDead(attacker);
         }
     }
@@ -61,12 +60,10 @@ public class MonsterStat : Stat
             return;
 
         Define.SkillName _skill = skillName.GetComponent<PlayerSkill>()._skillName;
-        Debug.Log((int)_skill);
 
         //스킬스텟을 가져와야함.
         int skillId = ((int)_skill + 1)*1000;
         skillId = (Managers.Skill.SkillListAndPoint[skillId]-1) + skillId;
-        Debug.Log(skillId);
 
         int damage = (int)Mathf.Max(0, Managers.Game.GetPlayer().GetComponent<PlayerStat>().Attack * Managers.Data.SkillDict[skillId].skillDamage - Defense);
         bool critical = false;
@@ -90,11 +87,8 @@ public class MonsterStat : Stat
         if (Hp < 0)
         {
             Hp = 0;
-            Debug.Log("몬스터 죽음@@");
             OnDead(Managers.Game.GetPlayer().GetComponent<PlayerStat>());
         }
-
-        Debug.Log(damage);
     }
 
     

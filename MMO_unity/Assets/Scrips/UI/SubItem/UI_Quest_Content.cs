@@ -64,7 +64,6 @@ public class UI_Quest_Content : UI_Base
 
     public void UpdateContentRequest()
     {
-        Debug.Log("디테일창 텍스트 내용 업데이트@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         goalText = "";
         foreach (KeyValuePair<int, int> require in Managers.Data.QuestDict[thisQuestID].questGoal.requiredAmount)
         {

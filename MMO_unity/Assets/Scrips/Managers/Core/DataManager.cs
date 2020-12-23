@@ -13,7 +13,7 @@ public class DataManager
 {
     //최종적으로 json에 있는 데이터를 저장하는 변수 Stat'
     
-    //Dict
+    //캐릭터 레벨에 따른 기본 스텟(최대 HP,MP, 해당 레벨이 필요한 겸험치 량) 
     public Dictionary<int, Data.Stat> StatDict { get; private set; } = new Dictionary<int, Data.Stat>();
 
     //기타 아이템
@@ -21,26 +21,27 @@ public class DataManager
     
     //소비 아이템
     public Dictionary<int, Data.ConsumeItem> ConsumeItemDict { get; private set; } = new Dictionary<int, Data.ConsumeItem>();
-    //Item
+    
+    //장비 아이템
     public Dictionary<int, Data.Item> ItemDict { get; private set; } = new Dictionary<int, Data.Item>();
 
-    //Skill
+    //스킬 포인트에 따른 스킬 공격력, 스킬 쿨 타임 등
     public Dictionary<int, Data.Skill> SkillDict { get; private set; } = new Dictionary<int, Data.Skill>();
 
-    //NPC
+    //NPC정보 (대화내용)
     public Dictionary<int, Data.NPC> NpcDict { get; private set; } = new Dictionary<int, Data.NPC>();
 
-    //Quest
+    //NPC가 주는 퀘스트정보
     public Dictionary<int, Data.Quest> QuestDict {get; private set; } = new Dictionary<int, Data.Quest>();
 
+    //NPC에게 Yes/No버튼이 있을때 Yes를 누르면 실행할 콜백함수 데이터
     public Dictionary<int, Data.Act> ActDict { get; private set; } = new Dictionary<int, Data.Act>();
-    //Quest
-    //public Dictionary<int,>
 
-
-    //매니저에서 호출 해주고 있음.
+    //Managers에서 호출 해주고 있음.
     public void Init()
     {
+        //LoadJson으로 클래스를 받아와 Json을 딕셔너리로 변환시켜 
+        //Id값을 Key, class를 value로 설정.
         StatDict = LoadJson<Data.StatData, int, Data.Stat>("StatData").MakeDict();
         ItemDict = LoadJson<Data.ItemData, int, Data.Item>("ItemData").MakeDict();
         SkillDict = LoadJson<Data.SkillData, int, Data.Skill>("SkillData").MakeDict();
@@ -54,12 +55,12 @@ public class DataManager
         //StatData.MakeDIct() 함수를 실행해주고 있음.
     }
 
-    //Loader 제네릭은 lLoader라는 클래스나, 인터페이스가 포함되어 있어햐 하는 것. 
+    //LoadJson으로 Json파일 안에 있는 값을 Text로 가져 온다.
     Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
     {
-        //파일을 위치를 가져온 후 
+        //Json의 파일을 로드해 줌. 
         TextAsset textAsset = Managers.Resource.Load<TextAsset>($"Data/{path}");
-        //json에 있는 값을 변환해줌.
-        return JsonUtility.FromJson<Loader>(textAsset.text);    //text로 변환
+        //json에 있는 값을 클래스의 멤버변수에 이름에 맞춰 값을 초기화 함.
+        return JsonUtility.FromJson<Loader>(textAsset.text);   
     }
 }
